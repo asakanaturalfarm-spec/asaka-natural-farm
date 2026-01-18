@@ -1,19 +1,14 @@
+# 安積自然農園ホームページ
 
-# Asaka Natural Farm
+このリポジトリは「安積自然農園」の静的サイトです。
 
-安積自然農園は、福島県郡山市・安積疎水流域に位置する自然農園です。
-無肥料・無農薬・自家採種による自然農法を実践し、土と水の循環に根ざした野菜と無添加加工品を生産・販売しています。
+公開方法（GitHub Pages 推奨）:
 
-## Website
+1. GitHub にリポジトリを作成します（例: `asaka-shizen-nouen`）。
+2. ローカルで `git remote add origin <リポジトリURL>` を設定します。
+3. `git push -u origin main` または `gh repo create` で公開します。
 
-https://asakanatural.farm.jp
+簡単に公開するには `gh` CLI が使えます（`gh repo create --public --source=. --remote=origin --push --confirm`）。
 
-## Technology
-
-* HTML
-* CSS
-* JavaScript
-
-## License
-
-MIT License
+---
+ファイル一覧と簡単な説明はリポジトリ内の `index.html` を参照してください。
