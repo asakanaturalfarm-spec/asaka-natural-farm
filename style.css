@@ -834,41 +834,41 @@ body {
     
     /* 農法セクションをスマホ用に調整（三角配置維持） */
     .method-grid {
-        min-height: 400px;
-        padding: 2.5rem 0;
+        min-height: 350px;
+        padding: 2rem 0;
     }
     
     .method-item {
-        width: 220px;
-        max-width: 70vw;
-        padding: 0 0.5rem;
+        width: 200px;
+        max-width: 65vw;
+        padding: 0.5rem;
     }
     
     /* スマホ用の小さい円で三角配置 */
     @keyframes circleRotate1Small {
         0% {
-            transform: translate(-50%, -50%) rotate(0deg) translateY(-120px) rotate(0deg);
+            transform: translate(-50%, -50%) rotate(0deg) translateY(-100px) rotate(0deg);
         }
         100% {
-            transform: translate(-50%, -50%) rotate(360deg) translateY(-120px) rotate(-360deg);
+            transform: translate(-50%, -50%) rotate(360deg) translateY(-100px) rotate(-360deg);
         }
     }
     
     @keyframes circleRotate2Small {
         0% {
-            transform: translate(-50%, -50%) rotate(120deg) translateY(-120px) rotate(-120deg);
+            transform: translate(-50%, -50%) rotate(120deg) translateY(-100px) rotate(-120deg);
         }
         100% {
-            transform: translate(-50%, -50%) rotate(480deg) translateY(-120px) rotate(-480deg);
+            transform: translate(-50%, -50%) rotate(480deg) translateY(-100px) rotate(-480deg);
         }
     }
     
     @keyframes circleRotate3Small {
         0% {
-            transform: translate(-50%, -50%) rotate(240deg) translateY(-120px) rotate(-240deg);
+            transform: translate(-50%, -50%) rotate(240deg) translateY(-100px) rotate(-240deg);
         }
         100% {
-            transform: translate(-50%, -50%) rotate(600deg) translateY(-120px) rotate(-600deg);
+            transform: translate(-50%, -50%) rotate(600deg) translateY(-100px) rotate(-600deg);
         }
     }
     
@@ -885,17 +885,18 @@ body {
     }
     
     .method-icon {
-        width: 65px;
-        height: 65px;
+        width: 60px;
+        height: 60px;
     }
     
     .method-title {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
     }
     
     .method-description {
-        font-size: 0.85rem;
-        line-height: 1.7;
+        font-size: 0.8rem;
+        line-height: 1.6;
     }
     
     .vegetables-intro,
