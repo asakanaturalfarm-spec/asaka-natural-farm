@@ -118,6 +118,36 @@ body {
     font-weight: 400;
 }
 
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+}
+
+.menu-toggle-bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-text);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle.active .menu-toggle-bar:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+
+.menu-toggle.active .menu-toggle-bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .menu-toggle-bar:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
 /* ========================================
    メインビジュアル
    ======================================== */
@@ -581,49 +611,156 @@ body {
 /* ========================================
    レスポンシブ
    ======================================== */
+@media (max-width: 1024px) {
+    .header-container {
+        padding: 1.5rem 2rem;
+    }
+    
+    .nav {
+        gap: 2rem;
+    }
+}
+
 @media (max-width: 768px) {
     :root {
-        --spacing-md: 2rem;
-        --spacing-lg: 4rem;
-        --spacing-xl: 6rem;
-        --spacing-2xl: 8rem;
+        --spacing-xs: 0.8rem;
+        --spacing-sm: 1.5rem;
+        --spacing-md: 1.5rem;
+        --spacing-lg: 3rem;
+        --spacing-xl: 4rem;
+        --spacing-2xl: 5rem;
     }
 
     .header-container {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1.5rem 1.5rem;
+        padding: 1rem 1.5rem;
+        position: relative;
+    }
+    
+    .logo {
+        font-size: 1rem;
+    }
+    
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     .nav {
-        gap: 1.5rem;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: rgba(250, 250, 249, 0.98);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: right 0.3s ease;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
+    
+    .nav.active {
+        right: 0;
     }
 
     .nav-link {
-        font-size: 0.8rem;
+        font-size: 1rem;
+        padding: 0.5rem 0;
+    }
+
+    .hero {
+        height: 70vh;
+        min-height: 500px;
     }
 
     .hero-subtitle {
+        font-size: 1.2rem;
+        line-height: 2;
+        padding: 0 1.5rem;
+    }
+    
+    .section {
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+    
+    .section-title {
         font-size: 1.1rem;
+        margin-bottom: var(--spacing-lg);
     }
 
     .message-text {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+        line-height: 2;
+    }
+    
+    .signature {
+        margin-top: var(--spacing-lg);
     }
 
     .method-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
+        min-height: auto;
+        padding: var(--spacing-md) 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xl);
+    }
+    
+    .method-item {
+        position: relative;
+        transform: none !important;
+        animation: none !important;
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    .method-icon {
+        animation: none;
+    }
+    
+    .method-title,
+    .method-description {
+        opacity: 1;
+        animation: none;
     }
 
     .vegetables-grid {
         grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+        gap: var(--spacing-lg);
+    }
+    
+    .vegetable-season {
+        font-size: 1rem;
     }
 
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-sm);
+    }
+    
+    .product-name {
+        font-size: 0.85rem;
+    }
+    
+    .cta-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+    
+    .cta-subtitle {
+        font-size: 0.85rem;
+    }
+    
+    .cta-button {
+        padding: 0.9rem 2rem;
+        font-size: 0.85rem;
     }
 
     .footer-container {
@@ -635,6 +772,100 @@ body {
     .footer-links {
         flex-direction: column;
         gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --spacing-xs: 0.6rem;
+        --spacing-sm: 1rem;
+        --spacing-md: 1rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 3rem;
+        --spacing-2xl: 4rem;
+    }
+    
+    .header-container {
+        padding: 0.8rem 1rem;
+    }
+    
+    .logo {
+        font-size: 0.9rem;
+    }
+    
+    .menu-toggle {
+        right: 1rem;
+    }
+    
+    .menu-toggle-bar {
+        width: 20px;
+    }
+    
+    .nav {
+        width: 85%;
+        gap: 1.5rem;
+    }
+    
+    .hero {
+        height: 60vh;
+        min-height: 400px;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .section {
+        padding: var(--spacing-xl) 1rem;
+    }
+    
+    .section-title {
+        font-size: 1rem;
+    }
+    
+    .section-subtitle {
+        font-size: 0.75rem;
+    }
+
+    .message-text {
+        font-size: 0.85rem;
+    }
+    
+    .method-item {
+        max-width: 240px;
+    }
+    
+    .method-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .method-title {
+        font-size: 0.95rem;
+    }
+    
+    .method-description {
+        font-size: 0.8rem;
+    }
+    
+    .vegetables-intro,
+    .products-intro,
+    .location-text {
+        font-size: 0.9rem;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-text {
+        font-size: 1rem;
+    }
+    
+    .cta-button {
+        width: 100%;
+        max-width: 280px;
     }
 }
 
