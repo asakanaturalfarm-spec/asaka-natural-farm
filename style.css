@@ -274,10 +274,10 @@ body {
 .method-grid {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
     margin: var(--spacing-lg) auto 0;
     padding: var(--spacing-xl) 0;
-    min-height: 600px;
+    min-height: 650px;
 }
 
 .method-item {
@@ -289,8 +289,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px;
-    padding: 0 0.5rem;
+    width: 320px;
+    padding: 0 1rem;
 }
 
 .method-item:nth-child(1) {
@@ -307,28 +307,28 @@ body {
 
 @keyframes circleRotate1 {
     0% {
-        transform: translate(-50%, -50%) rotate(0deg) translateY(-200px) rotate(0deg);
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-220px) rotate(0deg);
     }
     100% {
-        transform: translate(-50%, -50%) rotate(360deg) translateY(-200px) rotate(-360deg);
+        transform: translate(-50%, -50%) rotate(360deg) translateY(-220px) rotate(-360deg);
     }
 }
 
 @keyframes circleRotate2 {
     0% {
-        transform: translate(-50%, -50%) rotate(120deg) translateY(-200px) rotate(-120deg);
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-220px) rotate(-120deg);
     }
     100% {
-        transform: translate(-50%, -50%) rotate(480deg) translateY(-200px) rotate(-480deg);
+        transform: translate(-50%, -50%) rotate(480deg) translateY(-220px) rotate(-480deg);
     }
 }
 
 @keyframes circleRotate3 {
     0% {
-        transform: translate(-50%, -50%) rotate(240deg) translateY(-200px) rotate(-240deg);
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-220px) rotate(-240deg);
     }
     100% {
-        transform: translate(-50%, -50%) rotate(600deg) translateY(-200px) rotate(-600deg);
+        transform: translate(-50%, -50%) rotate(600deg) translateY(-220px) rotate(-600deg);
     }
 }
 
@@ -365,18 +365,18 @@ body {
 
 .method-title {
     font-family: var(--font-takumi-narrow);
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 400;
-    letter-spacing: 0.2em;
-    margin-bottom: var(--spacing-sm);
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
     color: var(--color-text);
     opacity: 0;
     animation: fadeInText 0.8s ease-out 1.8s forwards;
 }
 
 .method-description {
-    font-size: 0.875rem;
-    line-height: 1.9;
+    font-size: 0.8rem;
+    line-height: 1.8;
     color: var(--color-text-light);
     opacity: 0;
     animation: fadeInText 0.8s ease-out 2s forwards;
@@ -714,39 +714,39 @@ body {
     }
 
     .method-grid {
-        min-height: 400px;
+        min-height: 450px;
         padding: var(--spacing-md) 0;
     }
     
     .method-item {
-        width: 240px;
-        padding: 0 0.5rem;
+        width: 260px;
+        padding: 0 0.8rem;
     }
     
     @keyframes circleRotate1Medium {
         0% {
-            transform: translate(-50%, -50%) rotate(0deg) translateY(-130px) rotate(0deg);
+            transform: translate(-50%, -50%) rotate(0deg) translateY(-150px) rotate(0deg);
         }
         100% {
-            transform: translate(-50%, -50%) rotate(360deg) translateY(-130px) rotate(-360deg);
+            transform: translate(-50%, -50%) rotate(360deg) translateY(-150px) rotate(-360deg);
         }
     }
     
     @keyframes circleRotate2Medium {
         0% {
-            transform: translate(-50%, -50%) rotate(120deg) translateY(-130px) rotate(-120deg);
+            transform: translate(-50%, -50%) rotate(120deg) translateY(-150px) rotate(-120deg);
         }
         100% {
-            transform: translate(-50%, -50%) rotate(480deg) translateY(-130px) rotate(-480deg);
+            transform: translate(-50%, -50%) rotate(480deg) translateY(-150px) rotate(-480deg);
         }
     }
     
     @keyframes circleRotate3Medium {
         0% {
-            transform: translate(-50%, -50%) rotate(240deg) translateY(-130px) rotate(-240deg);
+            transform: translate(-50%, -50%) rotate(240deg) translateY(-150px) rotate(-240deg);
         }
         100% {
-            transform: translate(-50%, -50%) rotate(600deg) translateY(-130px) rotate(-600deg);
+            transform: translate(-50%, -50%) rotate(600deg) translateY(-150px) rotate(-600deg);
         }
     }
     
@@ -865,14 +865,24 @@ body {
     
     /* 農法セクションをスマホ用に調整（三角配置維持） */
     .method-grid {
-        min-height: 420px;
+        min-height: 450px;
         padding: 3rem 0;
     }
     
     .method-item {
-        width: 200px;
-        max-width: 60vw;
-        padding: 0.5rem;
+        width: 220px;
+        max-width: 65vw;
+        padding: 0.8rem;
+    }
+    
+    .method-title {
+        font-size: 0.95rem;
+        letter-spacing: 0.1em;
+    }
+    
+    .method-description {
+        font-size: 0.75rem;
+        line-height: 1.7;
     }
     
     /* スマホ用の小さい円で三角配置 */
