@@ -26,6 +26,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 :root {
     /* カラー: 抑えたトーン */
     --color-bg: #fafaf9;
@@ -84,6 +89,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .logo {
@@ -185,6 +191,8 @@ body {
 .container {
     max-width: 800px;
     margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
 }
 
 .section-title {
@@ -270,9 +278,6 @@ body {
     margin: var(--spacing-lg) auto 0;
     padding: var(--spacing-xl) 0;
     min-height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .method-item {
@@ -705,30 +710,51 @@ body {
     }
 
     .method-grid {
-        min-height: auto;
+        min-height: 400px;
         padding: var(--spacing-md) 0;
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-xl);
     }
     
     .method-item {
-        position: relative;
-        transform: none !important;
-        animation: none !important;
-        width: 100%;
-        max-width: 280px;
-        margin: 0 auto;
+        width: 220px;
     }
     
-    .method-icon {
-        animation: none;
+    @keyframes circleRotate1Medium {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg) translateY(-130px) rotate(0deg);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg) translateY(-130px) rotate(-360deg);
+        }
     }
     
-    .method-title,
-    .method-description {
-        opacity: 1;
-        animation: none;
+    @keyframes circleRotate2Medium {
+        0% {
+            transform: translate(-50%, -50%) rotate(120deg) translateY(-130px) rotate(-120deg);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(480deg) translateY(-130px) rotate(-480deg);
+        }
+    }
+    
+    @keyframes circleRotate3Medium {
+        0% {
+            transform: translate(-50%, -50%) rotate(240deg) translateY(-130px) rotate(-240deg);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(600deg) translateY(-130px) rotate(-600deg);
+        }
+    }
+    
+    .method-item:nth-child(1) {
+        animation: circleRotate1Medium 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    
+    .method-item:nth-child(2) {
+        animation: circleRotate2Medium 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    
+    .method-item:nth-child(3) {
+        animation: circleRotate3Medium 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
 
     .vegetables-grid {
@@ -834,41 +860,41 @@ body {
     
     /* 農法セクションをスマホ用に調整（三角配置維持） */
     .method-grid {
-        min-height: 350px;
-        padding: 2rem 0;
+        min-height: 420px;
+        padding: 3rem 0;
     }
     
     .method-item {
-        width: 200px;
-        max-width: 65vw;
+        width: 180px;
+        max-width: 55vw;
         padding: 0.5rem;
     }
     
     /* スマホ用の小さい円で三角配置 */
     @keyframes circleRotate1Small {
         0% {
-            transform: translate(-50%, -50%) rotate(0deg) translateY(-100px) rotate(0deg);
+            transform: translate(-50%, -50%) rotate(0deg) translateY(-120px) rotate(0deg);
         }
         100% {
-            transform: translate(-50%, -50%) rotate(360deg) translateY(-100px) rotate(-360deg);
+            transform: translate(-50%, -50%) rotate(360deg) translateY(-120px) rotate(-360deg);
         }
     }
     
     @keyframes circleRotate2Small {
         0% {
-            transform: translate(-50%, -50%) rotate(120deg) translateY(-100px) rotate(-120deg);
+            transform: translate(-50%, -50%) rotate(120deg) translateY(-120px) rotate(-120deg);
         }
         100% {
-            transform: translate(-50%, -50%) rotate(480deg) translateY(-100px) rotate(-480deg);
+            transform: translate(-50%, -50%) rotate(480deg) translateY(-120px) rotate(-480deg);
         }
     }
     
     @keyframes circleRotate3Small {
         0% {
-            transform: translate(-50%, -50%) rotate(240deg) translateY(-100px) rotate(-240deg);
+            transform: translate(-50%, -50%) rotate(240deg) translateY(-120px) rotate(-240deg);
         }
         100% {
-            transform: translate(-50%, -50%) rotate(600deg) translateY(-100px) rotate(-600deg);
+            transform: translate(-50%, -50%) rotate(600deg) translateY(-120px) rotate(-600deg);
         }
     }
     
