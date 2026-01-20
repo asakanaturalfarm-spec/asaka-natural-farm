@@ -808,12 +808,12 @@ body {
 
 @media (max-width: 480px) {
     :root {
-        --spacing-xs: 0.6rem;
-        --spacing-sm: 1rem;
-        --spacing-md: 1rem;
-        --spacing-lg: 2rem;
-        --spacing-xl: 3rem;
-        --spacing-2xl: 4rem;
+        --spacing-xs: 1rem;
+        --spacing-sm: 1.5rem;
+        --spacing-md: 2rem;
+        --spacing-lg: 3rem;
+        --spacing-xl: 4rem;
+        --spacing-2xl: 5rem;
     }
     
     .header-container {
@@ -848,11 +848,12 @@ body {
     }
     
     .section {
-        padding: var(--spacing-xl) 1rem;
+        padding: var(--spacing-2xl) 1.5rem;
     }
     
     .section-title {
         font-size: 1rem;
+        margin-bottom: var(--spacing-lg);
     }
     
     .section-subtitle {
@@ -861,15 +862,17 @@ body {
 
     .message-text {
         font-size: 0.85rem;
+        margin-bottom: var(--spacing-lg);
+        line-height: 2.2;
     }
     
     /* 農法セクションをスマホ用に縦並びに変更 */
     .method-grid {
         min-height: auto;
-        padding: var(--spacing-md) 0;
+        padding: var(--spacing-lg) 0;
         display: flex;
         flex-direction: column;
-        gap: var(--spacing-xl);
+        gap: var(--spacing-2xl);
     }
     
     .method-item {
@@ -880,7 +883,7 @@ body {
         animation: none !important;
         width: 100%;
         max-width: 100%;
-        padding: 0;
+        padding: 0 1rem;
         margin: 0 auto;
     }
     
@@ -891,7 +894,7 @@ body {
     .method-title {
         font-size: 1rem;
         letter-spacing: 0.15em;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
         opacity: 1;
         animation: none;
     }
@@ -922,6 +925,8 @@ body {
     .products-intro,
     .location-text {
         font-size: 0.9rem;
+        line-height: 2.2;
+        margin-bottom: var(--spacing-sm);
     }
 
     .products-grid {
