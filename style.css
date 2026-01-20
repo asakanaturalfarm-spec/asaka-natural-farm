@@ -48,9 +48,6 @@
     --spacing-lg: 6rem;
     --spacing-xl: 8rem;
     --spacing-2xl: 12rem;
-    
-    /* タップ領域の最小サイズ */
-    --min-tap-size: 44px;
 }
 
 html {
@@ -64,14 +61,6 @@ body {
     color: var(--color-text);
     background-color: var(--color-bg);
     letter-spacing: 0.05em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    /* スマホでのテキスト拡大を防止 */
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-    /* 横スクロールを防止 */
-    overflow-x: hidden;
-    width: 100%;
 }
 
 /* ========================================
@@ -118,20 +107,10 @@ body {
     text-decoration: none;
     transition: color 0.3s ease;
     letter-spacing: 0.1em;
-    /* タップ領域を拡大 */
-    display: inline-block;
-    padding: 0.5rem 0.75rem;
 }
 
 .nav-link:hover {
     color: var(--color-accent);
-}
-
-/* タッチデバイス用のアクティブ状態 */
-@media (hover: none) {
-    .nav-link:active {
-        color: var(--color-accent);
-    }
 }
 
 .nav-link-shop {
@@ -144,12 +123,8 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.75rem;
+    padding: 0.5rem;
     z-index: 1001;
-    /* タップしやすいサイズを確保 */
-    min-width: 44px;
-    min-height: 44px;
-    touch-action: manipulation;
 }
 
 .menu-toggle-bar {
@@ -205,15 +180,11 @@ body {
    ======================================== */
 .section {
     padding: var(--spacing-2xl) var(--spacing-md);
-    width: 100%;
-    overflow-x: hidden;
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
-    width: 100%;
-    padding: 0 1rem;
 }
 
 .section-title {
@@ -313,8 +284,6 @@ body {
     flex-direction: column;
     align-items: center;
     width: 280px;
-    max-width: 90vw;
-    padding: 0 1rem;
 }
 
 .method-item:nth-child(1) {
@@ -808,12 +777,12 @@ body {
 
 @media (max-width: 480px) {
     :root {
-        --spacing-xs: 0.75rem;
-        --spacing-sm: 1.25rem;
-        --spacing-md: 1.5rem;
-        --spacing-lg: 2.5rem;
-        --spacing-xl: 3.5rem;
-        --spacing-2xl: 4.5rem;
+        --spacing-xs: 0.6rem;
+        --spacing-sm: 1rem;
+        --spacing-md: 1rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 3rem;
+        --spacing-2xl: 4rem;
     }
     
     .header-container {
@@ -821,41 +790,30 @@ body {
     }
     
     .logo {
-        font-size: 1rem;
-        letter-spacing: 0.15em;
+        font-size: 0.9rem;
     }
     
     .menu-toggle {
-        right: 0.5rem;
+        right: 1rem;
     }
     
     .menu-toggle-bar {
-        width: 22px;
+        width: 20px;
     }
     
     .nav {
-        width: 90%;
-        gap: 0;
-        padding: 2rem 1.5rem;
-    }
-    
-    .nav-link {
-        font-size: 1rem;
-        padding: 1rem 0.75rem;
-        width: 100%;
-        border-bottom: 1px solid var(--color-border);
+        width: 85%;
+        gap: 1.5rem;
     }
     
     .hero {
-        height: 65vh;
-        min-height: 450px;
+        height: 60vh;
+        min-height: 400px;
     }
 
     .hero-subtitle {
-        font-size: 1.05rem;
+        font-size: 1rem;
         padding: 0 1rem;
-        line-height: 1.8;
-        max-width: 100%;
     }
     
     .section {
@@ -863,72 +821,100 @@ body {
     }
     
     .section-title {
-        font-size: 1.15rem;
-        margin-bottom: 0.75rem;
+        font-size: 1rem;
     }
     
     .section-subtitle {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
 
     .message-text {
-        font-size: 0.95rem;
-        line-height: 1.9;
+        font-size: 0.85rem;
+    }
+    
+    /* 農法セクションをスマホ用に調整（三角配置維持） */
+    .method-grid {
+        min-height: 400px;
+        padding: 2.5rem 0;
     }
     
     .method-item {
-        max-width: 280px;
-        padding: 1.5rem 1rem;
+        width: 220px;
+        max-width: 70vw;
+        padding: 0 0.5rem;
+    }
+    
+    /* スマホ用の小さい円で三角配置 */
+    @keyframes circleRotate1Small {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg) translateY(-120px) rotate(0deg);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg) translateY(-120px) rotate(-360deg);
+        }
+    }
+    
+    @keyframes circleRotate2Small {
+        0% {
+            transform: translate(-50%, -50%) rotate(120deg) translateY(-120px) rotate(-120deg);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(480deg) translateY(-120px) rotate(-480deg);
+        }
+    }
+    
+    @keyframes circleRotate3Small {
+        0% {
+            transform: translate(-50%, -50%) rotate(240deg) translateY(-120px) rotate(-240deg);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(600deg) translateY(-120px) rotate(-600deg);
+        }
+    }
+    
+    .method-item:nth-child(1) {
+        animation: circleRotate1Small 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    
+    .method-item:nth-child(2) {
+        animation: circleRotate2Small 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    
+    .method-item:nth-child(3) {
+        animation: circleRotate3Small 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
     
     .method-icon {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 1rem;
+        width: 65px;
+        height: 65px;
     }
     
     .method-title {
-        font-size: 1.05rem;
-        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
     }
     
     .method-description {
-        font-size: 0.9rem;
-        line-height: 1.8;
+        font-size: 0.85rem;
+        line-height: 1.7;
     }
     
     .vegetables-intro,
     .products-intro,
     .location-text {
-        font-size: 0.95rem;
-        line-height: 1.9;
+        font-size: 0.9rem;
     }
 
     .products-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .product-card {
-        padding: 1.5rem;
     }
     
     .cta-text {
-        font-size: 1.05rem;
-        line-height: 1.9;
+        font-size: 1rem;
     }
     
     .cta-button {
         width: 100%;
-        max-width: 320px;
-        padding: 1rem 2.5rem;
-        font-size: 0.95rem;
-        min-height: var(--min-tap-size);
-    }
-    
-    /* スクロールの余白を調整 */
-    .section:target {
-        scroll-margin-top: 80px;
+        max-width: 280px;
     }
 }
 
