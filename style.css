@@ -863,66 +863,44 @@ body {
         font-size: 0.85rem;
     }
     
-    /* 農法セクションをスマホ用に調整（三角配置維持） */
+    /* 農法セクションをスマホ用に縦並びに変更 */
     .method-grid {
-        min-height: 450px;
-        padding: 3rem 0;
+        min-height: auto;
+        padding: var(--spacing-md) 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xl);
     }
     
     .method-item {
-        width: 220px;
-        max-width: 65vw;
-        padding: 0.8rem;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none !important;
+        animation: none !important;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0 auto;
+    }
+    
+    .method-icon {
+        animation: none;
     }
     
     .method-title {
-        font-size: 0.95rem;
-        letter-spacing: 0.1em;
+        font-size: 1rem;
+        letter-spacing: 0.15em;
+        margin-bottom: 1rem;
+        opacity: 1;
+        animation: none;
     }
     
     .method-description {
-        font-size: 0.75rem;
-        line-height: 1.7;
-    }
-    
-    /* スマホ用の小さい円で三角配置 */
-    @keyframes circleRotate1Small {
-        0% {
-            transform: translate(-50%, -50%) rotate(0deg) translateY(-120px) rotate(0deg);
-        }
-        100% {
-            transform: translate(-50%, -50%) rotate(360deg) translateY(-120px) rotate(-360deg);
-        }
-    }
-    
-    @keyframes circleRotate2Small {
-        0% {
-            transform: translate(-50%, -50%) rotate(120deg) translateY(-120px) rotate(-120deg);
-        }
-        100% {
-            transform: translate(-50%, -50%) rotate(480deg) translateY(-120px) rotate(-480deg);
-        }
-    }
-    
-    @keyframes circleRotate3Small {
-        0% {
-            transform: translate(-50%, -50%) rotate(240deg) translateY(-120px) rotate(-240deg);
-        }
-        100% {
-            transform: translate(-50%, -50%) rotate(600deg) translateY(-120px) rotate(-600deg);
-        }
-    }
-    
-    .method-item:nth-child(1) {
-        animation: circleRotate1Small 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
-    
-    .method-item:nth-child(2) {
-        animation: circleRotate2Small 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
-    
-    .method-item:nth-child(3) {
-        animation: circleRotate3Small 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        font-size: 0.875rem;
+        line-height: 2;
+        opacity: 1;
+        animation: none;
     }
     
     .method-icon {
