@@ -48,6 +48,9 @@
     --spacing-lg: 6rem;
     --spacing-xl: 8rem;
     --spacing-2xl: 12rem;
+    
+    /* タップ領域の最小サイズ */
+    --min-tap-size: 44px;
 }
 
 html {
@@ -61,6 +64,14 @@ body {
     color: var(--color-text);
     background-color: var(--color-bg);
     letter-spacing: 0.05em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* スマホでのテキスト拡大を防止 */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* 横スクロールを防止 */
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* ========================================
@@ -107,10 +118,20 @@ body {
     text-decoration: none;
     transition: color 0.3s ease;
     letter-spacing: 0.1em;
+    /* タップ領域を拡大 */
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
 }
 
 .nav-link:hover {
     color: var(--color-accent);
+}
+
+/* タッチデバイス用のアクティブ状態 */
+@media (hover: none) {
+    .nav-link:active {
+        color: var(--color-accent);
+    }
 }
 
 .nav-link-shop {
@@ -123,8 +144,12 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.75rem;
     z-index: 1001;
+    /* タップしやすいサイズを確保 */
+    min-width: 44px;
+    min-height: 44px;
+    touch-action: manipulation;
 }
 
 .menu-toggle-bar {
@@ -180,11 +205,15 @@ body {
    ======================================== */
 .section {
     padding: var(--spacing-2xl) var(--spacing-md);
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
 }
 
 .section-title {
@@ -284,6 +313,8 @@ body {
     flex-direction: column;
     align-items: center;
     width: 280px;
+    max-width: 90vw;
+    padding: 0 1rem;
 }
 
 .method-item:nth-child(1) {
@@ -777,12 +808,12 @@ body {
 
 @media (max-width: 480px) {
     :root {
-        --spacing-xs: 0.6rem;
-        --spacing-sm: 1rem;
-        --spacing-md: 1rem;
-        --spacing-lg: 2rem;
-        --spacing-xl: 3rem;
-        --spacing-2xl: 4rem;
+        --spacing-xs: 0.75rem;
+        --spacing-sm: 1.25rem;
+        --spacing-md: 1.5rem;
+        --spacing-lg: 2.5rem;
+        --spacing-xl: 3.5rem;
+        --spacing-2xl: 4.5rem;
     }
     
     .header-container {
@@ -790,30 +821,41 @@ body {
     }
     
     .logo {
-        font-size: 0.9rem;
+        font-size: 1rem;
+        letter-spacing: 0.15em;
     }
     
     .menu-toggle {
-        right: 1rem;
+        right: 0.5rem;
     }
     
     .menu-toggle-bar {
-        width: 20px;
+        width: 22px;
     }
     
     .nav {
-        width: 85%;
-        gap: 1.5rem;
+        width: 90%;
+        gap: 0;
+        padding: 2rem 1.5rem;
+    }
+    
+    .nav-link {
+        font-size: 1rem;
+        padding: 1rem 0.75rem;
+        width: 100%;
+        border-bottom: 1px solid var(--color-border);
     }
     
     .hero {
-        height: 60vh;
-        min-height: 400px;
+        height: 65vh;
+        min-height: 450px;
     }
 
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 1.05rem;
         padding: 0 1rem;
+        line-height: 1.8;
+        max-width: 100%;
     }
     
     .section {
@@ -821,51 +863,72 @@ body {
     }
     
     .section-title {
-        font-size: 1rem;
+        font-size: 1.15rem;
+        margin-bottom: 0.75rem;
     }
     
     .section-subtitle {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
     }
 
     .message-text {
-        font-size: 0.85rem;
+        font-size: 0.95rem;
+        line-height: 1.9;
     }
     
     .method-item {
-        max-width: 240px;
+        max-width: 280px;
+        padding: 1.5rem 1rem;
     }
     
     .method-icon {
-        width: 60px;
-        height: 60px;
+        width: 70px;
+        height: 70px;
+        margin-bottom: 1rem;
     }
     
     .method-title {
-        font-size: 0.95rem;
+        font-size: 1.05rem;
+        margin-bottom: 0.75rem;
     }
     
     .method-description {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
+        line-height: 1.8;
     }
     
     .vegetables-intro,
     .products-intro,
     .location-text {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+        line-height: 1.9;
     }
 
     .products-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .product-card {
+        padding: 1.5rem;
     }
     
     .cta-text {
-        font-size: 1rem;
+        font-size: 1.05rem;
+        line-height: 1.9;
     }
     
     .cta-button {
         width: 100%;
-        max-width: 280px;
+        max-width: 320px;
+        padding: 1rem 2.5rem;
+        font-size: 0.95rem;
+        min-height: var(--min-tap-size);
+    }
+    
+    /* スクロールの余白を調整 */
+    .section:target {
+        scroll-margin-top: 80px;
     }
 }
 
