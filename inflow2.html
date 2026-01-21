@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="【流入意識ページ2の説明文を記載】">
-    <title>【ページタイトル2】 | 安積自然農園</title>
+    <meta name="description" content="食と農と土地と未来のつながり。子どもたちに何を残すのか、持続可能な農業が持つ本当の意味について、価値観の共鳴を通じて考えます。">
+    <title>未来への視点 | 安積自然農園 - 食・農・土地・未来の接続</title>
     <link rel="canonical" href="https://asakanatural.jp/inflow2.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- ヘッダー -->
+    <!-- ヘッダー（共通） -->
     <header class="header">
         <div class="header-container">
-            <h1 class="logo"><a href="index.html" style="color: inherit; text-decoration: none;">安積自然農園</a></h1>
+            <div class="logo"><a href="index.html">安積自然農園</a></div>
             <button class="menu-toggle" aria-label="メニュー">
                 <span class="menu-toggle-bar"></span>
                 <span class="menu-toggle-bar"></span>
@@ -24,222 +24,303 @@
             <nav class="nav">
                 <a href="index.html#philosophy" class="nav-link">想い</a>
                 <a href="index.html#method" class="nav-link">農法</a>
-                <a href="index.html#vegetables" class="nav-link">野菜</a>
+                <a href="production.html" class="nav-link">生産・工程</a>
+                <a href="distribution.html" class="nav-link">流通・取引</a>
                 <a href="index.html#products" class="nav-link">加工品</a>
-                <a href="index.html#location" class="nav-link">農園</a>
-                <a href="business.html" class="nav-link">業務内容</a>
                 <a href="../安積直売所オンライン/index.html" class="nav-link nav-link-shop">オンラインショップ</a>
             </nav>
         </div>
     </header>
 
-    <!-- ヒーローセクション（別パターン） -->
-    <section class="inflow-hero inflow-hero-alt">
+    <!-- パンくずリスト -->
+    <nav class="breadcrumb" aria-label="パンくずリスト">
         <div class="container">
-            <div class="hero-content-wrapper">
-                <div class="hero-text-content">
-                    <h1 class="inflow-hero-title">【メインキャッチコピー】</h1>
-                    <p class="inflow-hero-subtitle">【サブキャッチコピー】</p>
-                    <div class="hero-cta">
-                        <a href="../安積直売所オンライン/index.html" class="cta-button">詳しく見る</a>
-                    </div>
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item"><a href="index.html">ホーム</a></li>
+                <li class="breadcrumb-item" aria-current="page">未来への視点</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- 価値観共鳴型ファーストビュー -->
+    <section class="hero-resonance">
+        <div class="container">
+            <h1 class="hero-resonance-title">私たちは、何を食べているのだろう。</h1>
+            <p class="hero-resonance-text">
+                【ここに静かな問いかけを記載：野菜の向こう側にある土、水、空気、時間、そして未来】
+            </p>
+        </div>
+    </section>
+
+    <!-- 食・農・土地・未来の接続構造 -->
+    <section class="section connection-structure">
+        <div class="container">
+            <h2 class="section-title">つながっているもの</h2>
+            <p class="section-description">
+                【ここに分断されがちな「食」「農」「土地」「未来」が実は一続きであることを記載】
+            </p>
+            <div class="connection-flow">
+                <div class="connection-item">
+                    <div class="connection-icon">食</div>
+                    <h3 class="connection-title">食卓</h3>
+                    <p class="connection-text">
+                        【ここに日々の食事が持つ意味を記載】
+                    </p>
+                    <p class="connection-detail">
+                        【詳細：選ぶこと、食べること、それ自体が意思表示であること】
+                    </p>
                 </div>
-                <div class="hero-image-content">
-                    <div class="image-placeholder large">ヒーロー画像</div>
+                <div class="connection-arrow">→</div>
+                <div class="connection-item">
+                    <div class="connection-icon">農</div>
+                    <h3 class="connection-title">生産</h3>
+                    <p class="connection-text">
+                        【ここに農業が持つ役割を記載】
+                    </p>
+                    <p class="connection-detail">
+                        【詳細：土から食べ物を生み出す行為、その方法の選択】
+                    </p>
+                </div>
+                <div class="connection-arrow">→</div>
+                <div class="connection-item">
+                    <div class="connection-icon">土</div>
+                    <h3 class="connection-title">土地</h3>
+                    <p class="connection-text">
+                        【ここに土地が持つ資源性を記載】
+                    </p>
+                    <p class="connection-detail">
+                        【詳細：有限性、地域性、継承性】
+                    </p>
+                </div>
+                <div class="connection-arrow">→</div>
+                <div class="connection-item">
+                    <div class="connection-icon">未来</div>
+                    <h3 class="connection-title">次世代</h3>
+                    <p class="connection-text">
+                        【ここに未来への責任を記載】
+                    </p>
+                    <p class="connection-detail">
+                        【詳細：今の選択が未来を決める】
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ストーリーセクション -->
-    <section class="section">
+    <!-- 持続可能性の本質 -->
+    <section class="section sustainability-essence">
         <div class="container">
-            <h2 class="section-title">【ストーリーの見出し】</h2>
-            <div class="story-content">
-                <p class="story-text">
-                    【ストーリーテキストを後で記載】
+            <h2 class="section-title">「持続可能」の本当の意味</h2>
+            <p class="section-description">
+                【ここにSDGsなどの表層的な理解を超えた、本質的な持続可能性について記載】
+            </p>
+            <div class="essence-grid">
+                <div class="essence-item">
+                    <h3 class="essence-title">土を減らさない</h3>
+                    <p class="essence-text">
+                        【ここに土壌流出・劣化を防ぐことの重要性を記載】
+                    </p>
+                </div>
+                <div class="essence-item">
+                    <h3 class="essence-title">依存を減らす</h3>
+                    <p class="essence-text">
+                        【ここに外部投入（肥料・農薬・種）への依存からの脱却を記載】
+                    </p>
+                </div>
+                <div class="essence-item">
+                    <h3 class="essence-title">循環を閉じる</h3>
+                    <p class="essence-text">
+                        【ここに農地内での物質循環の完結を記載】
+                    </p>
+                </div>
+                <div class="essence-item">
+                    <h3 class="essence-title">知恵を継ぐ</h3>
+                    <p class="essence-text">
+                        【ここに技術・知識・種の継承を記載】
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 子ども／次世代視点のセクション -->
+    <section class="section next-generation">
+        <div class="container">
+            <h2 class="section-title">子どもたちに、何を残すか</h2>
+            <div class="generation-content">
+                <div class="generation-question">
+                    <h3 class="generation-question-title">10年後、50年後、100年後</h3>
+                    <p class="generation-question-text">
+                        【ここに時間軸を長く取った問いかけを記載】
+                    </p>
+                </div>
+                <div class="generation-aspects">
+                    <div class="generation-aspect">
+                        <h4 class="generation-aspect-title">健全な土</h4>
+                        <p class="generation-aspect-text">
+                            【ここに土を疲弊させずに次世代に渡すことの意味を記載】
+                        </p>
+                        <p class="generation-aspect-detail">
+                            【詳細：化学物質の蓄積、土壌微生物の多様性、団粒構造の維持】
+                        </p>
+                    </div>
+                    <div class="generation-aspect">
+                        <h4 class="generation-aspect-title">多様な種</h4>
+                        <p class="generation-aspect-text">
+                            【ここに在来種・固定種を守り継ぐことの価値を記載】
+                        </p>
+                        <p class="generation-aspect-detail">
+                            【詳細：種子の独占、遺伝的多様性の喪失への危機感】
+                        </p>
+                    </div>
+                    <div class="generation-aspect">
+                        <h4 class="generation-aspect-title">選択肢のある社会</h4>
+                        <p class="generation-aspect-text">
+                            【ここに画一的でない農業・食の選択肢を残すことの重要性を記載】
+                        </p>
+                        <p class="generation-aspect-detail">
+                            【詳細：大規模単作への一極集中リスク、小規模多品目の価値】
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 「奪わない」という思想 -->
+    <section class="section non-extraction">
+        <div class="container">
+            <h2 class="section-title">奪わない農業</h2>
+            <p class="section-description">
+                【ここに「生産性向上」の名のもとに何が奪われてきたかを記載】
+            </p>
+            <div class="extraction-list">
+                <div class="extraction-item">
+                    <h3 class="extraction-item-title">土から奪わない</h3>
+                    <p class="extraction-item-text">
+                        【ここに過剰な収奪が土壌を疲弊させる構造を記載】
+                    </p>
+                </div>
+                <div class="extraction-item">
+                    <h3 class="extraction-item-title">生態系から奪わない</h3>
+                    <p class="extraction-item-text">
+                        【ここに生物多様性を犠牲にしない農業の形を記載】
+                    </p>
+                </div>
+                <div class="extraction-item">
+                    <h3 class="extraction-item-title">未来から奪わない</h3>
+                    <p class="extraction-item-text">
+                        【ここに短期的利益のために長期的資源を損なわない選択を記載】
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 地域と農業 -->
+    <section class="section local-agriculture">
+        <div class="container">
+            <h2 class="section-title">地域に根ざすということ</h2>
+            <p class="section-description">
+                【ここに「地域」が持つ意味：気候・水・土・文化・コミュニティの固有性を記載】
+            </p>
+            <div class="local-content">
+                <div class="local-item">
+                    <h3 class="local-item-title">安積疏水という水</h3>
+                    <p class="local-item-text">
+                        【ここに地域固有の水資源と農業の関係を記載】
+                    </p>
+                </div>
+                <div class="local-item">
+                    <h3 class="local-item-title">この土地の気候</h3>
+                    <p class="local-item-text">
+                        【ここに郡山の気候特性と栽培への影響を記載】
+                    </p>
+                </div>
+                <div class="local-item">
+                    <h3 class="local-item-title">地域経済との関係</h3>
+                    <p class="local-item-text">
+                        【ここに地産地消と地域内循環の意義を記載】
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 「美味しい」の意味 -->
+    <section class="section meaning-of-delicious">
+        <div class="container">
+            <h2 class="section-title">「美味しい」は、何を伝えているか</h2>
+            <p class="section-description">
+                【ここに味覚が単なる快楽でなく、身体が必要とするものを教えてくれる信号であることを記載】
+            </p>
+            <div class="delicious-perspectives">
+                <div class="delicious-perspective">
+                    <h3 class="delicious-perspective-title">身体が求める味</h3>
+                    <p class="delicious-perspective-text">
+                        【ここにミネラルバランス、栄養価と味の関係を記載】
+                    </p>
+                </div>
+                <div class="delicious-perspective">
+                    <h3 class="delicious-perspective-title">土が作る味</h3>
+                    <p class="delicious-perspective-text">
+                        【ここに健全な土壌が生み出す野菜の味わいを記載】
+                    </p>
+                </div>
+                <div class="delicious-perspective">
+                    <h3 class="delicious-perspective-title">時間が育む味</h3>
+                    <p class="delicious-perspective-text">
+                        【ここにゆっくり育つことで深まる味を記載】
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 押し売り感ゼロの締め構造 -->
+    <section class="section closing-gentle">
+        <div class="container">
+            <h2 class="section-title">選ぶのは、あなた自身</h2>
+            <div class="gentle-closing">
+                <p class="gentle-text">
+                    【ここに「買ってください」ではなく、「考えるきっかけになれば」という姿勢を記載】
                 </p>
-                <div class="spacer"></div>
-                <p class="story-text">
-                    【続きのテキストを後で記載】
+                <p class="gentle-text">
+                    【ここに、一人ひとりの選択が集まって社会を作ることを記載】
                 </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 比較セクション -->
-    <section class="section bg-alt">
-        <div class="container">
-            <h2 class="section-title">【比較の見出し】</h2>
-            <div class="comparison-table">
-                <div class="comparison-header">
-                    <div class="comparison-cell"></div>
-                    <div class="comparison-cell highlight">安積自然農園</div>
-                    <div class="comparison-cell">一般的な農園</div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div class="comparison-cell label">【項目1】</div>
-                    <div class="comparison-cell highlight">【内容】</div>
-                    <div class="comparison-cell">【内容】</div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div class="comparison-cell label">【項目2】</div>
-                    <div class="comparison-cell highlight">【内容】</div>
-                    <div class="comparison-cell">【内容】</div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div class="comparison-cell label">【項目3】</div>
-                    <div class="comparison-cell highlight">【内容】</div>
-                    <div class="comparison-cell">【内容】</div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div class="comparison-cell label">【項目4】</div>
-                    <div class="comparison-cell highlight">【内容】</div>
-                    <div class="comparison-cell">【内容】</div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div class="comparison-cell label">【項目5】</div>
-                    <div class="comparison-cell highlight">【内容】</div>
-                    <div class="comparison-cell">【内容】</div>
+                <p class="gentle-text">
+                    【ここに、私たちは選択肢の一つを提示しているだけ、という謙虚な立ち位置を記載】
+                </p>
+                <div class="gentle-final">
+                    <p class="gentle-final-text">
+                        【ここに静かな締めの言葉を記載：もし共感していただけたなら、また訪れてください、など】
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 数字で見る実績 -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">【実績の見出し】</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number">【数字】</div>
-                    <p class="stat-label">【ラベル】</p>
-                </div>
-                
-                <div class="stat-item">
-                    <div class="stat-number">【数字】</div>
-                    <p class="stat-label">【ラベル】</p>
-                </div>
-                
-                <div class="stat-item">
-                    <div class="stat-number">【数字】</div>
-                    <p class="stat-label">【ラベル】</p>
-                </div>
-                
-                <div class="stat-item">
-                    <div class="stat-number">【数字】</div>
-                    <p class="stat-label">【ラベル】</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- こだわりポイント -->
-    <section class="section bg-alt">
-        <div class="container">
-            <h2 class="section-title">【こだわりの見出し】</h2>
-            
-            <div class="commitment-list">
-                <div class="commitment-item">
-                    <div class="commitment-marker">Point 1</div>
-                    <div class="commitment-content">
-                        <h3 class="commitment-title">【ポイント1】</h3>
-                        <p class="commitment-text">【説明を後で記載】</p>
-                    </div>
-                </div>
-                
-                <div class="commitment-item">
-                    <div class="commitment-marker">Point 2</div>
-                    <div class="commitment-content">
-                        <h3 class="commitment-title">【ポイント2】</h3>
-                        <p class="commitment-text">【説明を後で記載】</p>
-                    </div>
-                </div>
-                
-                <div class="commitment-item">
-                    <div class="commitment-marker">Point 3</div>
-                    <div class="commitment-content">
-                        <h3 class="commitment-title">【ポイント3】</h3>
-                        <p class="commitment-text">【説明を後で記載】</p>
-                    </div>
-                </div>
-                
-                <div class="commitment-item">
-                    <div class="commitment-marker">Point 4</div>
-                    <div class="commitment-content">
-                        <h3 class="commitment-title">【ポイント4】</h3>
-                        <p class="commitment-text">【説明を後で記載】</p>
-                    </div>
-                </div>
-                
-                <div class="commitment-item">
-                    <div class="commitment-marker">Point 5</div>
-                    <div class="commitment-content">
-                        <h3 class="commitment-title">【ポイント5】</h3>
-                        <p class="commitment-text">【説明を後で記載】</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- よくある質問 -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">よくあるご質問</h2>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <h3 class="faq-question">Q. 【質問1】</h3>
-                    <p class="faq-answer">A. 【回答を後で記載】</p>
-                </div>
-                
-                <div class="faq-item">
-                    <h3 class="faq-question">Q. 【質問2】</h3>
-                    <p class="faq-answer">A. 【回答を後で記載】</p>
-                </div>
-                
-                <div class="faq-item">
-                    <h3 class="faq-question">Q. 【質問3】</h3>
-                    <p class="faq-answer">A. 【回答を後で記載】</p>
-                </div>
-                
-                <div class="faq-item">
-                    <h3 class="faq-question">Q. 【質問4】</h3>
-                    <p class="faq-answer">A. 【回答を後で記載】</p>
-                </div>
-                
-                <div class="faq-item">
-                    <h3 class="faq-question">Q. 【質問5】</h3>
-                    <p class="faq-answer">A. 【回答を後で記載】</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 最終CTA -->
-    <section class="section cta-strong">
-        <div class="container">
-            <h2 class="cta-strong-title">【最終CTAメッセージ】</h2>
-            <p class="cta-strong-text">【CTAサブテキスト】</p>
-            <div class="cta-buttons">
-                <a href="../安積直売所オンライン/index.html" class="cta-button cta-button-large">購入する</a>
-                <a href="mailto:info@asaka-farm.com" class="cta-button cta-button-outline">お問い合わせ</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- フッター -->
+    <!-- フッター（共通） -->
     <footer class="footer">
-        <div class="footer-container">
-            <p class="footer-text">© 2025 安積自然農園</p>
-            <div class="footer-links">
-                <a href="../安積直売所オンライン/index.html" class="footer-link">オンラインショップ</a>
-                <a href="mailto:info@asaka-farm.com" class="footer-link">お問い合わせ</a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">安積自然農園</h3>
+                    <p class="footer-text">福島県郡山市<br>無肥料・無農薬・自家採種</p>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">サイトマップ</h3>
+                    <nav class="footer-nav">
+                        <a href="index.html" class="footer-link">ホーム</a>
+                        <a href="production.html" class="footer-link">生産・工程</a>
+                        <a href="distribution.html" class="footer-link">流通・取引</a>
+                        <a href="inflow1.html" class="footer-link">農業の本質</a>
+                        <a href="inflow2.html" class="footer-link">未来への視点</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2026 安積自然農園. All rights reserved.</p>
             </div>
         </div>
     </footer>

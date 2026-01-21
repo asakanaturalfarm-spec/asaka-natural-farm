@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="【流入意識ページ1の説明文を記載】">
-    <title>【ページタイトル1】 | 安積自然農園</title>
+    <meta name="description" content="本当の農業とは何か。慣行農法と自然農法の構造的違い、無肥料無農薬栽培を選ぶ理由、土と種の関係性について深く考えます。">
+    <title>農業の本質を問う | 安積自然農園 - なぜこの農法なのか</title>
     <link rel="canonical" href="https://asakanatural.jp/inflow1.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- ヘッダー -->
+    <!-- ヘッダー（共通） -->
     <header class="header">
         <div class="header-container">
-            <h1 class="logo"><a href="index.html" style="color: inherit; text-decoration: none;">安積自然農園</a></h1>
+            <div class="logo"><a href="index.html">安積自然農園</a></div>
             <button class="menu-toggle" aria-label="メニュー">
                 <span class="menu-toggle-bar"></span>
                 <span class="menu-toggle-bar"></span>
@@ -24,175 +24,270 @@
             <nav class="nav">
                 <a href="index.html#philosophy" class="nav-link">想い</a>
                 <a href="index.html#method" class="nav-link">農法</a>
-                <a href="index.html#vegetables" class="nav-link">野菜</a>
+                <a href="production.html" class="nav-link">生産・工程</a>
+                <a href="distribution.html" class="nav-link">流通・取引</a>
                 <a href="index.html#products" class="nav-link">加工品</a>
-                <a href="index.html#location" class="nav-link">農園</a>
-                <a href="business.html" class="nav-link">業務内容</a>
                 <a href="../安積直売所オンライン/index.html" class="nav-link nav-link-shop">オンラインショップ</a>
             </nav>
         </div>
     </header>
 
-    <!-- ヒーローセクション（大きめ） -->
-    <section class="inflow-hero">
+    <!-- パンくずリスト -->
+    <nav class="breadcrumb" aria-label="パンくずリスト">
         <div class="container">
-            <h1 class="inflow-hero-title">【メインキャッチコピー】</h1>
-            <p class="inflow-hero-subtitle">【サブキャッチコピー】</p>
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item"><a href="index.html">ホーム</a></li>
+                <li class="breadcrumb-item" aria-current="page">農業の本質を問う</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- 問題提起型ファーストビュー -->
+    <section class="hero-question">
+        <div class="container">
+            <h1 class="hero-question-title">「農業」とは、本当に何をすることなのか？</h1>
+            <p class="hero-question-text">
+                【ここに問いかけの文章を記載：肥料を与えること？農薬で守ること？それとも…】
+            </p>
         </div>
     </section>
 
     <!-- 問題提起セクション -->
-    <section class="section">
+    <section class="section problem-statement">
         <div class="container">
-            <h2 class="section-title">【問題提起の見出し】</h2>
-            <div class="problem-content">
-                <p class="problem-text">
-                    【問題提起のテキストを後で記載】
+            <h2 class="section-title">現代農業が前提としていること</h2>
+            <p class="section-description">
+                【ここに現代の慣行農法が無意識に前提としている考え方を記載】
+            </p>
+            <div class="problem-list">
+                <div class="problem-item">
+                    <h3 class="problem-item-title">前提1：土には養分が足りない</h3>
+                    <p class="problem-item-text">
+                        【ここに肥料投入を当然とする考え方とその背景を記載】
+                    </p>
+                </div>
+                <div class="problem-item">
+                    <h3 class="problem-item-title">前提2：害虫・病気は駆除すべき</h3>
+                    <p class="problem-item-text">
+                        【ここに農薬使用を正当化する論理とその限界を記載】
+                    </p>
+                </div>
+                <div class="problem-item">
+                    <h3 class="problem-item-title">前提3：種は毎年買うもの</h3>
+                    <p class="problem-item-text">
+                        【ここにF1種子依存と自家採種の断絶について記載】
+                    </p>
+                </div>
+                <div class="problem-item">
+                    <h3 class="problem-item-title">前提4：人間がコントロールできる</h3>
+                    <p class="problem-item-text">
+                        【ここに自然を管理対象とみなす近代農業の思想を記載】
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 一般的農業との構造的違い -->
+    <section class="section structural-difference">
+        <div class="container">
+            <h2 class="section-title">構造的に何が違うのか</h2>
+            <p class="section-description">
+                【ここに表面的な方法論の違いではなく、根本的な思想の違いを記載】
+            </p>
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div class="comparison-col">観点</div>
+                    <div class="comparison-col">慣行農法</div>
+                    <div class="comparison-col">自然農法（当園）</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-col"><strong>土への認識</strong></div>
+                    <div class="comparison-col">【補うべき対象】</div>
+                    <div class="comparison-col">【信頼すべき存在】</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-col"><strong>養分供給</strong></div>
+                    <div class="comparison-col">【外部投入（肥料）】</div>
+                    <div class="comparison-col">【内部循環（微生物・分解）】</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-col"><strong>病害虫</strong></div>
+                    <div class="comparison-col">【排除対象】</div>
+                    <div class="comparison-col">【生態系の一部】</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-col"><strong>種の扱い</strong></div>
+                    <div class="comparison-col">【毎年購入（F1）】</div>
+                    <div class="comparison-col">【自家採種・循環】</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-col"><strong>人間の役割</strong></div>
+                    <div class="comparison-col">【管理者・支配者】</div>
+                    <div class="comparison-col">【観察者・協働者】</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-col"><strong>目標</strong></div>
+                    <div class="comparison-col">【収量最大化】</div>
+                    <div class="comparison-col">【持続可能性・健全性】</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- なぜこの農法なのか（論理展開） -->
+    <section class="section why-this-method">
+        <div class="container">
+            <h2 class="section-title">なぜこの農法を選ぶのか</h2>
+            <div class="logic-flow">
+                <div class="logic-step">
+                    <div class="logic-number">01</div>
+                    <h3 class="logic-title">前提：自然は本来、完結している</h3>
+                    <p class="logic-text">
+                        【ここに自然界に肥料も農薬もない事実から始める論理を記載】
+                    </p>
+                </div>
+                <div class="logic-arrow">↓</div>
+                <div class="logic-step">
+                    <div class="logic-number">02</div>
+                    <h3 class="logic-title">問い：では、なぜ現代農業は投入に依存するのか</h3>
+                    <p class="logic-text">
+                        【ここに単作・連作・土壌劣化の構造を記載】
+                    </p>
+                </div>
+                <div class="logic-arrow">↓</div>
+                <div class="logic-step">
+                    <div class="logic-number">03</div>
+                    <h3 class="logic-title">仮説：土の力を引き出せば、投入は不要</h3>
+                    <p class="logic-text">
+                        【ここに微生物・有機物循環・生態系バランスの考え方を記載】
+                    </p>
+                </div>
+                <div class="logic-arrow">↓</div>
+                <div class="logic-step">
+                    <div class="logic-number">04</div>
+                    <h3 class="logic-title">実践：無肥料・無農薬・自家採種</h3>
+                    <p class="logic-text">
+                        【ここに実際の栽培結果と継続可能性を記載】
+                    </p>
+                </div>
+                <div class="logic-arrow">↓</div>
+                <div class="logic-step">
+                    <div class="logic-number">05</div>
+                    <h3 class="logic-title">結論：持続可能な農業は、依存を減らす方向にある</h3>
+                    <p class="logic-text">
+                        【ここに長期的視点での優位性を記載】
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 深掘りセクション：土の力 -->
+    <section class="section soil-power">
+        <div class="container">
+            <h2 class="section-title">土の力とは何か</h2>
+            <p class="section-description">
+                【ここに土壌生態系の複雑さと、その自律的な機能を記載】
+            </p>
+            <div class="soil-aspects">
+                <div class="soil-aspect">
+                    <h3 class="soil-aspect-title">微生物の世界</h3>
+                    <p class="soil-aspect-text">
+                        【ここに土壌微生物の多様性と養分循環機能を記載】
+                    </p>
+                </div>
+                <div class="soil-aspect">
+                    <h3 class="soil-aspect-title">有機物の分解</h3>
+                    <p class="soil-aspect-text">
+                        【ここに落ち葉・草・根が土に還る循環を記載】
+                    </p>
+                </div>
+                <div class="soil-aspect">
+                    <h3 class="soil-aspect-title">団粒構造</h3>
+                    <p class="soil-aspect-text">
+                        【ここに土の物理性と保水・排水のバランスを記載】
+                    </p>
+                </div>
+                <div class="soil-aspect">
+                    <h3 class="soil-aspect-title">生態系ネットワーク</h3>
+                    <p class="soil-aspect-text">
+                        【ここに土壌生物の相互作用と自己調整機能を記載】
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 深掘りセクション：種の意味 -->
+    <section class="section seed-meaning">
+        <div class="container">
+            <h2 class="section-title">種を採り続けることの意味</h2>
+            <p class="section-description">
+                【ここに自家採種が単なる節約ではなく、農業の根幹に関わる行為であることを記載】
+            </p>
+            <div class="seed-points">
+                <div class="seed-point">
+                    <h3 class="seed-point-title">適応と進化</h3>
+                    <p class="seed-point-text">
+                        【ここにその土地・気候に適応していく種の変化を記載】
+                    </p>
+                </div>
+                <div class="seed-point">
+                    <h3 class="seed-point-title">循環の完結</h3>
+                    <p class="seed-point-text">
+                        【ここに種を採ることで農業サイクルが完結する意義を記載】
+                    </p>
+                </div>
+                <div class="seed-point">
+                    <h3 class="seed-point-title">自立性の確保</h3>
+                    <p class="seed-point-text">
+                        【ここに種子依存からの脱却と農家の自立を記載】
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 行動を促さない締めセクション（思想理解が目的） -->
+    <section class="section closing-thought">
+        <div class="container">
+            <h2 class="section-title">答えは一つではない</h2>
+            <div class="closing-content">
+                <p class="closing-text">
+                    【ここに「この農法が唯一の正解」とは主張しない姿勢を記載】
                 </p>
-                <div class="spacer"></div>
-                <ul class="problem-list">
-                    <li>【課題1】</li>
-                    <li>【課題2】</li>
-                    <li>【課題3】</li>
-                </ul>
+                <p class="closing-text">
+                    【ここに、それぞれの農家・消費者が自分の頭で考えることの重要性を記載】
+                </p>
+                <p class="closing-text">
+                    【ここに、当園の選択とその背景を提示することで、対話の入口としたい旨を記載】
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- 解決策セクション -->
-    <section class="section bg-alt">
-        <div class="container">
-            <h2 class="section-title">【解決策の見出し】</h2>
-            <div class="solution-grid">
-                <div class="solution-item">
-                    <div class="solution-icon">【アイコン】</div>
-                    <h3 class="solution-title">【解決策1】</h3>
-                    <p class="solution-text">【説明を後で記載】</p>
-                </div>
-                
-                <div class="solution-item">
-                    <div class="solution-icon">【アイコン】</div>
-                    <h3 class="solution-title">【解決策2】</h3>
-                    <p class="solution-text">【説明を後で記載】</p>
-                </div>
-                
-                <div class="solution-item">
-                    <div class="solution-icon">【アイコン】</div>
-                    <h3 class="solution-title">【解決策3】</h3>
-                    <p class="solution-text">【説明を後で記載】</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 特徴セクション -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">【特徴の見出し】</h2>
-            
-            <div class="feature-section">
-                <div class="feature-content">
-                    <h3 class="feature-title">【特徴1】</h3>
-                    <p class="feature-description">【説明を後で記載】</p>
-                </div>
-                <div class="feature-image">
-                    <div class="image-placeholder">画像エリア</div>
-                </div>
-            </div>
-
-            <div class="feature-section reverse">
-                <div class="feature-image">
-                    <div class="image-placeholder">画像エリア</div>
-                </div>
-                <div class="feature-content">
-                    <h3 class="feature-title">【特徴2】</h3>
-                    <p class="feature-description">【説明を後で記載】</p>
-                </div>
-            </div>
-
-            <div class="feature-section">
-                <div class="feature-content">
-                    <h3 class="feature-title">【特徴3】</h3>
-                    <p class="feature-description">【説明を後で記載】</p>
-                </div>
-                <div class="feature-image">
-                    <div class="image-placeholder">画像エリア</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ベネフィットセクション -->
-    <section class="section bg-alt">
-        <div class="container">
-            <h2 class="section-title">【ベネフィットの見出し】</h2>
-            <div class="benefit-cards">
-                <div class="benefit-card">
-                    <div class="benefit-number">01</div>
-                    <h3 class="benefit-title">【ベネフィット1】</h3>
-                    <p class="benefit-text">【説明を後で記載】</p>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-number">02</div>
-                    <h3 class="benefit-title">【ベネフィット2】</h3>
-                    <p class="benefit-text">【説明を後で記載】</p>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-number">03</div>
-                    <h3 class="benefit-title">【ベネフィット3】</h3>
-                    <p class="benefit-text">【説明を後で記載】</p>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-number">04</div>
-                    <h3 class="benefit-title">【ベネフィット4】</h3>
-                    <p class="benefit-text">【説明を後で記載】</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- お客様の声（仮） -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">【お客様の声見出し】</h2>
-            <div class="testimonial-grid">
-                <div class="testimonial-item">
-                    <p class="testimonial-text">【お客様の声1を後で記載】</p>
-                    <p class="testimonial-author">【お名前・属性】</p>
-                </div>
-                
-                <div class="testimonial-item">
-                    <p class="testimonial-text">【お客様の声2を後で記載】</p>
-                    <p class="testimonial-author">【お名前・属性】</p>
-                </div>
-                
-                <div class="testimonial-item">
-                    <p class="testimonial-text">【お客様の声3を後で記載】</p>
-                    <p class="testimonial-author">【お名前・属性】</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 強いCTA -->
-    <section class="section cta-strong">
-        <div class="container">
-            <h2 class="cta-strong-title">【CTAメッセージ】</h2>
-            <p class="cta-strong-text">【CTAサブテキスト】</p>
-            <a href="../安積直売所オンライン/index.html" class="cta-button cta-button-large">今すぐ購入する</a>
-        </div>
-    </section>
-
-    <!-- フッター -->
+    <!-- フッター（共通） -->
     <footer class="footer">
-        <div class="footer-container">
-            <p class="footer-text">© 2025 安積自然農園</p>
-            <div class="footer-links">
-                <a href="../安積直売所オンライン/index.html" class="footer-link">オンラインショップ</a>
-                <a href="mailto:info@asaka-farm.com" class="footer-link">お問い合わせ</a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">安積自然農園</h3>
+                    <p class="footer-text">福島県郡山市<br>無肥料・無農薬・自家採種</p>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">サイトマップ</h3>
+                    <nav class="footer-nav">
+                        <a href="index.html" class="footer-link">ホーム</a>
+                        <a href="production.html" class="footer-link">生産・工程</a>
+                        <a href="distribution.html" class="footer-link">流通・取引</a>
+                        <a href="inflow1.html" class="footer-link">農業の本質</a>
+                        <a href="inflow2.html" class="footer-link">未来への視点</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2026 安積自然農園. All rights reserved.</p>
             </div>
         </div>
     </footer>
