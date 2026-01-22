@@ -136,20 +136,38 @@
             <h3 class="section-title">今期のラインナップ</h3>
             <p class="section-subtitle">価格は毎期更新されます</p>
             
-            <!-- 青果 -->
+            <!-- 青果カルーセル -->
             <div class="product-category">
-                <h4 class="product-category-title">🌱 安積自然野菜 - Asaka Natural Vegetable</h4>
-                <div class="products-grid" id="seika-products">
-                    <!-- 青果商品はJavaScriptで動的に挿入 -->
+                <div class="category-header">
+                    <h4 class="product-category-title">🌱 安積自然野菜 - Asaka Natural Vegetable</h4>
+                    <div class="carousel-controls" data-carousel="seika">
+                        <button class="carousel-btn carousel-prev" aria-label="前へ">‹</button>
+                        <button class="carousel-btn carousel-next" aria-label="次へ">›</button>
+                    </div>
                 </div>
+                <div class="carousel-wrapper">
+                    <div class="products-carousel" id="seika-products">
+                        <!-- 青果商品はJavaScriptで動的に挿入 -->
+                    </div>
+                </div>
+                <div class="carousel-dots" id="seika-dots"></div>
             </div>
 
-            <!-- 加工品 -->
+            <!-- 加工品カルーセル -->
             <div class="product-category">
-                <h4 class="product-category-title">🍯 安積加工食品 - Asaka Natural Craft</h4>
-                <div class="products-grid" id="kakou-products">
-                    <!-- 加工品はJavaScriptで動的に挿入 -->
+                <div class="category-header">
+                    <h4 class="product-category-title">🍯 安積加工食品 - Asaka Natural Craft</h4>
+                    <div class="carousel-controls" data-carousel="kakou">
+                        <button class="carousel-btn carousel-prev" aria-label="前へ">‹</button>
+                        <button class="carousel-btn carousel-next" aria-label="次へ">›</button>
+                    </div>
                 </div>
+                <div class="carousel-wrapper">
+                    <div class="products-carousel" id="kakou-products">
+                        <!-- 加工品はJavaScriptで動的に挿入 -->
+                    </div>
+                </div>
+                <div class="carousel-dots" id="kakou-dots"></div>
             </div>
         </div>
     </section>

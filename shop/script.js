@@ -713,59 +713,31 @@ function initializeUI() {
 function renderProducts() {
     renderSeikaProducts();
     renderKakouProducts();
+    
+    // „Ç´„É´„Éº„Çª„É´ÂàùÊúüÂåñÔºà„É¨„É≥„ÉÄ„É™„É≥„Ç∞Âæå„Å´ÂÆüË°åÔºâ
+    setTimeout(() => {
+        initCarousels();
+    }, 100);
 }
 
 function renderSeikaProducts() {
     const seikaProducts = PRODUCTS.filter(p => p.category === 'ÈùíÊûú');
     const seikaGrid = document.getElementById('seika-products');
-    const seikaContainer = seikaGrid?.closest('.product-category');
     
     if (!seikaGrid) return;
     
-    const displayProducts = showAllSeika ? seikaProducts : seikaProducts.slice(0, 3);
-    const seikaHTML = displayProducts.map(product => createProductCard(product)).join('');
+    const seikaHTML = seikaProducts.map(product => createProductCard(product)).join('');
     seikaGrid.innerHTML = seikaHTML;
-    
-    // „ÇÇ„Å£„Å®Ë¶ã„Çã„Éú„Çø„É≥„ÅÆË°®Á§∫/ÈùûË°®Á§∫
-    updateMoreButton(seikaContainer, 'seika', seikaProducts.length, showAllSeika);
 }
 
 function renderKakouProducts() {
     const kakouProducts = PRODUCTS.filter(p => p.category === 'Âä†Â∑•');
     const kakouGrid = document.getElementById('kakou-products');
-    const kakouContainer = kakouGrid?.closest('.product-category');
     
     if (!kakouGrid) return;
     
-    const displayProducts = showAllKakou ? kakouProducts : kakouProducts.slice(0, 3);
-    const kakouHTML = displayProducts.map(product => createProductCard(product)).join('');
+    const kakouHTML = kakouProducts.map(product => createProductCard(product)).join('');
     kakouGrid.innerHTML = kakouHTML;
-    
-    // „ÇÇ„Å£„Å®Ë¶ã„Çã„Éú„Çø„É≥„ÅÆË°®Á§∫/ÈùûË°®Á§∫
-    updateMoreButton(kakouContainer, 'kakou', kakouProducts.length, showAllKakou);
-}
-
-function updateMoreButton(container, category, totalCount, showingAll) {
-    if (!container) return;
-    
-    let moreBtn = container.querySelector('.more-products-btn');
-    
-    if (totalCount <= 3) {
-        // 3‰ª∂‰ª•‰∏ã„Å™„Çâ„Éú„Çø„É≥‰∏çË¶Å
-        if (moreBtn) moreBtn.remove();
-        return;
-    }
-    
-    if (!moreBtn) {
-        moreBtn = document.createElement('a');
-        moreBtn.className = 'more-products-btn';
-        moreBtn.href = 'products.html';
-        moreBtn.style.textDecoration = 'none';
-        moreBtn.style.display = 'block';
-        container.appendChild(moreBtn);
-    }
-    
-    moreBtn.textContent = `„ÇÇ„Å£„Å®Ë¶ã„Çã (${totalCount}‰ª∂) ‚ñº`;
 }
 
 function createProductCard(product) {
@@ -1340,3 +1312,128 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// ========================================
+// ÉJÉãÅ[ÉZÉãÉVÉXÉeÉÄ
+// ========================================
+
+const carousels = {};
+
+function initCarousels() {
+    // ê¬â ÉJÉãÅ[ÉZÉã
+    initCarousel('seika');
+    // â¡çHïiÉJÉãÅ[ÉZÉã
+    initCarousel('kakou');
+}
+
+function initCarousel(type) {
+    const carousel = document.getElementById(${type}-products);
+    const prevBtn = document.querySelector([data-carousel=""] .carousel-prev);
+    const nextBtn = document.querySelector([data-carousel=""] .carousel-next);
+    const dotsContainer = document.getElementById(${type}-dots);
+    
+    if (!carousel || !prevBtn || !nextBtn) return;
+    
+    const cards = carousel.querySelectorAll('.product-card');
+    if (cards.length === 0) return;
+    
+    // ÉJÉãÅ[ÉZÉãèÛë‘Çï€ë∂
+    carousels[type] = {
+        carousel: carousel,
+        cards: cards,
+        currentIndex: 0,
+        cardWidth: cards[0].offsetWidth + 24, // ÉJÅ[Éhïù + gap
+        visibleCards: getVisibleCards(),
+        totalPages: Math.ceil(cards.length / getVisibleCards())
+    };
+    
+    // ÉhÉbÉgê∂ê¨
+    createDots(type, dotsContainer);
+    
+    // É{É^ÉìÉCÉxÉìÉg
+    prevBtn.addEventListener('click', () => moveCarousel(type, -1));
+    nextBtn.addEventListener('click', () => moveCarousel(type, 1));
+    
+    // èâä˙à íuê›íË
+    updateCarousel(type);
+    
+    // ÉäÉTÉCÉYëŒâû
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            carousels[type].visibleCards = getVisibleCards();
+            carousels[type].totalPages = Math.ceil(cards.length / carousels[type].visibleCards);
+            carousels[type].cardWidth = cards[0].offsetWidth + 24;
+            updateCarousel(type);
+            updateDots(type);
+        }, 250);
+    });
+}
+
+function getVisibleCards() {
+    const width = window.innerWidth;
+    if (width < 480) return 1;
+    if (width < 768) return 2;
+    if (width < 1024) return 3;
+    return 4;
+}
+
+function createDots(type, container) {
+    if (!container) return;
+    const { totalPages } = carousels[type];
+    container.innerHTML = '';
+    
+    for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot';
+        dot.setAttribute('aria-label', ÉyÅ[ÉW );
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToPage(type, i));
+        container.appendChild(dot);
+    }
+}
+
+function updateDots(type) {
+    const dotsContainer = document.getElementById(${type}-dots);
+    if (!dotsContainer) return;
+    
+    const { currentIndex, visibleCards, totalPages } = carousels[type];
+    const currentPage = Math.floor(currentIndex / visibleCards);
+    
+    // ÉhÉbÉgêîÇ™ïœÇÌÇ¡ÇΩèÍçáÇÕçƒê∂ê¨
+    const existingDots = dotsContainer.querySelectorAll('.carousel-dot');
+    if (existingDots.length !== totalPages) {
+        createDots(type, dotsContainer);
+        return;
+    }
+    
+    existingDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentPage);
+    });
+}
+
+function moveCarousel(type, direction) {
+    const { cards, currentIndex, visibleCards } = carousels[type];
+    const maxIndex = cards.length - visibleCards;
+    
+    let newIndex = currentIndex + (direction * visibleCards);
+    newIndex = Math.max(0, Math.min(newIndex, maxIndex));
+    
+    carousels[type].currentIndex = newIndex;
+    updateCarousel(type);
+    updateDots(type);
+}
+
+function goToPage(type, page) {
+    const { visibleCards } = carousels[type];
+    carousels[type].currentIndex = page * visibleCards;
+    updateCarousel(type);
+    updateDots(type);
+}
+
+function updateCarousel(type) {
+    const { carousel, currentIndex, cardWidth } = carousels[type];
+    const offset = -currentIndex * cardWidth;
+    carousel.style.transform = 	ranslateX(px);
+}
