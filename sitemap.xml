@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- ホームページ -->
   <url>
@@ -48,42 +48,42 @@
   
   <!-- オンラインショップ -->
   <url>
-    <loc>https://asakanatural.jp/store/</loc>
+    <loc>https://asakanatural.jp/shop.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/products.html</loc>
+    <loc>https://asakanatural.jp/products.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/faq.html</loc>
+    <loc>https://asakanatural.jp/faq.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/tokushoho.html</loc>
+    <loc>https://asakanatural.jp/tokushoho.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/privacy.html</loc>
+    <loc>https://asakanatural.jp/privacy.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/returns.html</loc>
+    <loc>https://asakanatural.jp/returns.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
@@ -91,261 +91,262 @@
   
   <!-- 商品個別ページ -->
   <url>
-    <loc>https://asakanatural.jp/store/product-v1.html</loc>
+    <loc>https://asakanatural.jp/product-v1.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v2.html</loc>
+    <loc>https://asakanatural.jp/product-v2.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v3.html</loc>
+    <loc>https://asakanatural.jp/product-v3.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v4.html</loc>
+    <loc>https://asakanatural.jp/product-v4.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v5.html</loc>
+    <loc>https://asakanatural.jp/product-v5.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v6.html</loc>
+    <loc>https://asakanatural.jp/product-v6.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v7.html</loc>
+    <loc>https://asakanatural.jp/product-v7.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v8.html</loc>
+    <loc>https://asakanatural.jp/product-v8.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v9.html</loc>
+    <loc>https://asakanatural.jp/product-v9.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v10.html</loc>
+    <loc>https://asakanatural.jp/product-v10.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v11.html</loc>
+    <loc>https://asakanatural.jp/product-v11.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v12.html</loc>
+    <loc>https://asakanatural.jp/product-v12.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v13.html</loc>
+    <loc>https://asakanatural.jp/product-v13.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v14.html</loc>
+    <loc>https://asakanatural.jp/product-v14.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v15.html</loc>
+    <loc>https://asakanatural.jp/product-v15.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v16.html</loc>
+    <loc>https://asakanatural.jp/product-v16.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v17.html</loc>
+    <loc>https://asakanatural.jp/product-v17.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v18.html</loc>
+    <loc>https://asakanatural.jp/product-v18.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v19.html</loc>
+    <loc>https://asakanatural.jp/product-v19.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v20.html</loc>
+    <loc>https://asakanatural.jp/product-v20.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v21.html</loc>
+    <loc>https://asakanatural.jp/product-v21.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v22.html</loc>
+    <loc>https://asakanatural.jp/product-v22.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v23.html</loc>
+    <loc>https://asakanatural.jp/product-v23.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v24.html</loc>
+    <loc>https://asakanatural.jp/product-v24.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v25.html</loc>
+    <loc>https://asakanatural.jp/product-v25.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v26.html</loc>
+    <loc>https://asakanatural.jp/product-v26.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v27.html</loc>
+    <loc>https://asakanatural.jp/product-v27.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v28.html</loc>
+    <loc>https://asakanatural.jp/product-v28.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v29.html</loc>
+    <loc>https://asakanatural.jp/product-v29.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v30.html</loc>
+    <loc>https://asakanatural.jp/product-v30.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v31.html</loc>
+    <loc>https://asakanatural.jp/product-v31.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v32.html</loc>
+    <loc>https://asakanatural.jp/product-v32.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v33.html</loc>
+    <loc>https://asakanatural.jp/product-v33.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v34.html</loc>
+    <loc>https://asakanatural.jp/product-v34.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v35.html</loc>
+    <loc>https://asakanatural.jp/product-v35.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-v36.html</loc>
+    <loc>https://asakanatural.jp/product-v36.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://asakanatural.jp/store/product-c1.html</loc>
+    <loc>https://asakanatural.jp/product-c1.html</loc>
     <lastmod>2026-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 </urlset>
+

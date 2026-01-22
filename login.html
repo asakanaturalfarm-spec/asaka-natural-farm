@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="安積直売所 ログイン">
+    <title>ログイン | 安積直売所</title>
+    <link rel="stylesheet" href="style.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--bg-light-green) 0%, var(--bg-cream) 100%);
+        }
+
+        .login-card {
+            background: white;
+            padding: 60px 50px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            max-width: 480px;
+            width: 100%;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .login-header h1 {
+            font-size: 32px;
+            color: var(--text-dark);
+            font-family: 'Noto Serif JP', serif;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .login-header p {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1.5px solid var(--border-subtle);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(61, 90, 61, 0.1);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: var(--primary-color);
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 24px;
+        }
+
+        .login-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 32px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 16px;
+            position: relative;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .signup-link {
+            text-align: center;
+            color: var(--text-medium);
+            font-size: 15px;
+        }
+
+        .signup-link a {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .back-home a {
+            color: var(--text-light);
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .back-home a:hover {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .login-card {
+                padding: 40px 30px;
+            }
+
+            .login-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>ログイン</h1>
+                <p>安積直売所へようこそ</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">パスワード</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="remember" name="remember">
+                        <span>ログイン状態を保持</span>
+                    </label>
+                    <a href="#" class="forgot-password">パスワードを忘れた方</a>
+                </div>
+
+                <button type="submit" class="login-button">ログイン</button>
+            </form>
+
+            <div class="divider">
+                <span>または</span>
+            </div>
+
+            <div class="signup-link">
+                アカウントをお持ちでない方は <a href="signup.html">新規登録</a>
+            </div>
+
+            <div class="back-home">
+                <a href="shop.html">← ホームに戻る</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        // URLパラメータからリダイレクト先を取得
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectUrl = urlParams.get('redirect') || 'index.html';
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const remember = document.getElementById('remember').checked;
+
+            // ログイン処理
+            const result = window.Auth.login(email, password, remember);
+            
+            if (result.success) {
+                alert('ログインしました！');
+                window.location.href = redirectUrl;
+            } else {
+                if (result.needsVerification) {
+                    if (confirm(result.message + '\n\n認証メールを再送信しますか？')) {
+                        resendVerificationEmail(email);
+                    }
+                } else {
+                    alert(result.message);
+                }
+            }
+        });
+
+        // 認証メール再送信
+        function resendVerificationEmail(email) {
+            const users = window.Auth.getUsers();
+            const user = users.find(u => u.email === email);
+            
+            if (!user) {
+                alert('ユーザーが見つかりません');
+                return;
+            }
+
+            if (user.verified) {
+                alert('このアカウントは既に認証済みです');
+                return;
+            }
+
+            // 新しいトークンを生成
+            const newToken = 'verify_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            user.verificationToken = newToken;
+            
+            const userIndex = users.findIndex(u => u.email === email);
+            users[userIndex] = user;
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // 認証メールを再送信
+            window.Auth.sendVerificationEmail(email, newToken, user.name);
+            alert('認証メールを再送信しました');
+        }
+
+        // デモ用の初期ユーザーを作成（開発用）
+        window.addEventListener('DOMContentLoaded', () => {
+            const users = window.Auth.getUsers();
+            if (users.length === 0) {
+                // テストユーザーを作成
+                window.Auth.register('test@example.com', 'password123', 'テストユーザー');
+                console.log('デモユーザーが作成されました。\nメール: test@example.com\nパスワード: password123');
+            }
+        });
+    </script>
+</body>
+</html>
+

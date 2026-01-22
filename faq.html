@@ -1,0 +1,534 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>よくある質問 | 安積直売所</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .faq-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        .faq-header {
+            background: #2c5f2d;
+            color: white;
+            padding: 40px 30px;
+            margin: -20px -20px 40px -20px;
+            text-align: center;
+        }
+        
+        .faq-header h1 {
+            font-size: 28px;
+            margin: 0 0 10px 0;
+        }
+        
+        .faq-header p {
+            font-size: 15px;
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        .faq-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .faq-nav-btn {
+            padding: 10px 20px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Noto Sans JP', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .faq-nav-btn:hover,
+        .faq-nav-btn.active {
+            background: #2c5f2d;
+            color: white;
+        }
+        
+        .faq-category {
+            margin-bottom: 40px;
+        }
+        
+        .category-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2c5f2d;
+        }
+        
+        .faq-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: #f9f9f9;
+        }
+        
+        .faq-q-text {
+            font-weight: 600;
+            font-size: 16px;
+            color: #333;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .faq-q-icon {
+            color: #2c5f2d;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .faq-toggle {
+            font-size: 24px;
+            color: #2c5f2d;
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer-content {
+            padding: 0 20px 20px 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .faq-answer-content a {
+            color: #2c5f2d;
+            text-decoration: underline;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .info-box {
+            background: #e8f5e9;
+            border-left: 4px solid #2c5f2d;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .info-box strong {
+            color: #2c5f2d;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, #2c5f2d 0%, #3a7f3b 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+        
+        .cta-box h3 {
+            margin: 0 0 15px 0;
+            font-size: 22px;
+        }
+        
+        .cta-box p {
+            margin: 0 0 20px 0;
+            opacity: 0.95;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: white;
+            color: #2c5f2d;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .back-link a {
+            color: #2c5f2d;
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="faq-container">
+        <div class="faq-header">
+            <h1>よくある質問</h1>
+            <p>Frequently Asked Questions</p>
+        </div>
+        
+        <div class="faq-nav">
+            <button class="faq-nav-btn active" onclick="showCategory('all')">すべて</button>
+            <button class="faq-nav-btn" onclick="showCategory('order')">注文について</button>
+            <button class="faq-nav-btn" onclick="showCategory('product')">商品について</button>
+            <button class="faq-nav-btn" onclick="showCategory('shipping')">配送について</button>
+            <button class="faq-nav-btn" onclick="showCategory('payment')">支払いについて</button>
+        </div>
+        
+        <!-- 注文について -->
+        <div class="faq-category" data-category="order">
+            <div class="category-title">注文について</div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>最低注文金額はありますか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <strong>4,500円以上（税込・送料別）</strong>から注文可能です。<br>
+                        少量配送による品質劣化を防ぐため、最低注文金額を設定しています。
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>注文のキャンセルはできますか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <strong>発送前であれば可能です。</strong><br>
+                        キャンセルをご希望の場合は、お早めにご連絡ください。<br>
+                        発送後のキャンセルはお受けできません。<br>
+                        詳細は<a href="returns.html">返品・キャンセルポリシー</a>をご確認ください。
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>会員登録は必要ですか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <strong>はい、必要です。</strong><br>
+                        商品の購入には会員登録（無料）が必要です。<br>
+                        注文履歴の確認、配送先情報の保存など便利な機能がご利用いただけます。
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 商品について -->
+        <div class="faq-category" data-category="product">
+            <div class="category-title">商品について</div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>どのような栽培方法ですか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <strong>自然農法（無農薬・無肥料）</strong>で栽培しています。<br>
+                        化学肥料・農薬を一切使用せず、自家採種による種を使用しています。<br>
+                        <br>
+                        詳細な栽培方法については、<a href="安積自然農園ホームページ/production.html" target="_blank">安積自然農園ホームページ</a>をご覧ください。
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>有機JAS認証はありますか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <strong>取得していません。</strong><br>
+                        有機JAS認証は取得していませんが、無農薬・無肥料の自然農法で栽培しています。<br>
+                        認証取得には多額の費用がかかるため、その分を価格に反映させることを優先しています。
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>商品の品質保証はありますか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        商品到着後24時間以内に、破損・腐敗等の不良があった場合は、<br>
+                        全額返金または代替品の再送にて対応いたします。<br>
+                        詳細は<a href="returns.html">返品・キャンセルポリシー</a>をご確認ください。
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>野菜の大きさや形はどうですか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        自然農法のため、サイズや形にばらつきがあります。<br>
+                        スーパーのように規格化された形状ではありませんが、味や栄養価に問題はありません。<br>
+                        多少の色ムラ、表面の傷は農産物の特性としてご理解ください。
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 配送について -->
+        <div class="faq-category" data-category="shipping">
+            <div class="category-title">配送について</div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>送料はいくらですか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <strong>全国一律 500円（ヤマト運輸クール便）</strong>です。<br>
+                        鮮度を保つため、冷蔵便で配送します。
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>発送はいつですか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <strong>月曜日・水曜日・金曜日</strong>のいずれかに発送します。<br>
+                        ご注文確定後、最短で翌営業日に発送いたします。<br>
+                        お届け日は発送日の翌日～3日後（地域により異なる）となります。
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>配達時間帯の指定はできますか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <strong>可能です。</strong>以下の時間帯から選択できます。<br>
+                        ・午前中（8:00～12:00）<br>
+                        ・14:00～16:00<br>
+                        ・16:00～18:00<br>
+                        ・18:00～20:00<br>
+                        ・19:00～21:00<br>
+                        ・指定なし
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>配送状況の確認はできますか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        発送後、お問い合わせ番号（追跡番号）をメールでお知らせします。<br>
+                        ヤマト運輸の荷物追跡サービスで配送状況をご確認いただけます。
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 支払いについて -->
+        <div class="faq-category" data-category="payment">
+            <div class="category-title">支払いについて</div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>どの支払方法が使えますか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        以下の支払方法に対応しています：<br>
+                        ・クレジットカード（VISA、Mastercard、JCB、AMEX、Diners）<br>
+                        ・コンビニ決済（セブンイレブン、ローソン、ファミリーマート）<br>
+                        ・PayPay<br>
+                        ・LINE Pay<br>
+                        ・銀行振込（前払い）<br>
+                        ・代金引換
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>手数料はかかりますか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        ・クレジットカード、PayPay、LINE Pay：無料<br>
+                        ・コンビニ決済：無料<br>
+                        ・代金引換：330円<br>
+                        ・銀行振込：振込手数料はお客様負担
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-q-text">
+                        <span class="faq-q-icon">Q</span>
+                        <span>領収書は発行できますか？</span>
+                    </div>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <strong>可能です。</strong><br>
+                        ご希望の場合は、注文時の備考欄にその旨をご記入ください。<br>
+                        商品に同梱、またはPDFでメール送付いたします。
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <strong>📌 栽培方法の詳細について</strong><br>
+            自然農法の理念、具体的な栽培手法、土づくりの考え方などは、<br>
+            <a href="安積自然農園ホームページ/production.html" target="_blank">安積自然農園ホームページ</a>をご覧ください。
+        </div>
+        
+        <div class="cta-box">
+            <h3>解決しない問題がありますか？</h3>
+            <p>お気軽にお問い合わせください。平日9:00～17:00に対応いたします。</p>
+            <a href="contact.html" class="cta-btn">お問い合わせフォーム</a>
+        </div>
+        
+        <div class="back-link">
+            <a href="shop.html">← トップページへ戻る</a>
+        </div>
+    </div>
+    
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.closest('.faq-item');
+            const allItems = document.querySelectorAll('.faq-item');
+            
+            // 他のアイテムを閉じる
+            allItems.forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // クリックしたアイテムをトグル
+            faqItem.classList.toggle('active');
+        }
+        
+        function showCategory(category) {
+            const categories = document.querySelectorAll('.faq-category');
+            const buttons = document.querySelectorAll('.faq-nav-btn');
+            
+            // ボタンのアクティブ状態を更新
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // カテゴリーの表示/非表示
+            categories.forEach(cat => {
+                if (category === 'all') {
+                    cat.style.display = 'block';
+                } else if (cat.dataset.category === category) {
+                    cat.style.display = 'block';
+                } else {
+                    cat.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
