@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全データリセット | 安積直売所</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .warning {
+            background: #fff5f5;
+            border: 2px solid #fc8181;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+            color: #742a2a;
+        }
+
+        .warning h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #c53030;
+        }
+
+        .data-list {
+            text-align: left;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+
+        .data-list h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .data-list ul {
+            list-style: none;
+        }
+
+        .data-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .data-list li:last-child {
+            border-bottom: none;
+        }
+
+        .data-list li::before {
+            content: "✓ ";
+            color: #48bb78;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-reset {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #c53030;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(229, 62, 62, 0.3);
+        }
+
+        .btn-cancel {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .btn-cancel:hover {
+            background: #cbd5e0;
+        }
+
+        .status {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            display: none;
+        }
+
+        .status.success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 2px solid #48bb78;
+            display: block;
+        }
+
+        .status.error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #fc8181;
+            display: block;
+        }
+
+        .log {
+            margin-top: 20px;
+            padding: 15px;
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .log.active {
+            display: block;
+        }
+
+        .log-line {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 全データリセット</h1>
+        <p style="color: #718096; margin-bottom: 20px;">すべてのアプリケーションデータを初期化します</p>
+
+        <div class="warning">
+            <h2>⚠️ 重要な警告</h2>
+            <p>以下のデータが完全に削除されます。この操作は取り消せません。</p>
+        </div>
+
+        <div class="data-list">
+            <h3>削除されるデータ:</h3>
+            <ul>
+                <li>在庫データ（全商品の在庫情報）</li>
+                <li>注文データ（受注管理アプリの全注文）</li>
+                <li>カートデータ（ECサイトのカート内容）</li>
+                <li>お気に入り商品</li>
+                <li>帳簿データ（収支記録）</li>
+                <li>収穫量・出荷可能量データ</li>
+                <li>その他すべてのLocalStorageデータ</li>
+            </ul>
+        </div>
+
+        <div class="buttons">
+            <button class="btn-cancel" onclick="window.close()">キャンセル</button>
+            <button class="btn-reset" onclick="resetAllData()">すべてリセットする</button>
+        </div>
+
+        <div class="status" id="status"></div>
+        <div class="log" id="log"></div>
+    </div>
+
+    <script src="inventory-sync.js"></script>
+    <script>
+        function addLog(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            logDiv.classList.add('active');
+            const line = document.createElement('div');
+            line.className = 'log-line';
+            const timestamp = new Date().toLocaleTimeString('ja-JP');
+            const icon = type === 'success' ? '✓' : type === 'error' ? '✗' : '→';
+            line.textContent = `[${timestamp}] ${icon} ${message}`;
+            logDiv.appendChild(line);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function resetAllData() {
+            if (!confirm('本当にすべてのデータをリセットしますか？\nこの操作は取り消せません。')) {
+                return;
+            }
+
+            const statusDiv = document.getElementById('status');
+            const logDiv = document.getElementById('log');
+            logDiv.innerHTML = '';
+            logDiv.classList.add('active');
+
+            addLog('データリセット開始...');
+
+            try {
+                // 1. 在庫データをリセット（全商品10個に初期化）
+                addLog('在庫データを初期化中...');
+                if (window.InventorySync) {
+                    window.InventorySync.reset(10);
+                    addLog('在庫データを全商品10個に初期化しました', 'success');
+                } else {
+                    localStorage.removeItem('inventory_realtime');
+                    localStorage.removeItem('inventory_log');
+                    addLog('在庫データを削除しました', 'success');
+                }
+
+                // 2. 注文データをクリア
+                addLog('注文データをクリア中...');
+                const orderKeys = [
+                    'orders',
+                    'orderManagement_orders',
+                    'lastOrder',
+                    'orderHistory'
+                ];
+                orderKeys.forEach(key => {
+                    localStorage.removeItem(key);
+                });
+                addLog('注文データをクリアしました', 'success');
+
+                // 3. カートデータをクリア
+                addLog('カートデータをクリア中...');
+                localStorage.removeItem('cartItems');
+                addLog('カートデータをクリアしました', 'success');
+
+                // 4. お気に入りをクリア
+                addLog('お気に入りデータをクリア中...');
+                localStorage.removeItem('favorites');
+                addLog('お気に入りデータをクリアしました', 'success');
+
+                // 5. 帳簿データをクリア
+                addLog('帳簿データをクリア中...');
+                const accountingKeys = [
+                    'transactions',
+                    'accounts',
+                    'budgets',
+                    'categories'
+                ];
+                accountingKeys.forEach(key => {
+                    localStorage.removeItem(key);
+                });
+                addLog('帳簿データをクリアしました', 'success');
+
+                // 6. 収穫量データをクリア
+                addLog('収穫量データをクリア中...');
+                const harvestKeys = [
+                    'harvests',
+                    'harvestPlans',
+                    'shippableQuantity'
+                ];
+                harvestKeys.forEach(key => {
+                    localStorage.removeItem(key);
+                });
+                addLog('収穫量データをクリアしました', 'success');
+
+                // 7. その他のデータをクリア
+                addLog('その他のデータをクリア中...');
+                const otherKeys = [
+                    'customers',
+                    'products',
+                    'suppliers',
+                    'notifications',
+                    'userSettings'
+                ];
+                otherKeys.forEach(key => {
+                    localStorage.removeItem(key);
+                });
+                addLog('その他のデータをクリアしました', 'success');
+
+                // 完了メッセージ
+                addLog('========================================');
+                addLog('すべてのデータリセットが完了しました！', 'success');
+                addLog('========================================');
+
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = `
+                    <strong>✓ リセット完了</strong><br>
+                    すべてのデータが初期化されました。<br>
+                    在庫は各商品10個に設定されています。
+                `;
+
+                // 3秒後にリロード
+                setTimeout(() => {
+                    if (confirm('ページをリロードしますか？')) {
+                        window.location.href = 'index.html';
+                    }
+                }, 3000);
+
+            } catch (error) {
+                addLog(`エラー: ${error.message}`, 'error');
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `
+                    <strong>✗ リセット失敗</strong><br>
+                    エラーが発生しました: ${error.message}
+                `;
+            }
+        }
+
+        // ページ読み込み時に現在のデータ量を表示
+        window.addEventListener('DOMContentLoaded', function() {
+            const itemCount = localStorage.length;
+            const dataSize = new Blob(Object.values(localStorage)).size;
+            console.log(`LocalStorage項目数: ${itemCount}`);
+            console.log(`データサイズ: ${(dataSize / 1024).toFixed(2)} KB`);
+        });
+    </script>
+</body>
+</html>
