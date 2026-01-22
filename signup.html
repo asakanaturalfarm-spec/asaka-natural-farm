@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="安積直売所 新規登録">
+    <title>新規登録 | 安積直売所</title>
+    <link rel="stylesheet" href="style.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .signup-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--bg-light-green) 0%, var(--bg-cream) 100%);
+        }
+
+        .signup-card {
+            background: white;
+            padding: 60px 50px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            max-width: 480px;
+            width: 100%;
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .signup-header h1 {
+            font-size: 32px;
+            color: var(--text-dark);
+            font-family: 'Noto Serif JP', serif;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .signup-header p {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1.5px solid var(--border-subtle);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(61, 90, 61, 0.1);
+        }
+
+        .password-requirements {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+
+        .signup-button {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 32px;
+        }
+
+        .signup-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .login-link {
+            text-align: center;
+            color: var(--text-medium);
+            font-size: 15px;
+            margin-top: 24px;
+        }
+
+        .login-link a {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .back-home a {
+            color: var(--text-light);
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .back-home a:hover {
+            color: var(--primary-color);
+        }
+
+        .terms-agreement {
+            margin: 24px 0;
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+
+        .terms-agreement input[type="checkbox"] {
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
+        }
+
+        .terms-agreement a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .terms-agreement a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .signup-card {
+                padding: 40px 30px;
+            }
+
+            .signup-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-card">
+            <div class="signup-header">
+                <h1>新規登録</h1>
+                <p>安積直売所のアカウントを作成</p>
+            </div>
+
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="name">お名前 *</label>
+                    <input type="text" id="name" name="name" placeholder="山田 太郎" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">メールアドレス *</label>
+                    <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">パスワード *</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required minlength="6">
+                    <div class="password-requirements">
+                        ※ 6文字以上で入力してください
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">パスワード（確認） *</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••" required minlength="6">
+                </div>
+
+                <div class="terms-agreement">
+                    <label>
+                        <input type="checkbox" id="agreeTerms" required>
+                        <a href="#" onclick="alert('利用規約は準備中です'); return false;">利用規約</a>と<a href="#" onclick="alert('プライバシーポリシーは準備中です'); return false;">プライバシーポリシー</a>に同意します
+                    </label>
+                </div>
+
+                <button type="submit" class="signup-button">アカウントを作成</button>
+            </form>
+
+            <div class="login-link">
+                既にアカウントをお持ちの方は <a href="login.html">ログイン</a>
+            </div>
+
+            <div class="back-home">
+                <a href="shop.html">← ホームに戻る</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+
+            // バリデーション
+            if (password !== confirmPassword) {
+                alert('パスワードが一致しません');
+                return;
+            }
+
+            if (!agreeTerms) {
+                alert('利用規約とプライバシーポリシーに同意してください');
+                return;
+            }
+
+            // 登録処理
+            const result = window.Auth.register(email, password, name);
+            
+            if (result.success) {
+                alert('登録完了！\n\n確認メールを送信しました。\nメール内のリンクをクリックして認証を完了してください。\n\n※開発モードでは認証リンクが表示されます');
+                // 開発用：認証ページに直接移動するオプション
+                if (result.verificationToken && confirm('【開発モード】認証ページに直接移動しますか？')) {
+                    window.location.href = `verify-email.html?token=${result.verificationToken}`;
+                } else {
+                    window.location.href = 'login.html';
+                }
+            } else {
+                alert(result.message);
+            }
+        });
+    </script>
+</body>
+</html>
+

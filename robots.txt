@@ -1,4 +1,20 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://YOUR_DOMAIN_OR_GITHUB_PAGES_URL/sitemap.xml
+# サイトマップの場所
+Sitemap: https://asakanatural.jp/sitemap.xml
+
+# 優先的にクロールしてほしいページ
+# 流入意識ページ（SEO重要度高）
+Allow: /inflow1.html
+Allow: /inflow2.html
+
+# 業務ページ（検索流入ターゲット）
+Allow: /production.html
+Allow: /distribution.html
+
+# ホームページ
+Allow: /index.html
+
+# その他
+Allow: /sitemap.html
