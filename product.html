@@ -1,10 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 動的SEOメタタグ（JavaScript で更新） -->
     <meta name="description" content="商品詳細 | 安積直売所">
+    <meta name="keywords" content="自然農法野菜,無農薬野菜,無肥料野菜,産地直送,福島県産">
     <title>商品詳細 | 安積直売所</title>
+    <link rel="canonical" href="https://asakanatural.jp/shop/product.html">
+    <meta name="robots" content="index, follow">
+    
+    <!-- OGP（動的更新） -->
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="https://asakanatural.jp/shop/product.html">
+    <meta property="og:title" content="商品詳細 | 安積直売所">
+    <meta property="og:description" content="無農薬・無肥料・自家採種の自然農法野菜">
+    <meta property="og:image" content="https://asakanatural.jp/shop/image/seika/sample1.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="商品詳細 | 安積直売所">
+    <meta name="twitter:description" content="無農薬・無肥料・自家採種の自然農法野菜">
+    <meta name="twitter:image" content="https://asakanatural.jp/shop/image/seika/sample1.jpg">
+    
     <link rel="stylesheet" href="style.css?v=3">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
@@ -361,7 +380,7 @@
     <div class="product-page">
         <div class="product-container">
             <div class="breadcrumb">
-                <a href="shop.html">ホーム</a>
+                <a href="index.html">ホーム</a>
                 <span>›</span>
                 <a href="index.html#products">商品一覧</a>
                 <span>›</span>
@@ -644,6 +663,9 @@
             // 商品データ読み込み
             loadProductData();
             
+            // SEOメタタグを動的に更新
+            updateDynamicSEO();
+            
             // お気に入り状態を反映
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id') || 'v1';
@@ -655,6 +677,93 @@
                 btn.classList.add('active');
             }
         });
+        
+        // 動的SEO対策
+        function updateDynamicSEO() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            if (!productId || !window.PRODUCTS) return;
+            
+            const product = window.PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+            
+            // タイトル・説明の最適化
+            const title = `${product.name}（${product.unit}）| 自然農法 無農薬野菜 | 安積直売所`;
+            const description = `${product.description || product.name}。無農薬・無肥料・自家採種の自然農法で栽培。福島県郡山市から新鮮な${product.category}を産地直送。税込${product.priceWithTax || product.price}円/${product.unit}。`;
+            const keywords = `${product.name},自然農法,無農薬野菜,無肥料栽培,${product.category},産地直送,福島県産,オーガニック,自家採種`;
+            const productUrl = `https://asakanatural.jp/shop/product.html?id=${productId}`;
+            const imageUrl = `https://asakanatural.jp/shop/${product.img}`;
+            
+            // メタタグを更新
+            document.title = title;
+            document.querySelector('meta[name="description"]').setAttribute('content', description);
+            document.querySelector('meta[name="keywords"]').setAttribute('content', keywords);
+            document.querySelector('link[rel="canonical"]').setAttribute('href', productUrl);
+            
+            // OGPタグを更新
+            document.querySelector('meta[property="og:url"]').setAttribute('content', productUrl);
+            document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+            document.querySelector('meta[property="og:description"]').setAttribute('content', description);
+            document.querySelector('meta[property="og:image"]').setAttribute('content', imageUrl);
+            
+            // Twitter Card更新
+            document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
+            document.querySelector('meta[name="twitter:description"]').setAttribute('content', description);
+            document.querySelector('meta[name="twitter:image"]').setAttribute('content', imageUrl);
+            
+            // 構造化データ（Product Schema）を追加
+            const productSchema = {
+                "@context": "https://schema.org/",
+                "@type": "Product",
+                "name": product.name,
+                "image": imageUrl,
+                "description": description,
+                "brand": {
+                    "@type": "Brand",
+                    "name": "安積自然農園"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "url": productUrl,
+                    "priceCurrency": "JPY",
+                    "price": product.priceWithTax || product.price,
+                    "priceValidUntil": new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0],
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "availability": product.stock && product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+                    "seller": {
+                        "@type": "Organization",
+                        "name": "安積自然農園"
+                    }
+                },
+                "category": product.category,
+                "sku": product.sku || product.id,
+                "additionalProperty": [
+                    {
+                        "@type": "PropertyValue",
+                        "name": "栽培方法",
+                        "value": "自然農法（無農薬・無肥料）"
+                    },
+                    {
+                        "@type": "PropertyValue",
+                        "name": "産地",
+                        "value": "福島県郡山市"
+                    }
+                ]
+            };
+            
+            // 既存のスキーマがあれば削除
+            const existingSchema = document.querySelector('script[type="application/ld+json"]');
+            if (existingSchema) {
+                existingSchema.remove();
+            }
+            
+            // 新しいスキーマを追加
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.textContent = JSON.stringify(productSchema);
+            document.head.appendChild(script);
+        }
 
         function switchTab(tabName) {
             document.querySelectorAll('.tab').forEach(tab => {
@@ -670,4 +779,3 @@
     </script>
 </body>
 </html>
-

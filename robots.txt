@@ -1,20 +1,37 @@
 User-agent: *
 Allow: /
 
-# サイトマップの場所
-Sitemap: https://asakanatural.jp/sitemap.xml
-
-# 優先的にクロールしてほしいページ
-# 流入意識ページ（SEO重要度高）
-Allow: /inflow1.html
-Allow: /inflow2.html
-
-# 業務ページ（検索流入ターゲット）
-Allow: /production.html
-Allow: /distribution.html
-
-# ホームページ
+# 重要なページ（クロール推奨）
 Allow: /index.html
+Allow: /products.html
+Allow: /product.html
+Allow: /faq.html
+Allow: /contact.html
+Allow: /privacy.html
+Allow: /tokushoho.html
+Allow: /returns.html
 
-# その他
-Allow: /sitemap.html
+# カート・チェックアウトページ（クロール許可、インデックス不要）
+Allow: /cart.html
+Allow: /checkout.html
+Allow: /order-complete.html
+
+# 管理画面とアカウント関連ページをクロール対象外に
+Disallow: /admin*.html
+Disallow: /直売所オンライン管理者画面.html
+Disallow: /reset-all-data.html
+Disallow: /login.html
+Disallow: /signup.html
+Disallow: /account.html
+Disallow: /orders.html
+Disallow: /verify-email.html
+
+# 画像・フォントはクロール許可
+Allow: /image/
+Allow: /fonts/
+
+# サイトマップの場所
+Sitemap: https://asakanatural.jp/shop/sitemap.xml
+
+# クロール頻度（Googlebot向け）
+Crawl-delay: 1
