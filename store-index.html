@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="安積直売所 — 自然農法で育てた野菜と加工品のオンライン直売。無農薬・無肥料／自家採種／新鮮配送">
+    <meta name="theme-color" content="#2d5016">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:title" content="安積直売所 | 自然農法野菜・オンライン販売">
+    <meta property="og:description" content="肥料・農薬不使用の自然農法野菜を産地直送でお届けします。">
+    <meta property="og:image" content="image/fv.jpg">
+    <title>安積直売所 | 自然農法野菜・オンライン販売</title>
+    <link rel="stylesheet" href="style.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- 統合HUB - すべての共通機能を含む -->
+    <script src="asaka-hub.js"></script>
+    <script src="inventory-sync.js"></script>
+    <script src="order-sync.js"></script>
+    <script src="auth.js"></script>
+</head>
+<body>
+    <!-- ナビゲーションバー -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">
+                <div class="logo-text">
+                    <h1>安積直売所</h1>
+                    <p>自然農法野菜</p>
+                </div>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">ホーム</a>
+                <a href="products.html" class="nav-link">商品</a>
+                <a href="#about" class="nav-link">農園紹介</a>
+                <a href="#evidence" class="nav-link">研究・エビデンス</a>
+                <a href="#shipping" class="nav-link">配送方法</a>
+                <a href="#contact" class="nav-link">お問い合わせ</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="login.html" class="btn-secondary" style="display: inline-block; text-decoration: none;">ログイン</a>
+                <a href="cart.html" class="btn-primary" style="display: inline-block; text-decoration: none;">
+                    <span class="cart-icon">🛒</span> カート
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-controls="mobileMenu" aria-expanded="false" aria-label="メニューを開く">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- モバイルナビゲーション -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="#products" class="mobile-link">商品</a>
+        <a href="#about" class="mobile-link">農園紹介</a>
+        <a href="#shipping" class="mobile-link">配送方法</a>
+        <a href="#contact" class="mobile-link">お問い合わせ</a>
+        <hr>
+        <button class="btn-secondary" style="width: 100%">ログイン</button>
+    </nav>
+
+    <!-- ヒーロセクション -->
+    <main id="main">
+    <section class="hero">
+        <div class="hero-background">
+            <img src="image/fv.jpg" alt="自然農法野菜" class="hero-slide active">
+            <img src="image/fv2.jpg" alt="自然農法野菜" class="hero-slide">
+            <img src="image/fv3.jpg" alt="自然農法野菜" class="hero-slide">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2>土と種だけで育つ<br><span class="highlight">まっすぐな野菜</span></h2>
+            <p>福島県郡山市で安積疎水を利用して栽培しています。<br>無肥料無農薬栽培で安心して食べられる野菜を作っています。</p>
+            <p style="margin-top: 1rem;">安積自然農園直送の無肥料・無農薬野菜をオンラインでお届けします。自家採種と新鮮配送で、野菜本来の力を感じてください。</p>
+            <div class="hero-buttons">
+                <a href="products.html" class="btn-primary" style="display: inline-block; text-decoration: none;">商品を見る</a>
+                <button type="button" id="scrollFeaturesBtn" class="btn-outline">詳しく知る</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特徴セクション -->
+    <section class="features">
+        <div class="container">
+            <h3 class="section-title">安積直売所の特徴</h3>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h4>無肥料・無農薬・自家採種</h4>
+                    <p>自分で採った種で肥料を一切使わず、自然の営みを大切にした栽培方法</p>
+                </div>
+                
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h4>新鮮配送</h4>
+                    <p>収穫から配送。旬の野菜を新鮮なままお届け。
+                        ※より新鮮な野菜をお届けするために、すべての野菜は水洗いをしていません。
+                    </p>
+                </div>
+
+
+                <div class="feature-card">
+                    <div class="feature-icon">🍅</div>
+                    <h4>豊富な品揃え</h4>
+                    <p>季節ごとに変わる豊富な野菜と加工食品</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 農園紹介 -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3 class="section-title">農園紹介</h3>
+                    <h4>無類の農業愛から生まれた<br>安心安全な食卓</h4>
+                    <p>安積自然農園の田辺です。私は農業を心から愛し、種から食卓に届けるまでの全ての過程に心を込めています。</p>
+                    <p>種から芽を出し、力強く育つ野菜たち。その一つ一つが本当に愛おしい存在です。自然農法という選択を通じて、食べる人の健康と、土の健康を両立させたいと考えています。</p>
+                    <p><strong>加工食品も、農園で採れた野菜や素材のみを使用し、完全無添加で仕上げています。</strong></p>
+                </div>
+                <div class="about-image">
+                    <img src="image/profile.jpg" alt="安積自然農園 田辺">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 商品セクション -->
+    <section id="products" class="products">
+        <div class="container">
+            <h3 class="section-title">今期のラインナップ</h3>
+            <p class="section-subtitle">価格は毎期更新されます</p>
+            
+            <!-- 青果 -->
+            <div class="product-category">
+                <h4 class="product-category-title">🌱 安積自然野菜 - Asaka Natural Vegetable</h4>
+                <div class="products-grid" id="seika-products">
+                    <!-- 青果商品はJavaScriptで動的に挿入 -->
+                </div>
+            </div>
+
+            <!-- 加工品 -->
+            <div class="product-category">
+                <h4 class="product-category-title">🍯 安積加工食品 - Asaka Natural Craft</h4>
+                <div class="products-grid" id="kakou-products">
+                    <!-- 加工品はJavaScriptで動的に挿入 -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 配送方法 -->
+    <section id="shipping" class="shipping">
+        <div class="container">
+            <h3 class="section-title">配送について</h3>
+            
+            <div class="shipping-table">
+                <table>
+                    <tr>
+                        <th>配送方法</th>
+                        <td>ヤマト運輸クール便（冷蔵）</td>
+                    </tr>
+                    <tr>
+                        <th>送料</th>
+                        <td>全国一律 ¥500</td>
+                    </tr>
+                    <tr>
+                        <th>発送日</th>
+                        <td>月・水・金曜日（収穫後、当日発送）</td>
+                    </tr>
+                    <tr>
+                        <th>最低購入金額</th>
+                        <td>¥4,500以上</td>
+                    </tr>
+                    <tr>
+                        <th>配送日時指定</th>
+                        <td>可能（ご注文時の備考欄にご記入ください）</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="shipping-note">
+                <p><strong>ご注意事項</strong></p>
+                <ul>
+                    <li>より新鮮な野菜をお届けするため、すべての野菜は水洗いをしておりません。</li>
+                    <li>土が付いている場合がございますが、品質には問題ございません。</li>
+                    <li>収穫状況により発送日が前後する場合がございます。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ニュースレター -->
+    <!-- 研究・エビデンス（追加） -->
+    <section id="evidence" class="evidence">
+        <div class="container">
+            <h3 class="section-title">研究・科学的エビデンス</h3>
+
+            <div class="evidence-grid">
+                <div class="evidence-summary">
+                    <p>
+                        当サイトでは、東北大学等の研究機関と協力して当農園の栽培手法や作物の
+                        栄養価・土壌の状態に関する科学的評価を行う予定です。研究結果を受け取り次第、
+                        ここに要約とフルレポートを公開します。
+                    </p>
+
+                    <ul>
+                        <li><strong>目的：</strong>栽培手法が作物の栄養価・土壌微生物群集に与える影響を評価</li>
+                        <li><strong>主な評価項目：</strong>ビタミン類、ミネラル、抗酸化指標、土壌微生物多様性</li>
+                        <li><strong>提出物：</strong>査読前レポート（PDF）、データセット（CSV）</li>
+                    </ul>
+
+                    <div style="margin-top:12px;">
+                        <a class="btn-primary" href="public/evidence/README.md" target="_blank" rel="noreferrer">レポート置き場（準備中）</a>
+                    </div>
+                </div>
+
+                <div class="evidence-metrics">
+                    <h4>主要メトリクス（例）</h4>
+                    <dl>
+                        <dt>サンプル数</dt>
+                        <dd>n = 30（品目・季節により変動）</dd>
+                        <dt>取得データ</dt>
+                        <dd>栄養成分分析、土壌分析、微生物解析、収量データ</dd>
+                        <dt>公開予定</dt>
+                        <dd>2026年第1四半期（目標）</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="evidence-note" style="margin-top:20px;">
+                <p>
+                    ※本ページは研究結果の公開準備ページです。具体的な解析結果およびフルレポートは
+                    研究機関からの成果受領後に公開します。データ共有や共同研究に関する問い合わせは
+                    <a href="#contact">お問い合わせ</a>よりご連絡ください。
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h3>新着情報をお受け取りください</h3>
+                <p>季節ごとの新商品や農園情報をメールでお知らせします</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input id="newsletterEmail" name="email" type="email" placeholder="メールアドレスを入力" required>
+                    <button type="submit" class="btn-primary">購読する</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>安積直売所</h4>
+                    <p>自然農法で育てた野菜と加工食品を直接お届け</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>メニュー</h5>
+                    <ul>
+                        <li><a href="#products">商品一覧</a></li>
+                        <li><a href="#about">農園紹介</a></li>
+                        <li><a href="#shipping">配送方法</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>フォロー</h5>
+                    <div class="social-links">
+                        <a href="#" class="social-link" target="_blank" rel="noopener noreferrer">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                            Instagram
+                        </a>
+                        <a href="#" class="social-link" target="_blank" rel="noopener noreferrer">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21.75 6.4c-.08-.27-.22-.52-.43-.73-.21-.21-.46-.35-.73-.43C19.45 5 12 5 12 5s-7.45 0-8.59.24c-.27.08-.52.22-.73.43-.21.21-.35.46-.43.73C2 7.54 2 10 2 10s0 2.46.25 3.6c.08.27.22.52.43.73.21.21.46.35.73.43C4.55 15 12 15 12 15s7.45 0 8.59-.24c.27-.08.52-.22.73-.43.21-.21.35-.46.43-.73C22 12.46 22 10 22 10s0-2.46-.25-3.6zM10 12.5V7.5l5.5 2.5-5.5 2.5z"/>
+                            </svg>
+                            note
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 安積直売所. All rights reserved.</p>
+                <div class="footer-legal-links">
+                    <a href="tokushoho.html">特定商取引法表記</a>
+                    <a href="privacy.html">プライバシーポリシー</a>
+                    <a href="returns.html">返品・キャンセル</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- アンケートモーダル -->
+    <div class="modal" id="surveyModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3>限定クーポンを獲得！</h3>
+            <p>簡単なアンケートにお答えいただくと、<strong>5%OFF クーポン</strong>（上限¥10,000）をお配りしています。</p>
+            
+            <form id="surveyForm" class="survey-form">
+                <div class="form-group">
+                    <label for="name">お名前（任意）</label>
+                    <input type="text" id="name" placeholder="田辺">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">メールアドレス（任意）</label>
+                    <input type="email" id="email" placeholder="example@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="comment">ご意見・ご感想（任意）</label>
+                    <textarea id="comment" rows="4" placeholder="野菜について一言"></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary" style="width: 100%">クーポンを受け取る</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- イベントバナー -->
+    <div class="event-banner" id="eventBanner">
+        <div class="banner-content">
+            <p>🎁 アンケート回答で <strong>5%OFF クーポン</strong> をプレゼント中！</p>
+            <div class="banner-actions">
+                <button class="btn-small" id="surveyBtn">回答する</button>
+                <button class="btn-close" id="closeBanner">×</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- アプリ固有スクリプト -->
+    <script src="script.js" defer></script>
+</body>
+</html>
