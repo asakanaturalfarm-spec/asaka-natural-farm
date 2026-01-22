@@ -553,7 +553,7 @@ function generateProductPage(product) {
 }
 
 // 全商品ページ生成
-const outputDir = path.join(__dirname, 'store');
+const outputDir = path.join(__dirname);
 
 console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 console.log('  商品個別ページ生成開始');
