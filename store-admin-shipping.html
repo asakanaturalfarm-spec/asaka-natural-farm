@@ -1,0 +1,496 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>発送管理 | 安積直売所 管理画面</title>
+    <link rel="stylesheet" href="store-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="store-notification-system.js"></script>
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, #2c5f2d 0%, #3a7f3b 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .admin-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+        
+        .order-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .order-id {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c5f2d;
+        }
+        
+        .order-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-shipped {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .order-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .items-list {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .item:last-child {
+            border-bottom: none;
+        }
+        
+        .shipping-form {
+            margin-top: 20px;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 8px;
+        }
+        
+        .form-row {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #2c5f2d;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        .btn-ship {
+            background: #2c5f2d;
+            color: white;
+        }
+        
+        .btn-ship:hover {
+            background: #1e4620;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(44, 95, 45, 0.3);
+        }
+        
+        .btn-ship:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .notification-status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .notification-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .notification-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .notification-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .filter-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid #2c5f2d;
+            background: white;
+            color: #2c5f2d;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 500;
+        }
+        
+        .filter-btn.active {
+            background: #2c5f2d;
+            color: white;
+        }
+        
+        .filter-btn:hover {
+            background: #e8f5e9;
+        }
+        
+        .filter-btn.active:hover {
+            background: #1e4620;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>📦 発送管理</h1>
+            <p>注文の発送手続きと発送完了通知の送信</p>
+        </div>
+        
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterOrders('all')">すべて</button>
+            <button class="filter-btn" onclick="filterOrders('pending')">発送待ち</button>
+            <button class="filter-btn" onclick="filterOrders('shipped')">発送済み</button>
+        </div>
+        
+        <div id="ordersContainer"></div>
+    </div>
+    
+    <script>
+        // サンプル注文データ（実際はサーバーから取得）
+        let orders = [
+            {
+                orderId: 'ORD_20260122001',
+                customerName: '山田太郎',
+                customerEmail: 'example@example.com',
+                orderDate: '2026-01-22',
+                items: [
+                    { name: 'ほうれん草', quantity: 3 },
+                    { name: '水菜', quantity: 2 }
+                ],
+                total: 1500,
+                shippingAddress: '〒963-0201 福島県郡山市大槻町字前畑60',
+                status: 'pending',
+                paymentMethod: 'クレジットカード',
+                trackingNumber: null,
+                shippedDate: null
+            },
+            {
+                orderId: 'ORD_20260121003',
+                customerName: '佐藤花子',
+                customerEmail: 'example2@example.com',
+                orderDate: '2026-01-21',
+                items: [
+                    { name: '小松菜', quantity: 2 },
+                    { name: 'チンゲン菜', quantity: 1 }
+                ],
+                total: 1200,
+                shippingAddress: '〒960-8034 福島県福島市置賜町1-1',
+                status: 'shipped',
+                paymentMethod: 'コンビニ決済',
+                trackingNumber: '1234-5678-9012',
+                shippedDate: '2026-01-21'
+            }
+        ];
+        
+        let currentFilter = 'all';
+        
+        // 通知マネージャーの初期化
+        const notificationManager = window.NotificationSystem.initialize({
+            provider: 'sendgrid',
+            fromEmail: 'noreply@asakanatural.jp',
+            fromName: '安積自然農園'
+        });
+        
+        // 注文リストを表示
+        function renderOrders() {
+            const container = document.getElementById('ordersContainer');
+            const filteredOrders = orders.filter(order => {
+                if (currentFilter === 'all') return true;
+                return order.status === currentFilter;
+            });
+            
+            if (filteredOrders.length === 0) {
+                container.innerHTML = '<div class="order-card"><p style="text-align:center;color:#666;">該当する注文がありません</p></div>';
+                return;
+            }
+            
+            container.innerHTML = filteredOrders.map(order => createOrderCard(order)).join('');
+        }
+        
+        // 注文カードを作成
+        function createOrderCard(order) {
+            const statusClass = order.status === 'shipped' ? 'status-shipped' : 'status-pending';
+            const statusLabel = order.status === 'shipped' ? '発送済み' : '発送待ち';
+            
+            const shippingForm = order.status === 'pending' ? `
+                <div class="shipping-form">
+                    <h3>📦 発送手続き</h3>
+                    <div class="form-row">
+                        <label class="form-label">お問い合わせ番号（追跡番号）</label>
+                        <input type="text" 
+                               class="form-input" 
+                               id="tracking_${order.orderId}" 
+                               placeholder="例: 1234-5678-9012"
+                               value="${order.trackingNumber || ''}">
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">発送日</label>
+                        <input type="date" 
+                               class="form-input" 
+                               id="shipdate_${order.orderId}" 
+                               value="${new Date().toISOString().split('T')[0]}">
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">到着予定日</label>
+                        <input type="date" 
+                               class="form-input" 
+                               id="deliverydate_${order.orderId}" 
+                               value="${getEstimatedDeliveryDate()}">
+                    </div>
+                    <button class="btn btn-ship" onclick="shipOrder('${order.orderId}')">
+                        発送完了 & 通知送信
+                    </button>
+                    <div id="notification_${order.orderId}"></div>
+                </div>
+            ` : `
+                <div style="padding:15px;background:#d4edda;border-radius:5px;margin-top:15px;">
+                    <strong>✓ 発送完了</strong><br>
+                    発送日: ${order.shippedDate}<br>
+                    お問い合わせ番号: ${order.trackingNumber}
+                </div>
+            `;
+            
+            return `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-id">${order.orderId}</div>
+                        <div class="order-status ${statusClass}">${statusLabel}</div>
+                    </div>
+                    
+                    <div class="order-info">
+                        <div class="info-item">
+                            <div class="info-label">お客様名</div>
+                            <div class="info-value">${order.customerName}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">注文日</div>
+                            <div class="info-value">${order.orderDate}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">お支払い方法</div>
+                            <div class="info-value">${order.paymentMethod}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">合計金額</div>
+                            <div class="info-value">¥${order.total.toLocaleString('ja-JP')}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-label">お届け先</div>
+                        <div class="info-value">${order.shippingAddress}</div>
+                    </div>
+                    
+                    <div class="items-list">
+                        <strong>注文内容</strong>
+                        ${order.items.map(item => `
+                            <div class="item">${item.name} × ${item.quantity}</div>
+                        `).join('')}
+                    </div>
+                    
+                    ${shippingForm}
+                </div>
+            `;
+        }
+        
+        // 到着予定日を計算（発送日の2日後）
+        function getEstimatedDeliveryDate() {
+            const date = new Date();
+            date.setDate(date.getDate() + 2);
+            return date.toISOString().split('T')[0];
+        }
+        
+        // フィルター変更
+        function filterOrders(status) {
+            currentFilter = status;
+            
+            // フィルターボタンのアクティブ状態を更新
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderOrders();
+        }
+        
+        // 発送手続き & 通知送信
+        async function shipOrder(orderId) {
+            const trackingInput = document.getElementById(`tracking_${orderId}`);
+            const shipdateInput = document.getElementById(`shipdate_${orderId}`);
+            const deliverydateInput = document.getElementById(`deliverydate_${orderId}`);
+            const notificationDiv = document.getElementById(`notification_${orderId}`);
+            const shipButton = event.target;
+            
+            const trackingNumber = trackingInput.value.trim();
+            const shippedDate = shipdateInput.value;
+            const estimatedDeliveryDate = deliverydateInput.value;
+            
+            // バリデーション
+            if (!trackingNumber) {
+                notificationDiv.innerHTML = '<div class="notification-status notification-error">お問い合わせ番号を入力してください</div>';
+                return;
+            }
+            
+            // ボタンを無効化
+            shipButton.disabled = true;
+            shipButton.textContent = '送信中...';
+            notificationDiv.innerHTML = '<div class="notification-status notification-info">📧 発送完了通知を送信しています...</div>';
+            
+            try {
+                // 注文データを取得
+                const order = orders.find(o => o.orderId === orderId);
+                
+                // 発送完了通知を送信
+                const result = await notificationManager.sendShippingNotification({
+                    orderId: order.orderId,
+                    customerEmail: order.customerEmail,
+                    customerName: order.customerName,
+                    trackingNumber: trackingNumber,
+                    carrier: 'ヤマト運輸クール便（冷蔵）',
+                    shippedDate: shippedDate,
+                    estimatedDeliveryDate: estimatedDeliveryDate,
+                    items: order.items
+                });
+                
+                if (result.status === 'sent') {
+                    // 注文ステータスを更新
+                    order.status = 'shipped';
+                    order.trackingNumber = trackingNumber;
+                    order.shippedDate = shippedDate;
+                    
+                    notificationDiv.innerHTML = `
+                        <div class="notification-status notification-success">
+                            ✓ 発送完了通知を送信しました<br>
+                            <small>送信先: ${order.customerEmail}</small><br>
+                            <small>通知ID: ${result.id}</small>
+                        </div>
+                    `;
+                    
+                    // 2秒後に画面を再描画
+                    setTimeout(() => {
+                        renderOrders();
+                    }, 2000);
+                    
+                } else {
+                    throw new Error(result.error || '通知送信に失敗しました');
+                }
+                
+            } catch (error) {
+                console.error('発送手続きエラー:', error);
+                notificationDiv.innerHTML = `
+                    <div class="notification-status notification-error">
+                        ✗ エラーが発生しました<br>
+                        ${error.message}
+                    </div>
+                `;
+                shipButton.disabled = false;
+                shipButton.textContent = '発送完了 & 通知送信';
+            }
+        }
+        
+        // 初期表示
+        renderOrders();
+    </script>
+</body>
+</html>

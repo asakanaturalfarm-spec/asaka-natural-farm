@@ -1,0 +1,1324 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="商品一覧 | 安積直売所 - 自然農法野菜と加工品のオンライン販売">
+    <title>商品一覧 | 安積直売所</title>
+    <link rel="stylesheet" href="store-style.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- 統合HUB -->
+    <script src="store-asaka-hub.js"></script>
+    <script src="store-inventory-sync.js"></script>
+    <script src="store-order-sync.js"></script>
+    <script src="store-auth.js"></script>
+    <style>
+        .products-page {
+            min-height: 100vh;
+            background: var(--bg-cream);
+        }
+
+        .products-hero {
+            position: relative;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .products-hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .products-hero-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .products-hero-background img.active {
+            opacity: 1;
+        }
+
+        .products-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.4) 0%,
+                rgba(61, 90, 61, 0.7) 100%
+            );
+            z-index: 2;
+        }
+
+        .products-hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            padding: 80px 40px;
+            max-width: 900px;
+        }
+
+        .products-hero h1 {
+            font-size: 52px;
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+            text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .products-hero p {
+            font-size: 19px;
+            line-height: 2;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .products-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        .products-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 24px;
+            background: white;
+            border: 2px solid var(--border-medium);
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .sort-section {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .sort-select {
+            padding: 10px 16px;
+            border: 2px solid var(--border-subtle);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sort-select:hover,
+        .sort-select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .products-count {
+            font-size: 15px;
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        .favorite-schedule {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .schedule-header h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        .schedule-notice {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #856404;
+        }
+
+        .close-schedule-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--border-subtle);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--text-medium);
+            transition: var(--transition);
+        }
+
+        .close-schedule-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .schedule-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .season-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .season-table th,
+        .season-table td {
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .season-table th {
+            background: var(--bg-cream);
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 13px;
+        }
+
+        .season-table th:first-child {
+            text-align: left;
+            padding-left: 16px;
+        }
+
+        .season-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-dark);
+            padding-left: 16px;
+        }
+
+        .season-cell {
+            width: 40px;
+        }
+
+        .season-cell.in-season {
+            background: #e8f5e9;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .season-cell.in-season::after {
+            content: '●';
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
+        .product-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .product-image {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            background: var(--bg-light-green);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 10;
+            backdrop-filter: blur(4px);
+        }
+
+        .favorite-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .favorite-btn.active {
+            color: #ffd700;
+        }
+
+        .product-info {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--bg-light-green);
+            color: var(--primary-color);
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: var(--text-medium);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+
+        .product-price-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .product-unit {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .product-actions {
+            padding: 0 24px 24px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .product-card.out-of-stock {
+            position: relative;
+        }
+
+        .product-card.out-of-stock::before {
+            content: '売り切れ';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(244, 67, 54, 0.95);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 28px;
+            z-index: 10;
+            box-shadow: 0 4px 20px rgba(244, 67, 54, 0.4);
+            letter-spacing: 2px;
+        }
+
+        .product-card.out-of-stock .product-image {
+            filter: grayscale(60%) brightness(0.8);
+        }
+
+        .product-card.out-of-stock .product-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .product-card.out-of-stock .product-info {
+            opacity: 0.6;
+        }
+
+        .product-card.out-of-stock .favorite-btn {
+            opacity: 1 !important;
+            filter: none !important;
+        }
+
+        .product-card.out-of-stock .add-to-cart-btn {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .product-card.out-of-stock .add-to-cart-btn:hover {
+            background: #ccc;
+            transform: none;
+        }
+
+        .no-products {
+            text-align: center;
+            padding: 80px 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .no-products-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+        }
+
+        .no-products h2 {
+            font-size: 28px;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        .no-products p {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 60px;
+        }
+
+        .page-btn {
+            padding: 10px 16px;
+            background: white;
+            border: 2px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 44px;
+        }
+
+        .page-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .page-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .products-hero {
+                min-height: 250px;
+            }
+
+            .products-hero-content {
+                padding: 60px 24px;
+            }
+
+            .products-hero h1 {
+                font-size: 36px;
+            }
+
+            .products-hero p {
+                font-size: 16px;
+            }
+
+            .products-container {
+                padding: 60px 20px;
+            }
+
+            .products-toolbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .filter-section,
+            .sort-section {
+                width: 100%;
+            }
+
+            .filter-buttons {
+                width: 100%;
+            }
+
+            .filter-btn {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ナビゲーションバー -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="store-index.html" class="logo">
+                <div class="logo-icon">匠</div>
+                <div class="logo-text">
+                    <h1>安積直売所</h1>
+                    <p>自然農法野菜</p>
+                </div>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="store-index.html" class="nav-link">ホーム</a>
+                <a href="store-products.html" class="nav-link">商品</a>
+                <a href="index.html#about" class="nav-link">農園紹介</a>
+                <a href="index.html#evidence" class="nav-link">研究・エビデンス</a>
+                <a href="index.html#shipping" class="nav-link">配送方法</a>
+                <a href="index.html#contact" class="nav-link">お問い合わせ</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="store-login.html" class="btn-secondary" style="display: inline-block; text-decoration: none;">ログイン</a>
+                <a href="store-cart.html" class="btn-primary" style="display: inline-block; text-decoration: none;">
+                    <span class="cart-icon">🛒</span> カート
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-controls="mobileMenu" aria-expanded="false" aria-label="メニューを開く">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="products-page">
+        <div class="products-hero">
+            <div class="products-hero-background">
+                <img src="image/fv.jpg" alt="安積直売所の野菜" class="hero-slide active">
+                <img src="image/fv2.jpg" alt="安積直売所の野菜" class="hero-slide">
+                <img src="image/fv3.jpg" alt="安積直売所の野菜" class="hero-slide">
+            </div>
+            <div class="products-hero-overlay"></div>
+            <div class="products-hero-content">
+                <h1>商品一覧</h1>
+                <p>自然農法で育てた新鮮な野菜と加工品をお届けします</p>
+                <p>※より新鮮な野菜をお届けするために、すべての野菜は水洗いをしていません。</p>
+            
+            </div>
+        </div>
+
+        <div class="products-container">
+            <!-- お気に入り商品の旬スケジュール -->
+            <div id="favoriteSchedule" class="favorite-schedule" style="display: none;">
+                <div class="schedule-header">
+                    <h3>お気に入り商品の旬カレンダー</h3>
+                    <button class="close-schedule-btn" onclick="closeFavoriteSchedule()">✕</button>
+                </div>
+                <div class="schedule-notice">
+                    ⚠️ 収穫量を十分に確保できない場合、即売り切れになる場合がございます。ご了承ください。リアルタイムで在庫が変動いたします。
+                </div>
+                <div class="schedule-table-wrapper">
+                    <table class="season-table" id="seasonTable">
+                        <thead>
+                            <tr>
+                                <th>商品名</th>
+                                <th>1月</th>
+                                <th>2月</th>
+                                <th>3月</th>
+                                <th>4月</th>
+                                <th>5月</th>
+                                <th>6月</th>
+                                <th>7月</th>
+                                <th>8月</th>
+                                <th>9月</th>
+                                <th>10月</th>
+                                <th>11月</th>
+                                <th>12月</th>
+                            </tr>
+                        </thead>
+                        <tbody id="seasonTableBody">
+                            <!-- JavaScriptで動的に生成 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="products-toolbar">
+                <div class="filter-section">
+                    <span class="filter-label">カテゴリ：</span>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">すべて</button>
+                        <button class="filter-btn" data-filter="青果">安積自然野菜 - Asaka Natural Vegetable</button>
+                        <button class="filter-btn" data-filter="加工">安積加工食品 - Asaka Natural Craft</button>
+                    </div>
+                </div>
+
+                <div class="sort-section">
+                    <span class="filter-label">並び替え：</span>
+                    <select class="sort-select" id="sortSelect">
+                        <option value="default">おすすめ順</option>
+                        <option value="price-asc">価格が安い順</option>
+                        <option value="price-desc">価格が高い順</option>
+                        <option value="name">名前順</option>
+                    </select>
+                </div>
+
+                <button class="btn-secondary" onclick="showFavoriteSchedule()" id="showScheduleBtn" style="display: none;">
+                    🌟 お気に入りの旬を見る
+                </button>
+            </div>
+
+            <div class="products-count" id="productsCount">全4件の商品</div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- 商品はJavaScriptで動的に生成 -->
+            </div>
+
+            <!-- <div class="pagination">
+                <button class="page-btn" disabled>‹ 前へ</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">次へ ›</button>
+            </div> -->
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>安積直売所</h4>
+                    <p>自然農法で育てた野菜と加工食品を直接お届け</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>メニュー</h5>
+                    <ul>
+                        <li><a href="store-products.html">商品一覧</a></li>
+                        <li><a href="index.html#about">農園紹介</a></li>
+                        <li><a href="index.html#shipping">配送方法</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>フォロー</h5>
+                    <div class="social-links">
+                        <a href="#" class="social-link" target="_blank" rel="noopener noreferrer">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                            Instagram
+                        </a>
+                        <a href="#" class="social-link" target="_blank" rel="noopener noreferrer">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21.75 6.4c-.08-.27-.22-.52-.43-.73-.21-.21-.46-.35-.73-.43C19.45 5 12 5 12 5s-7.45 0-8.59.24c-.27.08-.52.22-.73.43-.21.21-.35.46-.43.73C2 7.54 2 10 2 10s0 2.46.25 3.6c.08.27.22.52.43.73.21.21.46.35.73.43C4.55 15 12 15 12 15s7.45 0 8.59-.24c.27-.08.52-.22.73-.43.21-.21.35-.46.43-.73C22 12.46 22 10 22 10s0-2.46-.25-3.6zM10 12.5V7.5l5.5 2.5-5.5 2.5z"/>
+                            </svg>
+                            note
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 安積直売所. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="store-inventory-sync.js"></script>
+    <script>
+        // 商品データ
+        const PRODUCTS = [
+            {
+                id: 'v1',
+                name: 'ほうれん草',
+                price: 300,
+                unit: '袋',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample1.jpg',
+                description: '甘みが強く栄養満点。鉄分やビタミンが豊富です。',
+                seasonMonths: [10, 11, 12, 1, 2, 3],
+                stock: 10
+            },
+            {
+                id: 'v2',
+                name: '水菜',
+                price: 220,
+                unit: '袋',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample2.jpg',
+                description: 'シャキシャキ食感が楽しめる新鮮な水菜です。',
+                seasonMonths: [11, 12, 1, 2, 3],
+                stock: 5
+            },
+            {
+                id: 'v3',
+                name: 'たまねぎ',
+                price: 180,
+                unit: 'kg',
+                period: '保存',
+                category: '青果',
+                img: 'image/seika/sample3.jpg',
+                description: '完熟の甘さが際立つ、料理に欠かせない一品。',
+                seasonMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                stock: 0
+            },
+            {
+                id: 'v4',
+                name: 'ルッコラ',
+                price: 250,
+                unit: '袋',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample1.jpg',
+                description: 'ピリッとした風味が特徴のハーブ野菜',
+                seasonMonths: [3, 4, 5, 10, 11],
+                stock: 8
+            },
+            {
+                id: 'v5',
+                name: 'リーフレタス',
+                price: 280,
+                unit: '株',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/リーフレタス　イメージ.jpg',
+                description: '柔らかく甘みのある葉が魅力',
+                seasonMonths: [4, 5, 6, 10, 11],
+                stock: 12
+            },
+            {
+                id: 'v6',
+                name: 'ジャガイモ',
+                price: 320,
+                unit: 'kg',
+                period: '保存',
+                category: '青果',
+                img: 'image/seika/ジャガイモ　イメージ.jpg',
+                description: 'ホクホクとした食感が楽しめる',
+                seasonMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                stock: 15
+            },
+            {
+                id: 'v7',
+                name: '里芋',
+                price: 380,
+                unit: 'kg',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample1.jpg',
+                description: 'ねっとりとした独特の食感',
+                seasonMonths: [9, 10, 11, 12],
+                stock: 7
+            },
+            {
+                id: 'v8',
+                name: 'にんにく',
+                price: 450,
+                unit: '袋',
+                period: '保存',
+                category: '青果',
+                img: 'image/seika/sample2.jpg',
+                description: '風味豊かで料理の味を引き立てる',
+                seasonMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                stock: 3
+            },
+            {
+                id: 'v9',
+                name: '大根',
+                price: 200,
+                unit: '本',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample3.jpg',
+                description: 'みずみずしく甘みたっぷり',
+                seasonMonths: [11, 12, 1, 2, 3],
+                stock: 14
+            },
+            {
+                id: 'v10',
+                name: 'れんこん',
+                price: 420,
+                unit: 'kg',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample1.jpg',
+                description: 'シャキシャキ食感が楽しめる',
+                seasonMonths: [10, 11, 12, 1, 2],
+                stock: 0
+            },
+            {
+                id: 'v11',
+                name: 'ねぎ',
+                price: 260,
+                unit: '束',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample2.jpg',
+                description: '甘みと香りが際立つ新鮮なねぎ',
+                seasonMonths: [11, 12, 1, 2, 3],
+                stock: 9
+            },
+            {
+                id: 'v12',
+                name: 'ミニトマト',
+                price: 380,
+                unit: 'パック',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample3.jpg',
+                description: '甘くてジューシーなミニトマト',
+                seasonMonths: [6, 7, 8, 9],
+                stock: 6
+            },
+            {
+                id: 'v13',
+                name: '白菜',
+                price: 280,
+                unit: '株',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/ハクサイ　イメージ.jpg',
+                description: '鍋料理に最適な甘みのある白菜',
+                seasonMonths: [11, 12, 1, 2],
+                stock: 11
+            },
+            {
+                id: 'v14',
+                name: 'トウモロコシ',
+                price: 350,
+                unit: '本',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample2.jpg',
+                description: '粒がぎっしり詰まった甘いトウモロコシ',
+                seasonMonths: [7, 8, 9],
+                stock: 0
+            },
+            {
+                id: 'v15',
+                name: 'にんじん',
+                price: 240,
+                unit: 'kg',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample3.jpg',
+                description: '甘みが強くβカロテン豊富',
+                seasonMonths: [10, 11, 12, 1, 2, 3],
+                stock: 13
+            },
+            {
+                id: 'v16',
+                name: 'なす',
+                price: 290,
+                unit: '袋',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample1.jpg',
+                description: 'とろける食感が楽しめる',
+                seasonMonths: [6, 7, 8, 9],
+                stock: 4
+            },
+            {
+                id: 'v17',
+                name: 'ブロッコリー',
+                price: 320,
+                unit: '株',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample2.jpg',
+                description: '栄養価が高く食べ応えのあるブロッコリー',
+                seasonMonths: [11, 12, 1, 2, 3],
+                stock: 8
+            },
+            {
+                id: 'v18',
+                name: '小松菜',
+                price: 250,
+                unit: '袋',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample3.jpg',
+                description: 'カルシウム豊富な緑黄色野菜',
+                seasonMonths: [11, 12, 1, 2, 3],
+                stock: 15
+            },
+            {
+                id: 'v19',
+                name: 'かぼちゃ',
+                price: 300,
+                unit: 'kg',
+                period: '保存',
+                category: '青果',
+                img: 'image/seika/sample1.jpg',
+                description: 'ホクホクで甘みの強いかぼちゃ',
+                seasonMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                stock: 2
+            },
+            {
+                id: 'v20',
+                name: 'ピーマン',
+                price: 280,
+                unit: '袋',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample2.jpg',
+                description: '肉厚でビタミンC豊富',
+                seasonMonths: [6, 7, 8, 9],
+                stock: 0
+            },
+            {
+                id: 'v21',
+                name: 'ショウガ',
+                price: 400,
+                unit: '袋',
+                period: '保存',
+                category: '青果',
+                img: 'image/seika/sample3.jpg',
+                description: '風味豊かで体を温める効果',
+                seasonMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                stock: 10
+            },
+            {
+                id: 'v22',
+                name: 'かぶ',
+                price: 230,
+                unit: '束',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample1.jpg',
+                description: 'やわらかく甘みのあるかぶ',
+                seasonMonths: [10, 11, 12, 1, 2, 3],
+                stock: 7
+            },
+            {
+                id: 'v23',
+                name: 'さつまいも',
+                price: 310,
+                unit: 'kg',
+                period: '保存',
+                category: '青果',
+                img: 'image/seika/sample2.jpg',
+                description: 'しっとり甘い自然の甘み',
+                seasonMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                stock: 14
+            },
+            {
+                id: 'v24',
+                name: 'ベビーリーフミックス',
+                price: 350,
+                unit: 'パック',
+                period: '今期',
+                category: '青果',
+                img: 'image/seika/sample3.jpg',
+                description: '色とりどりの若葉野菜ミックス',
+                seasonMonths: [3, 4, 5, 6, 10, 11],
+                stock: 5
+            },
+            {
+                id: 'c1',
+                name: '手作りピクルス（無添加）',
+                price: 680,
+                unit: '瓶',
+                period: '通年',
+                category: '加工',
+                img: 'image/kakou/sample4.jpg',
+                description: '農園産野菜100%使用の完全無添加ピクルス。',
+                seasonMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                stock: 8
+            }
+        ];
+
+        let currentFilter = 'all';
+        let currentSort = 'default';
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            
+            // フィルタリング
+            let filtered = currentFilter === 'all' 
+                ? PRODUCTS 
+                : PRODUCTS.filter(p => p.category === currentFilter);
+
+            // ソート
+            if (currentSort === 'price-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (currentSort === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (currentSort === 'name') {
+                filtered.sort((a, b) => a.name.localeCompare(b.name, 'ja'));
+            }
+
+            // リアルタイム在庫を取得して並べ替え
+            filtered.sort((a, b) => {
+                const inventoryA = window.InventorySync ? window.InventorySync.get(a.id) : { stock: 0 };
+                const inventoryB = window.InventorySync ? window.InventorySync.get(b.id) : { stock: 0 };
+                const stockA = (inventoryA.stock || 0) > 0 ? 1 : 0;
+                const stockB = (inventoryB.stock || 0) > 0 ? 1 : 0;
+                return stockB - stockA;
+            });
+
+            // 件数表示
+            document.getElementById('productsCount').textContent = `全${filtered.length}件の商品`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-products" style="grid-column: 1 / -1;">
+                        <div class="no-products-icon">🌱</div>
+                        <h2>該当する商品がありません</h2>
+                        <p>別のカテゴリをお試しください</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(product => {
+                const isFavorite = favorites.includes(product.id);
+                // リアルタイム在庫を取得
+                const inventory = window.InventorySync ? window.InventorySync.get(product.id) : { stock: 0 };
+                const currentStock = inventory.stock || 0;
+                const isOutOfStock = currentStock === 0;
+                return `
+                <div class="product-card ${isOutOfStock ? 'out-of-stock' : ''}">
+                    <a href="store-product.html?id=${product.id}" class="product-link">
+                        <div class="product-image">
+                            <img src="${product.img}" alt="${product.name}" loading="lazy">
+                            <span class="product-badge">${product.period}</span>
+                            <button class="favorite-btn ${isFavorite ? 'active' : ''}" 
+                                    onclick="event.preventDefault(); toggleFavorite('${product.id}')">
+                                ${isFavorite ? '★' : '☆'}
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category-tag">${product.category}</span>
+                            <h3 class="product-name">${product.name}</h3>
+                            <p class="product-description">${product.description}</p>
+                            <div class="product-price-section">
+                                <div>
+                                    <div class="product-price">¥${product.price}</div>
+                                    <div class="product-unit">（${product.unit}あたり）</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart('${product.id}')" ${isOutOfStock ? 'disabled' : ''}>
+                            ${isOutOfStock ? '在庫切れ' : '🛒 カートに追加'}
+                        </button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // フィルターボタン
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                renderProducts();
+            });
+        });
+
+        // ソート
+        document.getElementById('sortSelect').addEventListener('change', function() {
+            currentSort = this.value;
+            renderProducts();
+        });
+
+        // カートに追加
+        function addToCart(productId) {
+            // ログインチェック
+            if (!window.Auth || !window.Auth.isLoggedIn()) {
+                if (confirm('カートを利用するにはログインが必要です。\nログインページへ移動しますか？')) {
+                    window.location.href = 'login.html?redirect=products.html';
+                }
+                return;
+            }
+
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+            
+            // リアルタイム在庫取得
+            const inventory = window.InventorySync ? window.InventorySync.get(productId) : { stock: 0 };
+            const currentStock = inventory.stock || 0;
+            
+            // 在庫チェック
+            if (currentStock === 0) {
+                alert(`申し訳ございません。${product.name}は現在在庫切れです。`);
+                return;
+            }
+            
+            // カートデータを取得
+            let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            
+            // 既存のカートアイテムを確認
+            const existingItem = cartItems.find(item => item.id === productId);
+            const currentCartQuantity = existingItem ? existingItem.quantity : 0;
+            const newQuantity = currentCartQuantity + 1;
+            
+            // 在庫数を超えないかチェック
+            if (newQuantity > currentStock) {
+                alert(`申し訳ございません。${product.name}の在庫が不足しています。\n現在の在庫：${currentStock}個\nカート内：${currentCartQuantity}個`);
+                return;
+            }
+            
+            // カートに追加
+            if (existingItem) {
+                existingItem.quantity = newQuantity;
+            } else {
+                cartItems.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    unit: product.unit,
+                    image: product.img,
+                    description: product.description,
+                    quantity: 1,
+                    stock: currentStock
+                });
+            }
+            
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            alert(`${product.name}をカートに追加しました！\n数量：${newQuantity}個`);
+        }
+
+        // ハンバーガーメニュー
+        document.getElementById('hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            // モバイルメニューの開閉処理（必要に応じて追加）
+        });
+
+        // お気に入り機能
+        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+
+        function toggleFavorite(productId) {
+            const index = favorites.indexOf(productId);
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(productId);
+            }
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            updateFavoriteButton();
+            renderProducts();
+        }
+
+        function updateFavoriteButton() {
+            const btn = document.getElementById('showScheduleBtn');
+            if (favorites.length > 0) {
+                btn.style.display = 'block';
+                btn.textContent = `🌟 お気に入りの旬を見る (${favorites.length}件)`;
+            } else {
+                btn.style.display = 'none';
+            }
+        }
+
+        // お気に入り商品の旬スケジュールを表示
+        function showFavoriteSchedule() {
+            const scheduleDiv = document.getElementById('favoriteSchedule');
+            const tableBody = document.getElementById('seasonTableBody');
+            
+            const favoriteProducts = PRODUCTS.filter(p => favorites.includes(p.id));
+            
+            if (favoriteProducts.length === 0) {
+                alert('お気に入り商品がありません');
+                return;
+            }
+
+            // テーブルを生成
+            tableBody.innerHTML = favoriteProducts.map(product => {
+                const seasons = product.seasonMonths || [];
+                return `
+                    <tr>
+                        <td>${product.name}</td>
+                        ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(month => 
+                            `<td class="season-cell${seasons.includes(month) ? ' in-season' : ''}"></td>`
+                        ).join('')}
+                    </tr>
+                `;
+            }).join('');
+
+            scheduleDiv.style.display = 'block';
+            scheduleDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeFavoriteSchedule() {
+            document.getElementById('favoriteSchedule').style.display = 'none';
+        }
+
+        // 初期レンダリング
+        updateFavoriteButton();
+        renderProducts();
+
+        // ヒーロー画像スライドショー
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        
+        function changeSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        // 5秒ごとに画像を切り替え
+        setInterval(changeSlide, 5000);
+    </script>
+</body>
+</html>

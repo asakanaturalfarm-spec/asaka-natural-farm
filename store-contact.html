@@ -1,0 +1,522 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="お問い合わせ | 安積直売所">
+    <title>お問い合わせ | 安積直売所</title>
+    <link rel="stylesheet" href="store-style.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="store-auth.js"></script>
+    <style>
+        .contact-page {
+            min-height: 100vh;
+            background: var(--bg-cream);
+            padding: 120px 40px 80px;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .contact-header h1 {
+            font-size: 40px;
+            color: var(--text-dark);
+            font-family: 'Noto Serif JP', serif;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .contact-header p {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-section {
+            margin-bottom: 32px;
+        }
+
+        .form-section h3 {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .required {
+            color: #dc3545;
+            margin-left: 4px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .form-note {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+
+        .contact-info {
+            background: var(--bg-light-green);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+        }
+
+        .contact-info h4 {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+
+        .contact-info-icon {
+            width: 20px;
+            text-align: center;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-submit:disabled {
+            background: var(--border-medium);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .inquiry-history {
+            margin-top: 48px;
+            padding-top: 48px;
+            border-top: 2px solid var(--border-subtle);
+        }
+
+        .inquiry-history h2 {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .inquiry-card {
+            background: white;
+            border: 1.5px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .inquiry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .inquiry-category {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--bg-light-green);
+            color: var(--primary-color);
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .inquiry-date {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .inquiry-subject {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .inquiry-message {
+            font-size: 14px;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        .inquiry-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-responded {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .empty-history {
+            text-align: center;
+            padding: 48px;
+            color: var(--text-light);
+        }
+
+        .empty-history-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-page {
+                padding: 80px 20px 40px;
+            }
+
+            .contact-form {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ナビゲーションバー -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="store-index.html" class="logo">
+                <div class="logo-text">
+                    <h1>安積直売所</h1>
+                    <p>自然農法野菜</p>
+                </div>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="store-index.html" class="nav-link">ホーム</a>
+                <a href="store-products.html" class="nav-link">商品</a>
+                <a href="store-contact.html" class="nav-link active">お問い合わせ</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="store-account.html" class="btn-secondary">マイページ</a>
+                <a href="store-cart.html" class="btn-primary">
+                    <span class="cart-icon">🛒</span> カート
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="contact-page">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h1>お問い合わせ</h1>
+                <p>商品・配送に関するご質問はこちらからお問い合わせください</p>
+            </div>
+
+            <div class="contact-form">
+                <div class="contact-info">
+                    <h4>📞 直接お問い合わせ</h4>
+                    <div class="contact-info-item">
+                        <span class="contact-info-icon">📧</span>
+                        <span>メール：info@asaka-farm.jp</span>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="contact-info-icon">📱</span>
+                        <span>電話：024-XXX-XXXX（平日 9:00-17:00）</span>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="contact-info-icon">⏰</span>
+                        <span>対応時間：平日・土日 9:00-17:00</span>
+                    </div>
+                </div>
+
+                <form id="contactForm">
+                    <div class="form-section">
+                        <h3>お客様情報</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                お名前<span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" id="name" name="name" required readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                メールアドレス<span class="required">*</span>
+                            </label>
+                            <input type="email" class="form-input" id="email" name="email" required readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                電話番号<span class="required">*</span>
+                            </label>
+                            <input type="tel" class="form-input" id="phone" name="phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>お問い合わせ内容</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                お問い合わせ種別<span class="required">*</span>
+                            </label>
+                            <select class="form-select" id="category" name="category" required>
+                                <option value="">選択してください</option>
+                                <option value="product">商品について</option>
+                                <option value="order">注文について</option>
+                                <option value="delivery">配送について</option>
+                                <option value="payment">支払いについて</option>
+                                <option value="return">返品・交換について</option>
+                                <option value="other">その他</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                件名<span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" id="subject" name="subject" required placeholder="例：配送日時の変更について">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                お問い合わせ内容<span class="required">*</span>
+                            </label>
+                            <textarea class="form-textarea" id="message" name="message" required placeholder="できるだけ詳しくご記入ください"></textarea>
+                            <p class="form-note">※注文番号がある場合は必ずご記入ください</p>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submitBtn">送信する</button>
+                </form>
+            </div>
+
+            <!-- 問い合わせ履歴 -->
+            <div class="inquiry-history">
+                <h2>問い合わせ履歴</h2>
+                <div id="inquiryHistory"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // 問い合わせ管理システム（最小限）
+        // ========================================
+        const INQUIRY_KEY = 'customer_inquiries';
+
+        // ログインチェックとユーザー情報自動入力
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!window.Auth || !window.Auth.isLoggedIn()) {
+                alert('お問い合わせにはログインが必要です。');
+                window.location.href = 'login.html?redirect=contact.html';
+                return;
+            }
+
+            const currentUser = window.Auth.getCurrentUser();
+            
+            // ユーザー情報を自動入力
+            document.getElementById('name').value = currentUser.name || '';
+            document.getElementById('email').value = currentUser.email || '';
+            document.getElementById('phone').value = currentUser.phone || '';
+
+            // 問い合わせ履歴を表示
+            loadInquiryHistory();
+        });
+
+        // 問い合わせフォーム送信
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '送信中...';
+
+            const currentUser = window.Auth.getCurrentUser();
+            const formData = new FormData(this);
+
+            const inquiry = {
+                id: 'INQ_' + Date.now(),
+                userId: currentUser.id,
+                userName: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                category: formData.get('category'),
+                subject: formData.get('subject'),
+                message: formData.get('message'),
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+
+            // LocalStorageに保存
+            const inquiries = JSON.parse(localStorage.getItem(INQUIRY_KEY) || '[]');
+            inquiries.unshift(inquiry);
+            localStorage.setItem(INQUIRY_KEY, JSON.stringify(inquiries));
+
+            // 実際の実装では、サーバーにPOST
+            // await fetch('/api/inquiries', { method: 'POST', body: JSON.stringify(inquiry) });
+
+            console.log('[問い合わせ] 送信完了:', inquiry);
+
+            alert('お問い合わせを受け付けました。\n2営業日以内にご連絡いたします。');
+
+            // フォームをリセット
+            document.getElementById('subject').value = '';
+            document.getElementById('message').value = '';
+            document.getElementById('category').value = '';
+
+            // 履歴を再読み込み
+            loadInquiryHistory();
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = '送信する';
+        });
+
+        // 問い合わせ履歴を読み込み
+        function loadInquiryHistory() {
+            const currentUser = window.Auth.getCurrentUser();
+            const allInquiries = JSON.parse(localStorage.getItem(INQUIRY_KEY) || '[]');
+            
+            // 自分の問い合わせのみフィルタ
+            const myInquiries = allInquiries.filter(inq => inq.userId === currentUser.id);
+
+            const historyDiv = document.getElementById('inquiryHistory');
+
+            if (myInquiries.length === 0) {
+                historyDiv.innerHTML = `
+                    <div class="empty-history">
+                        <div class="empty-history-icon">📭</div>
+                        <p>問い合わせ履歴はありません</p>
+                    </div>
+                `;
+                return;
+            }
+
+            historyDiv.innerHTML = myInquiries.map(inquiry => {
+                const date = new Date(inquiry.createdAt);
+                const categoryLabels = {
+                    'product': '商品について',
+                    'order': '注文について',
+                    'delivery': '配送について',
+                    'payment': '支払いについて',
+                    'return': '返品・交換',
+                    'other': 'その他'
+                };
+
+                return `
+                    <div class="inquiry-card">
+                        <div class="inquiry-header">
+                            <span class="inquiry-category">${categoryLabels[inquiry.category] || inquiry.category}</span>
+                            <span class="inquiry-date">${date.toLocaleDateString('ja-JP')}</span>
+                        </div>
+                        <div class="inquiry-subject">${inquiry.subject}</div>
+                        <div class="inquiry-message">${inquiry.message}</div>
+                        <span class="inquiry-status ${inquiry.status === 'responded' ? 'status-responded' : 'status-pending'}">
+                            ${inquiry.status === 'responded' ? '✓ 回答済み' : '⏳ 対応中'}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 管理者用：問い合わせ一覧取得（開発・デバッグ用）
+        window.getAllInquiries = function() {
+            return JSON.parse(localStorage.getItem(INQUIRY_KEY) || '[]');
+        };
+
+        // 管理者用：問い合わせステータス更新
+        window.updateInquiryStatus = function(inquiryId, status) {
+            const inquiries = JSON.parse(localStorage.getItem(INQUIRY_KEY) || '[]');
+            const inquiry = inquiries.find(inq => inq.id === inquiryId);
+            
+            if (inquiry) {
+                inquiry.status = status;
+                inquiry.updatedAt = new Date().toISOString();
+                localStorage.setItem(INQUIRY_KEY, JSON.stringify(inquiries));
+                console.log('[問い合わせ] ステータス更新:', inquiryId, status);
+                return true;
+            }
+            
+            return false;
+        };
+    </script>
+</body>
+</html>
