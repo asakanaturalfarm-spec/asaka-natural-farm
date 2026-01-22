@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -11,13 +11,13 @@
     <meta property="og:description" content="肥料・農薬不使用の自然農法野菜を産地直送でお届けします。">
     <meta property="og:image" content="image/fv.jpg">
     <title>安積直売所 | 自然農法野菜・オンライン販売</title>
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="store-style.css?v=3">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
     <!-- 統合HUB - すべての共通機能を含む -->
-    <script src="asaka-hub.js"></script>
-    <script src="inventory-sync.js"></script>
-    <script src="order-sync.js"></script>
-    <script src="auth.js"></script>
+    <script src="store-asaka-hub.js"></script>
+    <script src="store-inventory-sync.js"></script>
+    <script src="store-order-sync.js"></script>
+    <script src="store-auth.js"></script>
 </head>
 <body>
     <!-- ナビゲーションバー -->
@@ -31,8 +31,8 @@
             </a>
             
             <nav class="nav-menu">
-                <a href="index.html" class="nav-link">ホーム</a>
-                <a href="products.html" class="nav-link">商品</a>
+                <a href="store-index.html" class="nav-link">ホーム</a>
+                <a href="store-products.html" class="nav-link">商品</a>
                 <a href="#about" class="nav-link">農園紹介</a>
                 <a href="#evidence" class="nav-link">研究・エビデンス</a>
                 <a href="#shipping" class="nav-link">配送方法</a>
@@ -40,8 +40,8 @@
             </nav>
 
             <div class="nav-actions">
-                <a href="login.html" class="btn-secondary" style="display: inline-block; text-decoration: none;">ログイン</a>
-                <a href="cart.html" class="btn-primary" style="display: inline-block; text-decoration: none;">
+                <a href="store-login.html" class="btn-secondary" style="display: inline-block; text-decoration: none;">ログイン</a>
+                <a href="store-cart.html" class="btn-primary" style="display: inline-block; text-decoration: none;">
                     <span class="cart-icon">🛒</span> カート
                 </a>
             </div>
@@ -78,7 +78,7 @@
             <p>福島県郡山市で安積疎水を利用して栽培しています。<br>無肥料無農薬栽培で安心して食べられる野菜を作っています。</p>
             <p style="margin-top: 1rem;">安積自然農園直送の無肥料・無農薬野菜をオンラインでお届けします。自家採種と新鮮配送で、野菜本来の力を感じてください。</p>
             <div class="hero-buttons">
-                <a href="products.html" class="btn-primary" style="display: inline-block; text-decoration: none;">商品を見る</a>
+                <a href="store-products.html" class="btn-primary" style="display: inline-block; text-decoration: none;">商品を見る</a>
                 <button type="button" id="scrollFeaturesBtn" class="btn-outline">詳しく知る</button>
             </div>
         </div>
@@ -299,9 +299,9 @@
             <div class="footer-bottom">
                 <p>&copy; 2025 安積直売所. All rights reserved.</p>
                 <div class="footer-legal-links">
-                    <a href="tokushoho.html">特定商取引法表記</a>
-                    <a href="privacy.html">プライバシーポリシー</a>
-                    <a href="returns.html">返品・キャンセル</a>
+                    <a href="store-tokushoho.html">特定商取引法表記</a>
+                    <a href="store-privacy.html">プライバシーポリシー</a>
+                    <a href="store-returns.html">返品・キャンセル</a>
                 </div>
             </div>
         </div>
@@ -347,6 +347,6 @@
     </div>
 
     <!-- アプリ固有スクリプト -->
-    <script src="script.js" defer></script>
+    <script src="store-script.js" defer></script>
 </body>
 </html>

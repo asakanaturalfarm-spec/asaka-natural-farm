@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="マイページ | 安積直売所">
     <title>マイページ | 安積直売所</title>
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="store-style.css?v=3">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         .account-page {
@@ -323,7 +323,7 @@
     <!-- ナビゲーションバー -->
     <header class="navbar">
         <div class="navbar-container">
-            <a href="index.html" class="logo">
+            <a href="store-index.html" class="logo">
                 <div class="logo-icon">匠</div>
                 <div class="logo-text">
                     <h1>安積直売所</h1>
@@ -332,14 +332,14 @@
             </a>
             
             <nav class="nav-menu">
-                <a href="index.html" class="nav-link">ホーム</a>
-                <a href="products.html" class="nav-link">商品</a>
+                <a href="store-index.html" class="nav-link">ホーム</a>
+                <a href="store-products.html" class="nav-link">商品</a>
                 <a href="index.html#about" class="nav-link">農園紹介</a>
                 <a href="index.html#shipping" class="nav-link">配送方法</a>
             </nav>
 
             <div class="nav-actions">
-                <a href="cart.html" class="btn-primary" style="display: inline-block; text-decoration: none;">
+                <a href="store-cart.html" class="btn-primary" style="display: inline-block; text-decoration: none;">
                     <span class="cart-icon">🛒</span> カート
                 </a>
             </div>
@@ -360,7 +360,7 @@
                             <span class="account-nav-icon">👤</span>
                             プロフィール
                         </a>
-                        <a href="orders.html" class="account-nav-item">
+                        <a href="store-orders.html" class="account-nav-item">
                             <span class="account-nav-icon">📦</span>
                             注文履歴
                         </a>
@@ -542,8 +542,8 @@
         </div>
     </div>
 
-    <script src="auth.js"></script>
-    <script src="script.js"></script>
+    <script src="store-auth.js"></script>
+    <script src="store-script.js"></script>
     <script>
         // ログインチェック
         window.addEventListener('DOMContentLoaded', () => {
@@ -666,7 +666,7 @@
                         <div class="empty-state-icon">⭐</div>
                         <h3>お気に入りはまだありません</h3>
                         <p>気になる商品をお気に入りに追加しましょう</p>
-                        <a href="products.html" class="btn-primary">商品を見る</a>
+                        <a href="store-products.html" class="btn-primary">商品を見る</a>
                     </div>
                 `;
                 return;
@@ -676,7 +676,7 @@
             const favoriteProducts = PRODUCTS.filter(p => favorites.includes(p.id));
             
             favoritesGrid.innerHTML = favoriteProducts.map(product => `
-                <a href="product.html?id=${product.id}" class="favorite-card">
+                <a href="store-product.html?id=${product.id}" class="favorite-card">
                     <img src="${product.img}" alt="${product.name}" class="favorite-card-image">
                     <div class="favorite-card-info">
                         <div class="favorite-card-name">${product.name}</div>

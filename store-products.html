@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="商品一覧 | 安積直売所 - 自然農法野菜と加工品のオンライン販売">
     <title>商品一覧 | 安積直売所</title>
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="store-style.css?v=3">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
     <!-- 統合HUB -->
-    <script src="asaka-hub.js"></script>
-    <script src="inventory-sync.js"></script>
-    <script src="order-sync.js"></script>
-    <script src="auth.js"></script>
+    <script src="store-asaka-hub.js"></script>
+    <script src="store-inventory-sync.js"></script>
+    <script src="store-order-sync.js"></script>
+    <script src="store-auth.js"></script>
     <style>
         .products-page {
             min-height: 100vh;
@@ -610,7 +610,7 @@
     <!-- ナビゲーションバー -->
     <header class="navbar">
         <div class="navbar-container">
-            <a href="index.html" class="logo">
+            <a href="store-index.html" class="logo">
                 <div class="logo-icon">匠</div>
                 <div class="logo-text">
                     <h1>安積直売所</h1>
@@ -619,8 +619,8 @@
             </a>
             
             <nav class="nav-menu">
-                <a href="index.html" class="nav-link">ホーム</a>
-                <a href="products.html" class="nav-link">商品</a>
+                <a href="store-index.html" class="nav-link">ホーム</a>
+                <a href="store-products.html" class="nav-link">商品</a>
                 <a href="index.html#about" class="nav-link">農園紹介</a>
                 <a href="index.html#evidence" class="nav-link">研究・エビデンス</a>
                 <a href="index.html#shipping" class="nav-link">配送方法</a>
@@ -628,8 +628,8 @@
             </nav>
 
             <div class="nav-actions">
-                <a href="login.html" class="btn-secondary" style="display: inline-block; text-decoration: none;">ログイン</a>
-                <a href="cart.html" class="btn-primary" style="display: inline-block; text-decoration: none;">
+                <a href="store-login.html" class="btn-secondary" style="display: inline-block; text-decoration: none;">ログイン</a>
+                <a href="store-cart.html" class="btn-primary" style="display: inline-block; text-decoration: none;">
                     <span class="cart-icon">🛒</span> カート
                 </a>
             </div>
@@ -747,7 +747,7 @@
                 <div class="footer-section">
                     <h5>メニュー</h5>
                     <ul>
-                        <li><a href="products.html">商品一覧</a></li>
+                        <li><a href="store-products.html">商品一覧</a></li>
                         <li><a href="index.html#about">農園紹介</a></li>
                         <li><a href="index.html#shipping">配送方法</a></li>
                     </ul>
@@ -778,7 +778,7 @@
         </div>
     </footer>
 
-    <script src="inventory-sync.js"></script>
+    <script src="store-inventory-sync.js"></script>
     <script>
         // 商品データ
         const PRODUCTS = [
@@ -1135,7 +1135,7 @@
                 const isOutOfStock = currentStock === 0;
                 return `
                 <div class="product-card ${isOutOfStock ? 'out-of-stock' : ''}">
-                    <a href="product.html?id=${product.id}" class="product-link">
+                    <a href="store-product.html?id=${product.id}" class="product-link">
                         <div class="product-image">
                             <img src="${product.img}" alt="${product.name}" loading="lazy">
                             <span class="product-badge">${product.period}</span>
