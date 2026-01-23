@@ -13,7 +13,7 @@
   function updateNavbarScroll() {
     const scrollY = window.scrollY;
     
-    if (scrollY > 10) {
+    if (scrollY > 5) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
