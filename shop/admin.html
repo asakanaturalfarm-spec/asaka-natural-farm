@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理画面 | 安積直売所</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #2c5f2d 0%, #3a7f3b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .menu-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+        }
+        
+        .menu-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .menu-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #2c5f2d;
+        }
+        
+        .menu-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            background: #d32f2f;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .logout {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .logout a {
+            color: white;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+        
+        .stats-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c5f2d;
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛠️ 管理画面</h1>
+            <p>安積直売所オンラインストア</p>
+        </div>
+        
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value">24</div>
+                <div class="stat-label">本日の注文</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">¥48,300</div>
+                <div class="stat-label">本日の売上</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">3</div>
+                <div class="stat-label">入金待ち</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">5</div>
+                <div class="stat-label">発送待ち</div>
+            </div>
+        </div>
+        
+        <div class="menu-grid">
+            <a href="admin-orders.html" class="menu-card">
+                <div class="menu-icon">📋</div>
+                <div class="menu-title">注文管理</div>
+                <div class="menu-description">
+                    注文一覧・ステータス変更・CSVエクスポート
+                </div>
+                <div class="priority-badge">フロントより重要</div>
+            </a>
+            
+            <a href="admin-shipping.html" class="menu-card">
+                <div class="menu-icon">📦</div>
+                <div class="menu-title">発送管理</div>
+                <div class="menu-description">
+                    発送手続き・追跡番号登録
+                </div>
+            </a>
+
+            <a href="admin-notification.html" class="menu-card">
+                <div class="menu-icon">📧</div>
+                <div class="menu-title">発送通知管理</div>
+                <div class="menu-description">
+                    発送完了通知を手動送信・受注管理アプリと連携
+                </div>
+                <div class="priority-badge">新機能</div>
+            </a>
+            
+            <a href="admin-inventory.html" class="menu-card">
+                <div class="menu-icon">📊</div>
+                <div class="menu-title">在庫管理</div>
+                <div class="menu-description">
+                    在庫数確認・入出庫履歴・在庫調整
+                </div>
+            </a>
+            
+            <a href="admin-products.html" class="menu-card">
+                <div class="menu-icon">🥬</div>
+                <div class="menu-title">商品管理</div>
+                <div class="menu-description">
+                    商品登録・価格変更・商品情報編集
+                </div>
+            </a>
+            
+            <a href="admin-customers.html" class="menu-card">
+                <div class="menu-icon">👥</div>
+                <div class="menu-title">顧客管理</div>
+                <div class="menu-description">
+                    顧客一覧・注文履歴・問い合わせ履歴
+                </div>
+            </a>
+            
+            <a href="admin-reports.html" class="menu-card">
+                <div class="menu-icon">📈</div>
+                <div class="menu-title">レポート</div>
+                <div class="menu-description">
+                    売上分析・商品別売上・期間別レポート
+                </div>
+            </a>
+        </div>
+        
+        <div class="logout">
+            <a href="index.html">← ストアトップに戻る</a>
+        </div>
+    </div>
+    
+    <script>
+        // 実際はサーバーから取得
+        console.log('[管理画面] 初期化完了');
+        
+        // 認証チェック（実際はサーバーサイドで実装）
+        function checkAdminAuth() {
+            // const isAdmin = sessionStorage.getItem('admin_auth');
+            // if (!isAdmin) {
+            //     window.location.href = 'admin-login.html';
+            // }
+        }
+        
+        // ページ読み込み時に認証チェック
+        // checkAdminAuth();
+    </script>
+</body>
+</html>
