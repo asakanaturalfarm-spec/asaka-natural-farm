@@ -1314,15 +1314,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ========================================
-// ƒJƒ‹[ƒZƒ‹ƒVƒXƒeƒ€
+// ï¿½Jï¿½ï¿½ï¿½[ï¿½Zï¿½ï¿½ï¿½Vï¿½Xï¿½eï¿½ï¿½
 // ========================================
 
 const carousels = {};
 
 function initCarousels() {
-    // Â‰ÊƒJƒ‹[ƒZƒ‹
+    // ï¿½Â‰ÊƒJï¿½ï¿½ï¿½[ï¿½Zï¿½ï¿½
     initCarousel('seika');
-    // ‰ÁH•iƒJƒ‹[ƒZƒ‹
+    // ï¿½ï¿½ï¿½Hï¿½iï¿½Jï¿½ï¿½ï¿½[ï¿½Zï¿½ï¿½
     initCarousel('kakou');
 }
 
@@ -1337,27 +1337,27 @@ function initCarousel(type) {
     const cards = carousel.querySelectorAll('.product-card');
     if (cards.length === 0) return;
     
-    // ƒJƒ‹[ƒZƒ‹ó‘Ô‚ğ•Û‘¶
+    // ï¿½Jï¿½ï¿½ï¿½[ï¿½Zï¿½ï¿½ï¿½ï¿½Ô‚ï¿½Û‘ï¿½
     carousels[type] = {
         carousel: carousel,
         cards: cards,
         currentIndex: 0,
-        cardWidth: cards[0].offsetWidth + 24, // ƒJ[ƒh• + gap
+        cardWidth: cards[0].offsetWidth + 24, // ï¿½Jï¿½[ï¿½hï¿½ï¿½ + gap
         visibleCards: getVisibleCards(),
         totalPages: Math.ceil(cards.length / getVisibleCards())
     };
     
-    // ƒhƒbƒg¶¬
+    // ï¿½hï¿½bï¿½gï¿½ï¿½ï¿½ï¿½
     createDots(type, dotsContainer);
     
-    // ƒ{ƒ^ƒ“ƒCƒxƒ“ƒg
+    // ï¿½{ï¿½^ï¿½ï¿½ï¿½Cï¿½xï¿½ï¿½ï¿½g
     prevBtn.addEventListener('click', () => moveCarousel(type, -1));
     nextBtn.addEventListener('click', () => moveCarousel(type, 1));
     
-    // ‰ŠúˆÊ’uİ’è
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½İ’ï¿½
     updateCarousel(type);
     
-    // ƒŠƒTƒCƒY‘Î‰
+    // ï¿½ï¿½ï¿½Tï¿½Cï¿½Yï¿½Î‰ï¿½
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
@@ -1387,7 +1387,7 @@ function createDots(type, container) {
     for (let i = 0; i < totalPages; i++) {
         const dot = document.createElement('button');
         dot.className = 'carousel-dot';
-        dot.setAttribute('aria-label', ƒy[ƒW );
+        dot.setAttribute('aria-label', ï¿½yï¿½[ï¿½W );
         if (i === 0) dot.classList.add('active');
         dot.addEventListener('click', () => goToPage(type, i));
         container.appendChild(dot);
@@ -1401,7 +1401,7 @@ function updateDots(type) {
     const { currentIndex, visibleCards, totalPages } = carousels[type];
     const currentPage = Math.floor(currentIndex / visibleCards);
     
-    // ƒhƒbƒg”‚ª•Ï‚í‚Á‚½ê‡‚ÍÄ¶¬
+    // ï¿½hï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Ï‚ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ÍÄï¿½ï¿½ï¿½
     const existingDots = dotsContainer.querySelectorAll('.carousel-dot');
     if (existingDots.length !== totalPages) {
         createDots(type, dotsContainer);
