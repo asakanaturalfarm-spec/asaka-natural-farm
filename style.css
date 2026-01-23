@@ -478,8 +478,10 @@ body {
     overflow: hidden;
     background-color: #f9f9f7;
     padding: 2rem 0;
-    margin-top: 2rem;
-    border-radius: 8px;
+    margin: 2rem auto 0;
+    border-radius: 0;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
 }
 
 .carousel-track {
