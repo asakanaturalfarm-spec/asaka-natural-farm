@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEOメタタグ -->
+    <meta name="description" content="ほうれん草 - 甘みが強く栄養満点 | 安積自然農園の無農薬・無肥料・自家採種の自然農法野菜">
+    <meta name="keywords" content="ほうれん草,自然農法,無農薬野菜,無肥料野菜,産地直送,福島県産,安積自然農園">
+    <title>ほうれん草（袋）¥324（税込） | 安積直売所</title>
+    <link rel="canonical" href="https://asakanatural.jp/shop/products/v1.html">
+    <meta name="robots" content="index, follow">
+    
+    <!-- OGP -->
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="https://asakanatural.jp/shop/products/v1.html">
+    <meta property="og:title" content="ほうれん草 | 安積直売所">
+    <meta property="og:description" content="甘みが強く栄養満点">
+    <meta property="og:image" content="https://asakanatural.jp/shop/image/seika/sample1.jpg">
+    <meta property="og:site_name" content="安積直売所">
+    <meta property="product:price:amount" content="324">
+    <meta property="product:price:currency" content="JPY">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ほうれん草 | 安積直売所">
+    <meta name="twitter:description" content="甘みが強く栄養満点">
+    <meta name="twitter:image" content="https://asakanatural.jp/shop/image/seika/sample1.jpg">
+    
+    <!-- 構造化データ（JSON-LD） -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "ほうれん草",
+        "image": "https://asakanatural.jp/shop/image/seika/sample1.jpg",
+        "description": "甘みが強く栄養満点",
+        "sku": "ASAKA-V001",
+        "brand": {
+            "@type": "Brand",
+            "name": "安積自然農園"
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": "https://asakanatural.jp/shop/products/v1.html",
+            "priceCurrency": "JPY",
+            "price": "324",
+            "priceValidUntil": "2026-12-31",
+            "availability": "https://schema.org/InStock",
+            "seller": {
+                "@type": "Organization",
+                "name": "安積自然農園"
+            }
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "15"
+        }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../style.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .product-page {
+            min-height: 100vh;
+            background: var(--bg-cream);
+            padding: 120px 40px 60px;
+        }
+        .product-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .breadcrumb {
+            margin-bottom: 40px;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        .breadcrumb a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            background: white;
+            border-radius: 16px;
+            padding: 60px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .main-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f5f5f3;
+        }
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .product-title {
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+        }
+        .product-description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+        .product-price {
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        .product-unit {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+        .product-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px;
+            background: var(--bg-cream);
+            border-radius: 8px;
+            margin-bottom: 32px;
+        }
+        .meta-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+        .meta-label {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        .meta-value {
+            color: var(--text-light);
+        }
+        .btn-add-cart {
+            width: 100%;
+            padding: 16px 32px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-add-cart:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(74, 93, 63, 0.3);
+        }
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+                padding: 30px;
+                gap: 30px;
+            }
+            .product-title {
+                font-size: 24px;
+            }
+            .product-price {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html" style="text-decoration: none; color: inherit;">安積直売所</a>
+            </div>
+            <nav class="desktop-nav">
+                <a href="../index.html" class="nav-link">ホーム</a>
+                <a href="../products.html" class="nav-link">商品一覧</a>
+                <a href="../cart.html" class="nav-link">カート</a>
+                <a href="../account.html" class="nav-link">マイページ</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="product-page">
+        <div class="product-container">
+            <!-- パンくずリスト -->
+            <nav class="breadcrumb">
+                <a href="../index.html">ホーム</a> &gt; 
+                <a href="../products.html">商品一覧</a> &gt; 
+                <span>ほうれん草</span>
+            </nav>
+
+            <!-- 商品詳細 -->
+            <div class="product-detail">
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="../image/seika/sample1.jpg" alt="ほうれん草">
+                    </div>
+                </div>
+
+                <div class="product-info">
+                    <h1 class="product-title">ほうれん草</h1>
+                    <p class="product-description">甘みが強く栄養満点</p>
+                    
+                    <div class="product-price">¥324<span style="font-size: 16px; font-weight: 400; color: var(--text-light);"> （税込）</span></div>
+                    <div class="product-unit">袋あたり</div>
+
+                    <div class="product-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">カテゴリー</span>
+                            <span class="meta-value">青果</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">販売期間</span>
+                            <span class="meta-value">今期</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">旬の時期</span>
+                            <span class="meta-value">10月、11月、12月、1月、2月、3月</span>
+                        </div>
+                        
+                        <div class="meta-item">
+                            <span class="meta-label">商品コード</span>
+                            <span class="meta-value">ASAKA-V001</span>
+                        </div>
+                        
+                    </div>
+
+                    <button class="btn-add-cart" onclick="addToCart('v1')">
+                        カートに追加
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../cart-helper.js"></script>
+    <script>
+        function addToCart(productId) {
+            // カート追加処理（既存のロジックを流用）
+            const product = {"id":"v1","sku":"ASAKA-V001","name":"ほうれん草","price":300,"taxRate":0.08,"taxType":"軽減","priceWithTax":324,"unit":"袋","period":"今期","category":"青果","img":"image/seika/sample1.jpg","description":"甘みが強く栄養満点","seasonMonths":[10,11,12,1,2,3],"stock":50,"stockStatus":"available","saleType":"normal","preOrderLeadTime":null,"minOrder":1,"maxOrder":10,"autoHideWhenOutOfStock":true};
+            const cart = JSON.parse(localStorage.getItem('asaka_cart') || '[]');
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    priceWithTax: 324,
+                    unit: product.unit,
+                    img: product.img,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('asaka_cart', JSON.stringify(cart));
+            alert('カートに追加しました');
+        }
+    </script>
+</body>
+</html>
