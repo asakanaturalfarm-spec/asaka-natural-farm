@@ -608,27 +608,139 @@
             loadUserProfile();
         });
 
+        // 郵便番号から住所を検証する関数
+        async function verifyAddressWithPostalCode() {
+            const postalCode = document.getElementById('postalCode').value.trim().replace('-', '');
+            const prefecture = document.getElementById('prefecture').value;
+            const city = document.getElementById('city').value.trim();
+            
+            if (!postalCode || postalCode.length !== 7) {
+                return { valid: false, message: '郵便番号が正しくありません' };
+            }
+
+            if (!prefecture) {
+                return { valid: false, message: '都道府県を選択してください' };
+            }
+
+            if (!city) {
+                return { valid: false, message: '市区町村を入力してください' };
+            }
+
+            try {
+                // 郵便番号検索APIを使用（無料のzipcloudを使用）
+                const response = await fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${postalCode}`);
+                const data = await response.json();
+
+                if (data.status === 200 && data.results && data.results.length > 0) {
+                    const result = data.results[0];
+                    const apiPrefecture = result.address1; // 都道府県
+                    const apiCity = result.address2; // 市区町村
+                    
+                    // 都道府県が一致するかチェック
+                    if (prefecture !== apiPrefecture) {
+                        return {
+                            valid: false,
+                            message: `❌ 郵便番号「${postalCode}」は「${apiPrefecture}」の郵便番号です。\n\n選択された都道府県「${prefecture}」と一致しません。\n\n💡 正しい組み合わせ:\n郵便番号: ${postalCode}\n都道府県: ${apiPrefecture}\n市区町村: ${apiCity}`,
+                            suggestedPrefecture: apiPrefecture,
+                            suggestedCity: apiCity
+                        };
+                    }
+
+                    // 市区町村が含まれているかチェック（完全一致でなくても部分一致でOK）
+                    if (!city.includes(apiCity) && !apiCity.includes(city)) {
+                        return {
+                            valid: false,
+                            message: `❌ 郵便番号「${postalCode}」は「${apiPrefecture}${apiCity}」の郵便番号です。\n\n入力された市区町村「${city}」と一致しません。\n\n💡 正しい市区町村: ${apiCity}`,
+                            suggestedPrefecture: apiPrefecture,
+                            suggestedCity: apiCity
+                        };
+                    }
+
+                    return { 
+                        valid: true, 
+                        message: '✓ 住所が確認できました',
+                        verifiedAddress: `${apiPrefecture}${apiCity}`
+                    };
+                } else {
+                    return { 
+                        valid: false, 
+                        message: `❌ 郵便番号「${postalCode}」に該当する住所が見つかりませんでした。\n\n正しい郵便番号を入力してください。`
+                    };
+                }
+            } catch (error) {
+                console.error('住所検証エラー:', error);
+                // ネットワークエラーの場合は警告のみで保存を許可
+                return { 
+                    valid: true, 
+                    message: '⚠️ 住所検証サービスに接続できませんでした。\n基本チェックのみ実施します。',
+                    warning: true
+                };
+            }
+        }
+
         // 配達先住所フォーム送信
-        document.getElementById('addressForm').addEventListener('submit', function(e) {
+        document.getElementById('addressForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const user = window.Auth.getCurrentUser();
             if (!user) return;
 
+            // 基本的な必須項目チェック
+            const postalCode = document.getElementById('postalCode').value.trim();
+            const prefecture = document.getElementById('prefecture').value;
+            const city = document.getElementById('city').value.trim();
+            const street = document.getElementById('street').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            if (!postalCode || !prefecture || !city || !street || !phone) {
+                alert('❌ 必須項目をすべて入力してください。');
+                return;
+            }
+
+            // 住所検証を実行
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '住所を確認中...';
+
+            const verification = await verifyAddressWithPostalCode();
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = '変更を保存';
+
+            if (!verification.valid) {
+                alert(verification.message);
+                
+                // 正しい住所候補がある場合は自動入力を提案
+                if (verification.suggestedPrefecture && verification.suggestedCity) {
+                    if (confirm('\n正しい住所に自動修正しますか？')) {
+                        document.getElementById('prefecture').value = verification.suggestedPrefecture;
+                        document.getElementById('city').value = verification.suggestedCity;
+                    }
+                }
+                return;
+            }
+
+            // 警告がある場合は表示
+            if (verification.warning) {
+                alert(verification.message);
+            }
+
             // 配達先住所を保存（電話番号も含む）
             const existingDetails = JSON.parse(localStorage.getItem('userDetails_' + user.id) || '{}');
             const userDetails = {
                 ...existingDetails,
-                postalCode: document.getElementById('postalCode').value,
-                prefecture: document.getElementById('prefecture').value,
-                city: document.getElementById('city').value,
-                street: document.getElementById('street').value,
-                building: document.getElementById('building').value,
-                phone: document.getElementById('phone').value
+                postalCode: postalCode,
+                prefecture: prefecture,
+                city: city,
+                street: street,
+                building: document.getElementById('building').value.trim(),
+                phone: phone,
+                verified: true,
+                verifiedAt: new Date().toISOString()
             };
             localStorage.setItem('userDetails_' + user.id, JSON.stringify(userDetails));
 
-            alert('配達先住所を更新しました。\n次回のご注文時に自動入力されます。');
+            alert('✅ 配達先住所を更新しました。\n次回のご注文時に自動入力されます。');
         });
 
         // パスワード変更フォーム送信
