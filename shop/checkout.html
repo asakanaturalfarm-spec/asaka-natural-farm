@@ -728,17 +728,33 @@
 
     <script>
         // カートデータを取得
-        let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+        let cartItems = [];
         let inventoryAdjusted = false;
         let adjustedItems = [];
         
-        console.log('[checkout.html] カートデータを読み込みました:', cartItems);
-
-        // カートが空の場合はカートページへリダイレクト
-        if (cartItems.length === 0) {
-            alert('カートが空です');
-            window.location.href = 'cart.html';
+        // localStorageからカートデータを読み込む
+        try {
+            const savedCart = localStorage.getItem('cartItems');
+            console.log('[checkout.html] localStorageからカートデータを読み込み中...', savedCart);
+            
+            if (savedCart) {
+                cartItems = JSON.parse(savedCart);
+                console.log('[checkout.html] カートデータを読み込みました:', cartItems);
+            } else {
+                console.warn('[checkout.html] localStorageにcartItemsがありません');
+            }
+        } catch (error) {
+            console.error('[checkout.html] カートデータの読み込みエラー:', error);
         }
+
+        // カートが空の場合はカートページへリダイレクト（少し待ってから）
+        setTimeout(() => {
+            if (!cartItems || cartItems.length === 0) {
+                console.error('[checkout.html] カートが空です。cart.htmlにリダイレクトします。');
+                alert('カートが空です。カートに戻って商品を追加してください。');
+                window.location.href = 'cart.html';
+            }
+        }, 200);
 
         // 在庫チェックと自動調整
         function checkAndAdjustInventory() {
@@ -1747,10 +1763,15 @@
         }
 
         // 初期表示
-        renderOrderSummary();
-        setupValidation();
-        showPaymentDetails('credit'); // デフォルトのクレジットカード詳細を表示
-        loadSavedAddress(); // 保存された住所を読み込み
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auth.jsの読み込みを待つ
+            setTimeout(() => {
+                renderOrderSummary();
+                setupValidation();
+                showPaymentDetails('credit'); // デフォルトのクレジットカード詳細を表示
+                loadSavedAddress(); // 保存された住所を読み込み
+            }, 100);
+        });
     </script>
 </body>
 </html>
