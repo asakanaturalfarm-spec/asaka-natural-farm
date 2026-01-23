@@ -483,6 +483,12 @@
                                     <small style="color: var(--text-light); font-size: 13px;">※ 任意</small>
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="phone">電話番号 *</label>
+                                    <input type="tel" id="phone" placeholder="090-1234-5678" required pattern="^(0\d{1,4}-\d{1,4}-\d{4}|0\d{9,10})$">
+                                    <small style="color: var(--text-light); font-size: 13px;">※ ハイフンあり・なし両方可</small>
+                                </div>
+
                                 <div class="btn-group">
                                     <button type="submit" class="btn-save">変更を保存</button>
                                     <button type="button" class="btn-cancel" onclick="loadUserProfile()">キャンセル</button>
@@ -575,6 +581,7 @@
             document.getElementById('city').value = userDetails.city || '';
             document.getElementById('street').value = userDetails.street || '';
             document.getElementById('building').value = userDetails.building || '';
+            document.getElementById('phone').value = userDetails.phone || '';
         }
 
         // プロフィールフォーム送信
@@ -608,17 +615,20 @@
             const user = window.Auth.getCurrentUser();
             if (!user) return;
 
-            // 配達先住所を保存
+            // 配達先住所を保存（電話番号も含む）
+            const existingDetails = JSON.parse(localStorage.getItem('userDetails_' + user.id) || '{}');
             const userDetails = {
+                ...existingDetails,
                 postalCode: document.getElementById('postalCode').value,
                 prefecture: document.getElementById('prefecture').value,
                 city: document.getElementById('city').value,
                 street: document.getElementById('street').value,
-                building: document.getElementById('building').value
+                building: document.getElementById('building').value,
+                phone: document.getElementById('phone').value
             };
             localStorage.setItem('userDetails_' + user.id, JSON.stringify(userDetails));
 
-            alert('配達先住所を更新しました');
+            alert('配達先住所を更新しました。\n次回のご注文時に自動入力されます。');
         });
 
         // パスワード変更フォーム送信

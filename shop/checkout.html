@@ -1693,10 +1693,64 @@
             }, 500);
         }
 
+        // 保存された住所を自動入力
+        function loadSavedAddress() {
+            const currentUser = window.Auth?.getCurrentUser();
+            if (!currentUser) return;
+
+            const userDetails = JSON.parse(localStorage.getItem('userDetails_' + currentUser.id) || '{}');
+            
+            // 住所情報が保存されている場合、フィールドに自動入力
+            if (userDetails.postalCode) {
+                document.getElementById('postalCode').value = userDetails.postalCode;
+                document.getElementById('prefecture').value = userDetails.prefecture || '';
+                document.getElementById('city').value = userDetails.city || '';
+                
+                // addressフィールドに番地と建物名を結合
+                let addressValue = userDetails.street || '';
+                if (userDetails.building) {
+                    addressValue += (addressValue ? ' ' : '') + userDetails.building;
+                }
+                document.getElementById('address').value = addressValue;
+                
+                console.log('[自動入力] 保存された住所を読み込みました');
+                
+                // バリデーション実行
+                setTimeout(() => {
+                    validatePostalCode();
+                    validatePrefecture();
+                    validateCity();
+                    validateAddress();
+                }, 100);
+            }
+
+            // ユーザーの名前とメールアドレスも自動入力
+            if (currentUser.name) {
+                const nameParts = currentUser.name.split(' ');
+                if (nameParts.length >= 2) {
+                    document.getElementById('lastName').value = nameParts[0];
+                    document.getElementById('firstName').value = nameParts.slice(1).join(' ');
+                } else {
+                    document.getElementById('lastName').value = currentUser.name;
+                }
+            }
+            
+            if (currentUser.email) {
+                document.getElementById('email').value = currentUser.email;
+            }
+
+            // 電話番号も保存されていれば自動入力
+            if (userDetails.phone) {
+                document.getElementById('phone').value = userDetails.phone;
+                setTimeout(() => validatePhone(), 100);
+            }
+        }
+
         // 初期表示
         renderOrderSummary();
         setupValidation();
         showPaymentDetails('credit'); // デフォルトのクレジットカード詳細を表示
+        loadSavedAddress(); // 保存された住所を読み込み
     </script>
 </body>
 </html>
