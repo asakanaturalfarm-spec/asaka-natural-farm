@@ -249,38 +249,33 @@
 
                 <div class="spacer"></div>
 
-                <!-- 季節ごとの野菜リスト -->
-                <div class="vegetables-grid">
-                    <div class="vegetable-item">
-                        <div class="vegetable-image-placeholder">
-                            <p>春野菜の写真</p>
+                <!-- ベルトコンベア型野菜カルーセル -->
+                <div class="carousel-wrapper vegetables-carousel-wrapper">
+                    <div class="carousel-track vegetables-carousel" id="vegetablesCarousel">
+                        <div class="carousel-item vegetables-item">
+                            <div class="carousel-image-placeholder">
+                                <p>春野菜</p>
+                            </div>
+                            <p class="carousel-label">春</p>
                         </div>
-                        <h3 class="vegetable-season">春</h3>
-                        <p class="vegetable-list">葉物野菜、春菊、小松菜など</p>
-                    </div>
-
-                    <div class="vegetable-item">
-                        <div class="vegetable-image-placeholder">
-                            <p>夏野菜の写真</p>
+                        <div class="carousel-item vegetables-item">
+                            <div class="carousel-image-placeholder">
+                                <p>夏野菜</p>
+                            </div>
+                            <p class="carousel-label">夏</p>
                         </div>
-                        <h3 class="vegetable-season">夏</h3>
-                        <p class="vegetable-list">トマト、茄子、胡瓜など</p>
-                    </div>
-
-                    <div class="vegetable-item">
-                        <div class="vegetable-image-placeholder">
-                            <p>秋野菜の写真</p>
+                        <div class="carousel-item vegetables-item">
+                            <div class="carousel-image-placeholder">
+                                <p>秋野菜</p>
+                            </div>
+                            <p class="carousel-label">秋</p>
                         </div>
-                        <h3 class="vegetable-season">秋</h3>
-                        <p class="vegetable-list">根菜類、大根、人参など</p>
-                    </div>
-
-                    <div class="vegetable-item">
-                        <div class="vegetable-image-placeholder">
-                            <p>冬野菜の写真</p>
+                        <div class="carousel-item vegetables-item">
+                            <div class="carousel-image-placeholder">
+                                <p>冬野菜</p>
+                            </div>
+                            <p class="carousel-label">冬</p>
                         </div>
-                        <h3 class="vegetable-season">冬</h3>
-                        <p class="vegetable-list">白菜、葱、ほうれん草など</p>
                     </div>
                 </div>
             </div>
@@ -314,26 +309,25 @@
 
                 <div class="spacer"></div>
 
-                <!-- 加工食品リスト -->
-                <div class="products-grid">
-                    <div class="product-item">
-                        <div class="product-image-placeholder"></div>
-                        <p class="product-name">自然農トマトソース</p>
-                    </div>
-
-                    <div class="product-item">
-                        <div class="product-image-placeholder"></div>
-                        <p class="product-name">季節野菜のピクルス</p>
-                    </div>
-
-                    <div class="product-item">
-                        <div class="product-image-placeholder"></div>
-                        <p class="product-name">無添加味噌</p>
-                    </div>
-
-                    <div class="product-item">
-                        <div class="product-image-placeholder"></div>
-                        <p class="product-name">乾燥野菜</p>
+                <!-- ベルトコンベア型加工品カルーセル -->
+                <div class="carousel-wrapper products-carousel-wrapper">
+                    <div class="carousel-track products-carousel" id="productsCarousel">
+                        <div class="carousel-item products-item">
+                            <div class="carousel-image-placeholder"></div>
+                            <p class="carousel-label">自然農トマトソース</p>
+                        </div>
+                        <div class="carousel-item products-item">
+                            <div class="carousel-image-placeholder"></div>
+                            <p class="carousel-label">季節野菜のピクルス</p>
+                        </div>
+                        <div class="carousel-item products-item">
+                            <div class="carousel-image-placeholder"></div>
+                            <p class="carousel-label">無添加味噌</p>
+                        </div>
+                        <div class="carousel-item products-item">
+                            <div class="carousel-image-placeholder"></div>
+                            <p class="carousel-label">乾燥野菜</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -574,6 +568,27 @@
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return emailRegex.test(email);
             }
+        });
+        
+        // カルーセル（ベルトコンベア）初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            function initializeCarousel(carouselId) {
+                const carousel = document.getElementById(carouselId);
+                if (!carousel) return;
+                
+                const items = carousel.querySelectorAll('.carousel-item');
+                if (items.length === 0) return;
+                
+                // アイテムを複製してシームレスなループを実現
+                items.forEach(item => {
+                    const clone = item.cloneNode(true);
+                    carousel.appendChild(clone);
+                });
+            }
+            
+            // 各カルーセルを初期化
+            initializeCarousel('vegetablesCarousel');
+            initializeCarousel('productsCarousel');
         });
     </script>
 </body>

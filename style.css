@@ -521,6 +521,76 @@ body {
 }
 
 /* ========================================
+   カルーセル（ベルトコンベア型）
+   ======================================== */
+.carousel-wrapper {
+    overflow: hidden;
+    background-color: #f9f9f7;
+    padding: 2rem 0;
+    margin-top: 2rem;
+    border-radius: 8px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 1.5rem;
+    animation: scroll-left 30s linear infinite;
+    padding: 0 1.5rem;
+}
+
+.carousel-item {
+    min-width: 280px;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.carousel-image-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #f0ebe5 0%, #e8e0d5 100%);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    font-family: var(--font-sans);
+}
+
+.carousel-label {
+    font-size: 0.95rem;
+    color: var(--color-text);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+}
+
+.vegetables-item .carousel-image-placeholder {
+    aspect-ratio: 4/3;
+}
+
+.products-item .carousel-image-placeholder {
+    aspect-ratio: 1;
+}
+
+/* 無限スクロールアニメーション */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* カルーセル再生を一時停止（hover時 - オプション） */
+.carousel-track:hover {
+    animation-play-state: paused;
+}
+
+/* ========================================
    農園の場所
    ======================================== */
 .location {
