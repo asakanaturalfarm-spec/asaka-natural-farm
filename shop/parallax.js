@@ -3,6 +3,34 @@
   'use strict';
 
   // ========================================
+  // Navbar Scroll Effect
+  // ========================================
+
+  const navbar = document.querySelector('.navbar');
+  let lastScrollY = 0;
+  let ticking = false;
+
+  function updateNavbarScroll() {
+    const scrollY = window.scrollY;
+    
+    if (scrollY > 10) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+    
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    lastScrollY = window.scrollY;
+    if (!ticking) {
+      window.requestAnimationFrame(updateNavbarScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // ========================================
   // Intersection Observer for Elements
   // ========================================
   
@@ -59,9 +87,6 @@
   // Use only if background images are present
   // ========================================
 
-  let lastScrollY = 0;
-  let ticking = false;
-
   function updateParallax() {
     const parallaxElements = document.querySelectorAll('[data-parallax-bg]');
     
@@ -75,21 +100,11 @@
         element.style.backgroundPosition = `center ${offset * 0.3}px`;
       }
     });
-
-    ticking = false;
-  }
-
-  function onScroll() {
-    lastScrollY = window.scrollY;
-    if (!ticking) {
-      window.requestAnimationFrame(updateParallax);
-      ticking = true;
-    }
   }
 
   // Enable only if data-parallax-bg is used
   if (document.querySelectorAll('[data-parallax-bg]').length > 0) {
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', updateParallax, { passive: true });
     updateParallax(); // Initial call
   }
 })();
