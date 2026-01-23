@@ -317,6 +317,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.method-item:nth-child(1) .method-icon {
     animation: iconRotate 8s linear infinite;
 }
 
