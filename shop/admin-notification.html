@@ -9,6 +9,8 @@
     <script src="../asaka-hub.js"></script>
     <script src="sync-with-orders.js"></script>
     <script src="notification-system.js"></script>
+    <script src="admin-notification-manager.js"></script>
+    <script src="email-history-manager.js"></script>
     <style>
         * {
             margin: 0;
@@ -634,6 +636,12 @@
 
         // 初期化
         document.addEventListener('DOMContentLoaded', function() {
+            // 管理者認証チェック
+            if (!window.AdminNotificationManager.isAdminAuthenticated()) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+            
             initNotificationManager();
             loadAndDisplayOrders();
             updateSyncTime();
@@ -988,26 +996,23 @@
                     throw new Error('注文データが見つかりません');
                 }
 
-                // 管理者メール送信（自分自身に確認メール）
+                // 送信データを準備
+                const emailData = {
+                    orderId: order.id,
+                    customerEmail: order.customerEmail,
+                    customerName: order.customerName,
+                    trackingNumber: trackingNumber,
+                    carrier: carrier,
+                    shippedDate: shippedDate,
+                    estimatedDeliveryDate: estimatedDeliveryDate,
+                    items: order.items
+                };
+
+                // 管理者メール送信
                 if (notificationManager && notificationManager.sendShippingNotification) {
-                    await notificationManager.sendShippingNotification({
-                        orderId: order.id,
-                        customerEmail: order.customerEmail,
-                        customerName: order.customerName,
-                        trackingNumber: trackingNumber,
-                        carrier: carrier,
-                        shippedDate: shippedDate,
-                        estimatedDeliveryDate: estimatedDeliveryDate,
-                        items: order.items
-                    });
+                    await notificationManager.sendShippingNotification(emailData);
                 } else {
-                    // フォールバック: 自分自身にメール送信を記録
-                    console.log('通知送信:', {
-                        orderId: order.id,
-                        customerEmail: order.customerEmail,
-                        trackingNumber: trackingNumber,
-                        carrier: carrier
-                    });
+                    console.log('通知送信:', emailData);
                 }
 
                 // 注文ステータスを更新
@@ -1015,9 +1020,17 @@
                 order.trackingNumber = trackingNumber;
                 order.shippedDate = shippedDate;
 
+                // 送信履歴を記録
+                if (window.EmailHistoryManager) {
+                    window.EmailHistoryManager.recordEmailSent({
+                        ...emailData,
+                        sentBy: '管理者'
+                    });
+                }
+
                 showNotificationInCard(
                     notificationDiv, 
-                    `✓ 発送完了通知を送信しました<br><small>${order.customerEmail} へ送信</small>`, 
+                    `✓ 発送完了通知を送信しました<br><small>${order.customerEmail} へ送信<br>追跡番号: ${trackingNumber}</small>`, 
                     'success'
                 );
 
@@ -1029,6 +1042,19 @@
 
             } catch (error) {
                 console.error('通知送信エラー:', error);
+                
+                // エラーを履歴に記録
+                const order = allOrders.find(o => o.id === orderId);
+                if (order && window.EmailHistoryManager) {
+                    window.EmailHistoryManager.recordEmailError({
+                        orderId: order.id,
+                        customerEmail: order.customerEmail,
+                        customerName: order.customerName,
+                        carrier: carrier,
+                        trackingNumber: trackingNumber
+                    }, error.message);
+                }
+                
                 showNotificationInCard(
                     notificationDiv,
                     `✗ エラー: ${error.message}`,

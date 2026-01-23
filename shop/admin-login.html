@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者ログイン | 発送通知管理</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #2c5f2d 0%, #3a7f3b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .login-title {
+            font-size: 24px;
+            color: #2c5f2d;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .login-subtitle {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #2c5f2d;
+            box-shadow: 0 0 8px rgba(44, 95, 45, 0.2);
+        }
+
+        .form-input[type="password"] {
+            letter-spacing: 0.2em;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #2c5f2d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .login-btn:hover {
+            background: #1e4620;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(44, 95, 45, 0.3);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+            display: none;
+            font-size: 13px;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .info-message {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #bee5eb;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #666;
+            margin-top: 15px;
+        }
+
+        .remember-me input {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back-link a {
+            color: #2c5f2d;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        .demo-mode {
+            background: #fff3cd;
+            color: #856404;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ffeaa7;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .demo-mode strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="login-icon">🔐</div>
+            <h1 class="login-title">管理者ログイン</h1>
+            <p class="login-subtitle">発送通知管理システム</p>
+        </div>
+
+        <div class="info-message">
+            📧 発送完了通知を顧客のメールアドレスに手動で送信するための管理画面です
+        </div>
+
+        <div class="demo-mode">
+            <strong>⚠️ デモモード</strong>
+            パスワード: <code>admin2024</code>
+        </div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="error-message" id="errorMessage"></div>
+
+            <div class="form-group">
+                <label class="form-label">管理者ID</label>
+                <input type="text" 
+                       class="form-input" 
+                       id="adminId" 
+                       placeholder="tanabe"
+                       value="tanabe"
+                       autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">パスワード</label>
+                <input type="password" 
+                       class="form-input" 
+                       id="password" 
+                       placeholder="••••••••"
+                       autocomplete="off">
+            </div>
+
+            <div class="remember-me">
+                <input type="checkbox" id="rememberMe">
+                <label for="rememberMe">このブラウザで24時間保存</label>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">ログイン</button>
+        </form>
+
+        <div class="back-link">
+            <a href="admin.html">← 管理画面に戻る</a>
+        </div>
+
+        <div class="footer">
+            <p>セキュアな接続でログインしています</p>
+        </div>
+    </div>
+
+    <script src="admin-notification-manager.js"></script>
+    <script>
+        // ページ読み込み時のチェック
+        document.addEventListener('DOMContentLoaded', function() {
+            // 既にログインしている場合はリダイレクト
+            if (window.AdminNotificationManager.isAdminAuthenticated()) {
+                window.location.href = 'admin-notification.html';
+                return;
+            }
+
+            // 保存されたIDをチェック
+            const savedId = localStorage.getItem('admin_saved_id');
+            if (savedId) {
+                document.getElementById('adminId').value = savedId;
+                document.getElementById('rememberMe').checked = true;
+            }
+
+            // Enter キーで送信
+            document.getElementById('password').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleLogin(e);
+                }
+            });
+        });
+
+        // ログイン処理
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const adminId = document.getElementById('adminId').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const errorDiv = document.getElementById('errorMessage');
+            const loginBtn = document.getElementById('loginBtn');
+
+            // バリデーション
+            if (!adminId) {
+                showError('管理者IDを入力してください');
+                return;
+            }
+
+            if (!password) {
+                showError('パスワードを入力してください');
+                return;
+            }
+
+            // ボタンを無効化
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'ログイン中...';
+
+            // 認証処理（少し遅延を入れてリアルな動作に）
+            setTimeout(() => {
+                try {
+                    // 管理者認証を実施
+                    const result = window.AdminNotificationManager.setAdminAuth(password);
+
+                    if (result) {
+                        // 認証成功
+                        if (rememberMe) {
+                            localStorage.setItem('admin_saved_id', adminId);
+                        } else {
+                            localStorage.removeItem('admin_saved_id');
+                        }
+
+                        // ロード画面表示
+                        errorDiv.classList.remove('show');
+                        loginBtn.textContent = '✓ ログイン成功 - リダイレクト中...';
+
+                        // 発送通知管理画面へリダイレクト
+                        setTimeout(() => {
+                            window.location.href = 'admin-notification.html';
+                        }, 1000);
+                    } else {
+                        // 認証失敗
+                        showError('パスワードが正しくありません');
+                        document.getElementById('password').value = '';
+                        document.getElementById('password').focus();
+                        loginBtn.disabled = false;
+                        loginBtn.textContent = 'ログイン';
+                    }
+                } catch (error) {
+                    showError('ログイン処理中にエラーが発生しました: ' + error.message);
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'ログイン';
+                }
+            }, 800);
+        }
+
+        // エラー表示
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+        }
+    </script>
+</body>
+</html>
