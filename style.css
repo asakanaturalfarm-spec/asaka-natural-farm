@@ -96,26 +96,44 @@ body {
 
 .nav {
     display: flex;
-    gap: var(--spacing-md);
+    gap: 1rem;
+    align-items: center;
 }
 
 .nav-link {
     font-family: var(--font-sans);
     font-size: 0.875rem;
-    font-weight: 300;
-    color: var(--color-text-light);
+    font-weight: 400;
+    color: var(--color-text);
     text-decoration: none;
-    transition: color 0.3s ease;
-    letter-spacing: 0.1em;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.05em;
+    position: relative;
+    overflow: hidden;
 }
 
 .nav-link:hover {
+    background-color: rgba(74, 93, 63, 0.1);
     color: var(--color-accent);
 }
 
-.nav-link-shop {
-    color: var(--color-accent);
-    font-weight: 400;
+.nav-link-primary {
+    background-color: var(--color-accent);
+    color: white;
+    font-weight: 500;
+}
+
+.nav-link-primary:hover {
+    background-color: var(--color-accent-hover);
+    box-shadow: 0 4px 12px rgba(74, 93, 63, 0.3);
+}
+
+.nav-link-external {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
 }
 
 .menu-toggle {
