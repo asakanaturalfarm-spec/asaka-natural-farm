@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>発送完了通知管理 | 安積直売所 管理画面</title>
-    <link rel="stylesheet" href="style.css">
+    <title>発送完亁E��知管琁E| 安積直売所 管琁E��面</title>
+    <link rel="stylesheet" href="../style.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="../asaka-hub.js"></script>
-    <script src="sync-with-orders.js"></script>
-    <script src="notification-system.js"></script>
+    <script src="../sync-with-orders.js"></script>
+    <script src="../notification-system.js"></script>
     <script src="admin-notification-manager.js"></script>
     <script src="email-history-manager.js"></script>
     <style>
@@ -113,7 +113,7 @@
             display: block;
         }
 
-        /* フィルターバー */
+        /* フィルターバ�E */
         .filter-bar {
             display: flex;
             gap: 15px;
@@ -203,7 +203,7 @@
             margin-top: 5px;
         }
 
-        /* 注文カード */
+        /* 注斁E��ーチE*/
         .order-card {
             background: white;
             border: 1px solid #ddd;
@@ -287,7 +287,7 @@
             word-break: break-all;
         }
 
-        /* 商品リスト */
+        /* 啁E��リスチE*/
         .items-list {
             margin: 15px 0;
             padding: 15px;
@@ -410,7 +410,7 @@
             margin-top: 15px;
         }
 
-        /* 通知状態 */
+        /* 通知状慁E*/
         .notification-status {
             margin-top: 12px;
             padding: 12px;
@@ -447,7 +447,7 @@
             border: 1px solid #ffeaa7;
         }
 
-        /* 顧客情報セクション */
+        /* 顧客惁E��セクション */
         .customer-info {
             background: #f0f7f0;
             padding: 15px;
@@ -482,7 +482,7 @@
             font-weight: 500;
         }
 
-        /* 空状態 */
+        /* 空状慁E*/
         .empty-state {
             text-align: center;
             padding: 40px 20px;
@@ -494,7 +494,7 @@
             margin-bottom: 15px;
         }
 
-        /* 同期状態 */
+        /* 同期状慁E*/
         .sync-status {
             text-align: right;
             font-size: 12px;
@@ -520,7 +520,7 @@
             background: #e8e8e8;
         }
 
-        /* レスポンシブ対応 */
+        /* レスポンシブ対忁E*/
         @media (max-width: 768px) {
             .order-info {
                 grid-template-columns: 1fr;
@@ -544,14 +544,14 @@
 <body>
     <div class="admin-container">
         <div class="breadcrumb">
-            <a href="admin.html">← 管理画面トップ</a>
+            <a href="admin.html">ↁE管琁E��面トッチE/a>
         </div>
 
         <div class="admin-header">
-            <h1>📧 発送完了通知管理</h1>
-            <p>顧客への発送完了通知をメール送信。受注発注管理アプリとリアルタイム連携</p>
+            <h1>📧 発送完亁E��知管琁E/h1>
+            <p>顧客への発送完亁E��知をメール送信。受注発注管琁E��プリとリアルタイム連携</p>
             <div class="sync-status">
-                最終同期: <span id="syncTime">---</span>
+                最終同朁E <span id="syncTime">---</span>
                 <button class="sync-btn" onclick="forceSyncData()">🔄 強制同期</button>
             </div>
         </div>
@@ -559,20 +559,20 @@
         <!-- タブナビゲーション -->
         <div class="tab-container">
             <div class="tab-nav">
-                <button class="tab-btn active" onclick="switchTab('pending')">📦 発送待ち (<span id="pendingCount">0</span>)</button>
-                <button class="tab-btn" onclick="switchTab('shipped')">✓ 通知済み (<span id="shippedCount">0</span>)</button>
-                <button class="tab-btn" onclick="switchTab('all')">📋 すべての注文</button>
+                <button class="tab-btn active" onclick="switchTab('pending')">📦 発送征E�� (<span id="pendingCount">0</span>)</button>
+                <button class="tab-btn" onclick="switchTab('shipped')">✁E通知済み (<span id="shippedCount">0</span>)</button>
+                <button class="tab-btn" onclick="switchTab('all')">📋 すべての注斁E/button>
             </div>
 
-            <!-- 発送待ちタブ -->
+            <!-- 発送征E��タチE-->
             <div id="pending-tab" class="tab-content active">
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-label">発送待ち件数</div>
+                        <div class="stat-label">発送征E��件数</div>
                         <div class="stat-value"><span id="stat-pending">0</span>件</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">発送待ち金額</div>
+                        <div class="stat-label">発送征E��金顁E/div>
                         <div class="stat-value">¥<span id="stat-pending-total">0</span></div>
                     </div>
                 </div>
@@ -593,7 +593,7 @@
                 <div id="pending-orders"></div>
             </div>
 
-            <!-- 通知済みタブ -->
+            <!-- 通知済みタチE-->
             <div id="shipped-tab" class="tab-content">
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -601,7 +601,7 @@
                         <div class="stat-value"><span id="stat-shipped">0</span>件</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">通知済み金額</div>
+                        <div class="stat-label">通知済み金顁E/div>
                         <div class="stat-value">¥<span id="stat-shipped-total">0</span></div>
                     </div>
                 </div>
@@ -609,15 +609,15 @@
                 <div id="shipped-orders"></div>
             </div>
 
-            <!-- すべての注文タブ -->
+            <!-- すべての注斁E��チE-->
             <div id="all-tab" class="tab-content">
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-label">総注文件数</div>
+                        <div class="stat-label">総注斁E��数</div>
                         <div class="stat-value"><span id="stat-all">0</span>件</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">総売上</div>
+                        <div class="stat-label">総売丁E/div>
                         <div class="stat-value">¥<span id="stat-all-total">0</span></div>
                     </div>
                 </div>
@@ -634,9 +634,9 @@
         let currentTab = 'pending';
         let notificationManager = null;
 
-        // 初期化
+        // 初期匁E
         document.addEventListener('DOMContentLoaded', function() {
-            // 管理者認証チェック
+            // 管琁E��E��証チェチE��
             if (!window.AdminNotificationManager.isAdminAuthenticated()) {
                 window.location.href = 'admin-login.html';
                 return;
@@ -646,34 +646,34 @@
             loadAndDisplayOrders();
             updateSyncTime();
 
-            // 定期的に同期（5分ごと）
+            // 定期皁E��同期�E�E刁E��と�E�E
             setInterval(loadAndDisplayOrders, 5 * 60 * 1000);
         });
 
-        // 通知マネージャーの初期化
+        // 通知マネージャーの初期匁E
         function initNotificationManager() {
             try {
                 if (window.NotificationSystem) {
                     notificationManager = window.NotificationSystem.initialize({
                         provider: 'sendgrid',
                         fromEmail: 'tanabe@asakanatural.jp',
-                        fromName: '安積自然農園'
+                        fromName: '安積�E然農圁E
                     });
                 } else {
-                    console.warn('通知システムが利用不可');
+                    console.warn('通知シスチE��が利用不可');
                 }
             } catch (error) {
                 console.error('通知マネージャー初期化エラー:', error);
             }
         }
 
-        // 注文データを読み込み＆表示
+        // 注斁E��ータを読み込み�E�E��示
         function loadAndDisplayOrders() {
             try {
-                // 受注発注管理アプリからデータを同期
+                // 受注発注管琁E��プリからチE�Eタを同朁E
                 const syncData = window.OrderSyncManager.syncFromOrdersApp();
                 
-                // 注文データを取得して整形
+                // 注斁E��ータを取得して整形
                 allOrders = (syncData.orders || [])
                     .map(order => window.OrderSyncManager.formatOrderForAdmin(order))
                     .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
@@ -681,7 +681,7 @@
                 // 顧客フィルターを更新
                 updateCustomerFilter(syncData.customers || []);
 
-                // 統計を計算
+                // 統計を計箁E
                 updateStats();
 
                 // 表示を更新
@@ -690,8 +690,8 @@
                 updateSyncTime();
 
             } catch (error) {
-                console.error('注文読み込みエラー:', error);
-                showNotification('データ読み込みエラー: ' + error.message, 'error');
+                console.error('注斁E��み込みエラー:', error);
+                showNotification('チE�Eタ読み込みエラー: ' + error.message, 'error');
             }
         }
 
@@ -700,7 +700,7 @@
             const select = document.getElementById('customerFilter');
             const currentValue = select.value;
 
-            // 既存のオプションを削除（最初のオプション除く）
+            // 既存�Eオプションを削除�E�最初�Eオプション除く！E
             while (select.options.length > 1) {
                 select.remove(1);
             }
@@ -711,7 +711,7 @@
                 select.add(option);
             });
 
-            // 前の値を復元
+            // 前�E値を復允E
             if (currentValue) {
                 select.value = currentValue;
             }
@@ -726,17 +726,17 @@
             const shippedTotal = shipped.reduce((sum, o) => sum + o.total, 0);
             const allTotal = allOrders.reduce((sum, o) => sum + o.total, 0);
 
-            // 発送待ちタブ
+            // 発送征E��タチE
             document.getElementById('stat-pending').textContent = pending.length;
             document.getElementById('stat-pending-total').textContent = pendingTotal.toLocaleString('ja-JP');
             document.getElementById('pendingCount').textContent = pending.length;
 
-            // 通知済みタブ
+            // 通知済みタチE
             document.getElementById('stat-shipped').textContent = shipped.length;
             document.getElementById('stat-shipped-total').textContent = shippedTotal.toLocaleString('ja-JP');
             document.getElementById('shippedCount').textContent = shipped.length;
 
-            // すべてのタブ
+            // すべてのタチE
             document.getElementById('stat-all').textContent = allOrders.length;
             document.getElementById('stat-all-total').textContent = allTotal.toLocaleString('ja-JP');
         }
@@ -759,7 +759,7 @@
 
             if (customerFilter) {
                 filteredOrders = filteredOrders.filter(order => {
-                    // 顧客情報を確認
+                    // 顧客惁E��を確誁E
                     const customer = window.OrderSyncManager.getCustomerById(order.id);
                     return customer?.id === customerFilter;
                 });
@@ -776,17 +776,17 @@
             renderCurrentTab();
         }
 
-        // タブ切り替え
+        // タブ�Eり替ぁE
         function switchTab(tabName) {
             currentTab = tabName;
 
-            // タブボタンのアクティブ状態を更新
+            // タブ�EタンのアクチE��ブ状態を更新
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             event.target.classList.add('active');
 
-            // タブコンテンツの表示/非表示を更新
+            // タブコンチE��チE�E表示/非表示を更新
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
             });
@@ -813,7 +813,7 @@
                 container.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-state-icon">📭</div>
-                        <p>該当する注文がありません</p>
+                        <p>該当する注斁E��ありません</p>
                     </div>
                 `;
                 return;
@@ -822,18 +822,18 @@
             container.innerHTML = ordersToShow.map(order => createOrderCard(order)).join('');
         }
 
-        // 注文カードを作成
+        // 注斁E��ードを作�E
         function createOrderCard(order) {
             const statusClass = order.status === 'shipped' ? 'status-shipped' : 'status-pending';
-            const statusLabel = order.status === 'shipped' ? '通知済み' : '発送待ち';
+            const statusLabel = order.status === 'shipped' ? '通知済み' : '発送征E��';
 
-            // 顧客情報を取得
+            // 顧客惁E��を取征E
             const customerInfo = window.OrderSyncManager.getCustomerById(order.id.split('_')[0]) || {};
 
-            // 発送フォーム部分
+            // 発送フォーム部刁E
             const shippingForm = (order.status === 'pending' || order.status === 'processing' || order.status === 'confirmed') ? `
                 <div class="notification-form">
-                    <h3>📧 発送完了通知を送信</h3>
+                    <h3>📧 発送完亁E��知を送信</h3>
                     <div class="form-row">
                         <label class="form-label">送信先メールアドレス</label>
                         <input type="email" 
@@ -844,12 +844,12 @@
                     </div>
                     <div class="form-row-group">
                         <div>
-                            <label class="form-label">配送業者</label>
+                            <label class="form-label">配送業老E/label>
                             <select class="form-select" id="carrier_${order.id}">
                                 <option value="ヤマト運輸">ヤマト運輸</option>
                                 <option value="日本郵便">日本郵便</option>
                                 <option value="佐川急便">佐川急便</option>
-                                <option value="その他">その他</option>
+                                <option value="そ�E仁E>そ�E仁E/option>
                             </select>
                         </div>
                         <div>
@@ -857,7 +857,7 @@
                             <input type="text" 
                                    class="form-input" 
                                    id="tracking_${order.id}" 
-                                   placeholder="例: 1234567890123">
+                                   placeholder="侁E 1234567890123">
                         </div>
                     </div>
                     <div class="form-row-group">
@@ -888,10 +888,10 @@
                 </div>
             ` : '';
 
-            // 発送済み情報
+            // 発送済み惁E��
             const shippedInfo = order.status === 'shipped' ? `
                 <div style="padding:15px;background:#d4edda;border-radius:5px;margin-top:15px;border-left:4px solid #28a745;">
-                    <strong>✓ 通知済み</strong><br>
+                    <strong>✁E通知済み</strong><br>
                     <small>発送日: ${order.shippedDate || '---'} | 追跡番号: ${order.trackingNumber || '---'}</small>
                 </div>
             ` : '';
@@ -903,12 +903,12 @@
                         <div class="order-status ${statusClass}">${statusLabel}</div>
                     </div>
 
-                    <!-- 顧客情報 -->
+                    <!-- 顧客惁E�� -->
                     <div class="customer-info">
-                        <h4>👤 顧客情報</h4>
+                        <h4>👤 顧客惁E��</h4>
                         <div class="customer-grid">
                             <div class="customer-field">
-                                <div class="customer-field-label">顧客名</div>
+                                <div class="customer-field-label">顧客吁E/div>
                                 <div class="customer-field-value">${order.customerName}</div>
                             </div>
                             <div class="customer-field">
@@ -920,35 +920,35 @@
                                 <div class="customer-field-value">${order.customerPhone || '未登録'}</div>
                             </div>
                             <div class="customer-field">
-                                <div class="customer-field-label">注文日</div>
+                                <div class="customer-field-label">注斁E��</div>
                                 <div class="customer-field-value">${order.orderDate}</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 注文情報 -->
+                    <!-- 注斁E��報 -->
                     <div class="order-info">
                         <div class="info-item">
-                            <div class="info-label">お支払い方法</div>
+                            <div class="info-label">お支払い方況E/div>
                             <div class="info-value">${order.paymentMethod}</div>
                         </div>
                         <div class="info-item">
-                            <div class="info-label">合計金額</div>
+                            <div class="info-label">合計��顁E/div>
                             <div class="info-value">¥${order.total.toLocaleString('ja-JP')}</div>
                         </div>
                         <div class="info-item">
-                            <div class="info-label">配送先住所</div>
+                            <div class="info-label">配送�E住所</div>
                             <div class="info-value">${order.shippingAddress}</div>
                         </div>
                     </div>
 
-                    <!-- 注文内容 -->
+                    <!-- 注斁E�E容 -->
                     <div class="items-list">
-                        <h4>📦 注文内容</h4>
+                        <h4>📦 注斁E�E容</h4>
                         ${order.items.map(item => `
                             <div class="item">
-                                <span>${item.name || '商品'}</span>
-                                <span class="item-qty">× ${item.quantity}</span>
+                                <span>${item.name || '啁E��'}</span>
+                                <span class="item-qty">ÁE${item.quantity}</span>
                             </div>
                         `).join('')}
                     </div>
@@ -959,14 +959,14 @@
             `;
         }
 
-        // 到着予定日を計算
+        // 到着予定日を計箁E
         function getEstimatedDeliveryDate() {
             const date = new Date();
             date.setDate(date.getDate() + 2);
             return date.toISOString().split('T')[0];
         }
 
-        // 発送完了通知を送信
+        // 発送完亁E��知を送信
         async function sendShippingNotification(orderId) {
             const trackingInput = document.getElementById(`tracking_${orderId}`);
             const carrierSelect = document.getElementById(`carrier_${orderId}`);
@@ -980,23 +980,23 @@
             const shippedDate = shipdateInput.value;
             const estimatedDeliveryDate = deliverydateInput.value;
 
-            // バリデーション
+            // バリチE�Eション
             if (!trackingNumber) {
-                showNotificationInCard(notificationDiv, '追跡番号を入力してください', 'error');
+                showNotificationInCard(notificationDiv, '追跡番号を�E力してください', 'error');
                 return;
             }
 
             button.disabled = true;
             button.textContent = '送信中...';
-            showNotificationInCard(notificationDiv, '📧 発送完了通知を送信しています...', 'info');
+            showNotificationInCard(notificationDiv, '📧 発送完亁E��知を送信してぁE��ぁE..', 'info');
 
             try {
                 const order = allOrders.find(o => o.id === orderId);
                 if (!order) {
-                    throw new Error('注文データが見つかりません');
+                    throw new Error('注斁E��ータが見つかりません');
                 }
 
-                // 送信データを準備
+                // 送信チE�Eタを準備
                 const emailData = {
                     orderId: order.id,
                     customerEmail: order.customerEmail,
@@ -1008,14 +1008,14 @@
                     items: order.items
                 };
 
-                // 管理者メール送信
+                // 管琁E��E��ール送信
                 if (notificationManager && notificationManager.sendShippingNotification) {
                     await notificationManager.sendShippingNotification(emailData);
                 } else {
                     console.log('通知送信:', emailData);
                 }
 
-                // 注文ステータスを更新
+                // 注斁E��チE�Eタスを更新
                 order.status = 'shipped';
                 order.trackingNumber = trackingNumber;
                 order.shippedDate = shippedDate;
@@ -1024,13 +1024,13 @@
                 if (window.EmailHistoryManager) {
                     window.EmailHistoryManager.recordEmailSent({
                         ...emailData,
-                        sentBy: '管理者'
+                        sentBy: '管琁E��E
                     });
                 }
 
                 showNotificationInCard(
                     notificationDiv, 
-                    `✓ 発送完了通知を送信しました<br><small>${order.customerEmail} へ送信<br>追跡番号: ${trackingNumber}</small>`, 
+                    `✁E発送完亁E��知を送信しました<br><small>${order.customerEmail} へ送信<br>追跡番号: ${trackingNumber}</small>`, 
                     'success'
                 );
 
@@ -1057,7 +1057,7 @@
                 
                 showNotificationInCard(
                     notificationDiv,
-                    `✗ エラー: ${error.message}`,
+                    `✁Eエラー: ${error.message}`,
                     'error'
                 );
                 button.disabled = false;
@@ -1065,22 +1065,22 @@
             }
         }
 
-        // カード内の通知を表示
+        // カード�Eの通知を表示
         function showNotificationInCard(element, message, type) {
             element.innerHTML = `<div class="notification-status show notification-${type}">${message}</div>`;
         }
 
-        // ページの通知を表示（未使用部分用）
+        // ペ�Eジの通知を表示�E�未使用部刁E���E�E
         function showNotification(message, type = 'info') {
             console.log(`[${type}] ${message}`);
-            // 実装がある場合はここに追加
+            // 実裁E��ある場合�Eここに追加
         }
 
-        // 詳細表示（拡張可能）
+        // 詳細表示�E�拡張可能�E�E
         function openOrderDetail(orderId) {
             const order = allOrders.find(o => o.id === orderId);
             if (order) {
-                alert(`注文詳細: ${order.id}\n顧客: ${order.customerName}\nメール: ${order.customerEmail}`);
+                alert(`注斁E��細: ${order.id}\n顧客: ${order.customerName}\nメール: ${order.customerEmail}`);
             }
         }
 
@@ -1089,7 +1089,7 @@
             if (window.OrderSyncManager) {
                 window.OrderSyncManager.clearCache();
                 loadAndDisplayOrders();
-                alert('データを同期しました');
+                alert('チE�Eタを同期しました');
             }
         }
 
