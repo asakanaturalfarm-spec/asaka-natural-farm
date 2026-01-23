@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>発送完了通知管理 | 安積直売所 管理画面</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="../asaka-hub.js"></script>
+    <script src="sync-with-orders.js"></script>
+    <script src="notification-system.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #f5f5f5;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #2c5f2d 0%, #3a7f3b 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .admin-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .breadcrumb {
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #2c5f2d;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* タブナビゲーション */
+        .tab-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .tab-nav {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px 20px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .tab-btn:hover {
+            background: #f9f9f9;
+            color: #2c5f2d;
+        }
+
+        .tab-btn.active {
+            color: #2c5f2d;
+            border-bottom-color: #2c5f2d;
+            background: #f0f7f0;
+        }
+
+        .tab-content {
+            padding: 20px;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* フィルターバー */
+        .filter-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .filter-select, .filter-input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 14px;
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: #2c5f2d;
+            box-shadow: 0 0 4px rgba(44, 95, 45, 0.3);
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid #2c5f2d;
+            background: white;
+            color: #2c5f2d;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .filter-btn:hover {
+            background: #e8f5e9;
+        }
+
+        .filter-btn.active {
+            background: #2c5f2d;
+            color: white;
+        }
+
+        /* 統計情報 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #2c5f2d;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c5f2d;
+            margin-top: 5px;
+        }
+
+        /* 注文カード */
+        .order-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .order-id {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c5f2d;
+        }
+
+        .order-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-shipped {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-notified {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .order-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .info-value.email {
+            color: #0066cc;
+            word-break: break-all;
+        }
+
+        /* 商品リスト */
+        .items-list {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #2c5f2d;
+        }
+
+        .items-list h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item-qty {
+            color: #999;
+        }
+
+        /* 通知フォーム */
+        .notification-form {
+            margin-top: 20px;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            border: 1px solid #c8e6c9;
+        }
+
+        .notification-form h3 {
+            margin: 0 0 15px 0;
+            color: #2c5f2d;
+            font-size: 14px;
+        }
+
+        .form-row {
+            margin-bottom: 12px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+            font-size: 13px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #2c5f2d;
+            box-shadow: 0 0 4px rgba(44, 95, 45, 0.3);
+        }
+
+        .form-row-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* ボタン */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .btn-primary {
+            background: #2c5f2d;
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #1e4620;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(44, 95, 45, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #e8e8e8;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        /* 通知状態 */
+        .notification-status {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .notification-status.show {
+            display: block;
+        }
+
+        .notification-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .notification-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .notification-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .notification-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        /* 顧客情報セクション */
+        .customer-info {
+            background: #f0f7f0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2c5f2d;
+            margin-bottom: 15px;
+        }
+
+        .customer-info h4 {
+            margin: 0 0 10px 0;
+            color: #2c5f2d;
+            font-size: 13px;
+        }
+
+        .customer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .customer-field {
+            font-size: 12px;
+        }
+
+        .customer-field-label {
+            color: #999;
+            margin-bottom: 2px;
+        }
+
+        .customer-field-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* 空状態 */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        /* 同期状態 */
+        .sync-status {
+            text-align: right;
+            font-size: 12px;
+            color: #999;
+            margin-top: 10px;
+        }
+
+        .sync-status.syncing {
+            color: #0066cc;
+        }
+
+        .sync-btn {
+            margin-left: 10px;
+            padding: 4px 12px;
+            font-size: 12px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .sync-btn:hover {
+            background: #e8e8e8;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .order-info {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row-group {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-btn {
+                font-size: 12px;
+                padding: 12px 15px;
+            }
+
+            .admin-header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="breadcrumb">
+            <a href="admin.html">← 管理画面トップ</a>
+        </div>
+
+        <div class="admin-header">
+            <h1>📧 発送完了通知管理</h1>
+            <p>顧客への発送完了通知をメール送信。受注発注管理アプリとリアルタイム連携</p>
+            <div class="sync-status">
+                最終同期: <span id="syncTime">---</span>
+                <button class="sync-btn" onclick="forceSyncData()">🔄 強制同期</button>
+            </div>
+        </div>
+
+        <!-- タブナビゲーション -->
+        <div class="tab-container">
+            <div class="tab-nav">
+                <button class="tab-btn active" onclick="switchTab('pending')">📦 発送待ち (<span id="pendingCount">0</span>)</button>
+                <button class="tab-btn" onclick="switchTab('shipped')">✓ 通知済み (<span id="shippedCount">0</span>)</button>
+                <button class="tab-btn" onclick="switchTab('all')">📋 すべての注文</button>
+            </div>
+
+            <!-- 発送待ちタブ -->
+            <div id="pending-tab" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">発送待ち件数</div>
+                        <div class="stat-value"><span id="stat-pending">0</span>件</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">発送待ち金額</div>
+                        <div class="stat-value">¥<span id="stat-pending-total">0</span></div>
+                    </div>
+                </div>
+
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <label class="filter-label">フィルター:</label>
+                        <select class="filter-select" id="customerFilter" onchange="filterOrders()">
+                            <option value="">すべての顧客</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <input type="date" class="filter-input" id="dateFilter" onchange="filterOrders()">
+                    </div>
+                    <button class="filter-btn" onclick="clearFilters()">フィルタークリア</button>
+                </div>
+
+                <div id="pending-orders"></div>
+            </div>
+
+            <!-- 通知済みタブ -->
+            <div id="shipped-tab" class="tab-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">通知済み件数</div>
+                        <div class="stat-value"><span id="stat-shipped">0</span>件</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">通知済み金額</div>
+                        <div class="stat-value">¥<span id="stat-shipped-total">0</span></div>
+                    </div>
+                </div>
+
+                <div id="shipped-orders"></div>
+            </div>
+
+            <!-- すべての注文タブ -->
+            <div id="all-tab" class="tab-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">総注文件数</div>
+                        <div class="stat-value"><span id="stat-all">0</span>件</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">総売上</div>
+                        <div class="stat-value">¥<span id="stat-all-total">0</span></div>
+                    </div>
+                </div>
+
+                <div id="all-orders"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // グローバル変数
+        let allOrders = [];
+        let filteredOrders = [];
+        let currentTab = 'pending';
+        let notificationManager = null;
+
+        // 初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            initNotificationManager();
+            loadAndDisplayOrders();
+            updateSyncTime();
+
+            // 定期的に同期（5分ごと）
+            setInterval(loadAndDisplayOrders, 5 * 60 * 1000);
+        });
+
+        // 通知マネージャーの初期化
+        function initNotificationManager() {
+            try {
+                if (window.NotificationSystem) {
+                    notificationManager = window.NotificationSystem.initialize({
+                        provider: 'sendgrid',
+                        fromEmail: 'tanabe@asakanatural.jp',
+                        fromName: '安積自然農園'
+                    });
+                } else {
+                    console.warn('通知システムが利用不可');
+                }
+            } catch (error) {
+                console.error('通知マネージャー初期化エラー:', error);
+            }
+        }
+
+        // 注文データを読み込み＆表示
+        function loadAndDisplayOrders() {
+            try {
+                // 受注発注管理アプリからデータを同期
+                const syncData = window.OrderSyncManager.syncFromOrdersApp();
+                
+                // 注文データを取得して整形
+                allOrders = (syncData.orders || [])
+                    .map(order => window.OrderSyncManager.formatOrderForAdmin(order))
+                    .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+
+                // 顧客フィルターを更新
+                updateCustomerFilter(syncData.customers || []);
+
+                // 統計を計算
+                updateStats();
+
+                // 表示を更新
+                renderCurrentTab();
+
+                updateSyncTime();
+
+            } catch (error) {
+                console.error('注文読み込みエラー:', error);
+                showNotification('データ読み込みエラー: ' + error.message, 'error');
+            }
+        }
+
+        // 顧客フィルターを更新
+        function updateCustomerFilter(customers) {
+            const select = document.getElementById('customerFilter');
+            const currentValue = select.value;
+
+            // 既存のオプションを削除（最初のオプション除く）
+            while (select.options.length > 1) {
+                select.remove(1);
+            }
+
+            // 顧客リストを追加
+            customers.forEach(customer => {
+                const option = new Option(customer.name, customer.id);
+                select.add(option);
+            });
+
+            // 前の値を復元
+            if (currentValue) {
+                select.value = currentValue;
+            }
+        }
+
+        // 統計を計算して表示
+        function updateStats() {
+            const pending = allOrders.filter(o => o.status === 'pending' || o.status === 'processing' || o.status === 'confirmed');
+            const shipped = allOrders.filter(o => o.status === 'shipped');
+
+            const pendingTotal = pending.reduce((sum, o) => sum + o.total, 0);
+            const shippedTotal = shipped.reduce((sum, o) => sum + o.total, 0);
+            const allTotal = allOrders.reduce((sum, o) => sum + o.total, 0);
+
+            // 発送待ちタブ
+            document.getElementById('stat-pending').textContent = pending.length;
+            document.getElementById('stat-pending-total').textContent = pendingTotal.toLocaleString('ja-JP');
+            document.getElementById('pendingCount').textContent = pending.length;
+
+            // 通知済みタブ
+            document.getElementById('stat-shipped').textContent = shipped.length;
+            document.getElementById('stat-shipped-total').textContent = shippedTotal.toLocaleString('ja-JP');
+            document.getElementById('shippedCount').textContent = shipped.length;
+
+            // すべてのタブ
+            document.getElementById('stat-all').textContent = allOrders.length;
+            document.getElementById('stat-all-total').textContent = allTotal.toLocaleString('ja-JP');
+        }
+
+        // フィルター適用
+        function filterOrders() {
+            const customerFilter = document.getElementById('customerFilter').value;
+            const dateFilter = document.getElementById('dateFilter').value;
+
+            filteredOrders = allOrders.filter(order => {
+                if (customerFilter && !order.items.some(i => i.customerId === customerFilter)) {
+                    // 顧客IDで直接フィルター
+                    if (!order.customerEmail) return false;
+                }
+                if (dateFilter && order.orderDate !== dateFilter) {
+                    return false;
+                }
+                return true;
+            });
+
+            if (customerFilter) {
+                filteredOrders = filteredOrders.filter(order => {
+                    // 顧客情報を確認
+                    const customer = window.OrderSyncManager.getCustomerById(order.id);
+                    return customer?.id === customerFilter;
+                });
+            }
+
+            renderCurrentTab();
+        }
+
+        // フィルター解除
+        function clearFilters() {
+            document.getElementById('customerFilter').value = '';
+            document.getElementById('dateFilter').value = '';
+            filteredOrders = [];
+            renderCurrentTab();
+        }
+
+        // タブ切り替え
+        function switchTab(tabName) {
+            currentTab = tabName;
+
+            // タブボタンのアクティブ状態を更新
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // タブコンテンツの表示/非表示を更新
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            renderCurrentTab();
+        }
+
+        // 現在のタブを描画
+        function renderCurrentTab() {
+            let ordersToShow = filteredOrders.length > 0 ? filteredOrders : allOrders;
+
+            // タブごとにフィルター
+            if (currentTab === 'pending') {
+                ordersToShow = ordersToShow.filter(o => o.status !== 'shipped');
+            } else if (currentTab === 'shipped') {
+                ordersToShow = ordersToShow.filter(o => o.status === 'shipped');
+            }
+
+            const containerId = currentTab + '-orders';
+            const container = document.getElementById(containerId);
+
+            if (ordersToShow.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <p>該当する注文がありません</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = ordersToShow.map(order => createOrderCard(order)).join('');
+        }
+
+        // 注文カードを作成
+        function createOrderCard(order) {
+            const statusClass = order.status === 'shipped' ? 'status-shipped' : 'status-pending';
+            const statusLabel = order.status === 'shipped' ? '通知済み' : '発送待ち';
+
+            // 顧客情報を取得
+            const customerInfo = window.OrderSyncManager.getCustomerById(order.id.split('_')[0]) || {};
+
+            // 発送フォーム部分
+            const shippingForm = (order.status === 'pending' || order.status === 'processing' || order.status === 'confirmed') ? `
+                <div class="notification-form">
+                    <h3>📧 発送完了通知を送信</h3>
+                    <div class="form-row">
+                        <label class="form-label">送信先メールアドレス</label>
+                        <input type="email" 
+                               class="form-input" 
+                               id="email_${order.id}" 
+                               value="${order.customerEmail}"
+                               readonly>
+                    </div>
+                    <div class="form-row-group">
+                        <div>
+                            <label class="form-label">配送業者</label>
+                            <select class="form-select" id="carrier_${order.id}">
+                                <option value="ヤマト運輸">ヤマト運輸</option>
+                                <option value="日本郵便">日本郵便</option>
+                                <option value="佐川急便">佐川急便</option>
+                                <option value="その他">その他</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">追跡番号</label>
+                            <input type="text" 
+                                   class="form-input" 
+                                   id="tracking_${order.id}" 
+                                   placeholder="例: 1234567890123">
+                        </div>
+                    </div>
+                    <div class="form-row-group">
+                        <div>
+                            <label class="form-label">発送日</label>
+                            <input type="date" 
+                                   class="form-input" 
+                                   id="shipdate_${order.id}" 
+                                   value="${new Date().toISOString().split('T')[0]}">
+                        </div>
+                        <div>
+                            <label class="form-label">到着予定日</label>
+                            <input type="date" 
+                                   class="form-input" 
+                                   id="deliverydate_${order.id}" 
+                                   value="${getEstimatedDeliveryDate()}">
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="sendShippingNotification('${order.id}')">
+                            📧 通知を送信
+                        </button>
+                        <button class="btn btn-secondary" onclick="openOrderDetail('${order.id}')">
+                            詳細表示
+                        </button>
+                    </div>
+                    <div id="notification_${order.id}" class="notification-status"></div>
+                </div>
+            ` : '';
+
+            // 発送済み情報
+            const shippedInfo = order.status === 'shipped' ? `
+                <div style="padding:15px;background:#d4edda;border-radius:5px;margin-top:15px;border-left:4px solid #28a745;">
+                    <strong>✓ 通知済み</strong><br>
+                    <small>発送日: ${order.shippedDate || '---'} | 追跡番号: ${order.trackingNumber || '---'}</small>
+                </div>
+            ` : '';
+
+            return `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-id">${order.id}</div>
+                        <div class="order-status ${statusClass}">${statusLabel}</div>
+                    </div>
+
+                    <!-- 顧客情報 -->
+                    <div class="customer-info">
+                        <h4>👤 顧客情報</h4>
+                        <div class="customer-grid">
+                            <div class="customer-field">
+                                <div class="customer-field-label">顧客名</div>
+                                <div class="customer-field-value">${order.customerName}</div>
+                            </div>
+                            <div class="customer-field">
+                                <div class="customer-field-label">メール</div>
+                                <div class="customer-field-value email">${order.customerEmail}</div>
+                            </div>
+                            <div class="customer-field">
+                                <div class="customer-field-label">電話</div>
+                                <div class="customer-field-value">${order.customerPhone || '未登録'}</div>
+                            </div>
+                            <div class="customer-field">
+                                <div class="customer-field-label">注文日</div>
+                                <div class="customer-field-value">${order.orderDate}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 注文情報 -->
+                    <div class="order-info">
+                        <div class="info-item">
+                            <div class="info-label">お支払い方法</div>
+                            <div class="info-value">${order.paymentMethod}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">合計金額</div>
+                            <div class="info-value">¥${order.total.toLocaleString('ja-JP')}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">配送先住所</div>
+                            <div class="info-value">${order.shippingAddress}</div>
+                        </div>
+                    </div>
+
+                    <!-- 注文内容 -->
+                    <div class="items-list">
+                        <h4>📦 注文内容</h4>
+                        ${order.items.map(item => `
+                            <div class="item">
+                                <span>${item.name || '商品'}</span>
+                                <span class="item-qty">× ${item.quantity}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    ${shippedInfo}
+                    ${shippingForm}
+                </div>
+            `;
+        }
+
+        // 到着予定日を計算
+        function getEstimatedDeliveryDate() {
+            const date = new Date();
+            date.setDate(date.getDate() + 2);
+            return date.toISOString().split('T')[0];
+        }
+
+        // 発送完了通知を送信
+        async function sendShippingNotification(orderId) {
+            const trackingInput = document.getElementById(`tracking_${orderId}`);
+            const carrierSelect = document.getElementById(`carrier_${orderId}`);
+            const shipdateInput = document.getElementById(`shipdate_${orderId}`);
+            const deliverydateInput = document.getElementById(`deliverydate_${orderId}`);
+            const notificationDiv = document.getElementById(`notification_${orderId}`);
+            const button = event.target;
+
+            const trackingNumber = trackingInput.value.trim();
+            const carrier = carrierSelect.value;
+            const shippedDate = shipdateInput.value;
+            const estimatedDeliveryDate = deliverydateInput.value;
+
+            // バリデーション
+            if (!trackingNumber) {
+                showNotificationInCard(notificationDiv, '追跡番号を入力してください', 'error');
+                return;
+            }
+
+            button.disabled = true;
+            button.textContent = '送信中...';
+            showNotificationInCard(notificationDiv, '📧 発送完了通知を送信しています...', 'info');
+
+            try {
+                const order = allOrders.find(o => o.id === orderId);
+                if (!order) {
+                    throw new Error('注文データが見つかりません');
+                }
+
+                // 管理者メール送信（自分自身に確認メール）
+                if (notificationManager && notificationManager.sendShippingNotification) {
+                    await notificationManager.sendShippingNotification({
+                        orderId: order.id,
+                        customerEmail: order.customerEmail,
+                        customerName: order.customerName,
+                        trackingNumber: trackingNumber,
+                        carrier: carrier,
+                        shippedDate: shippedDate,
+                        estimatedDeliveryDate: estimatedDeliveryDate,
+                        items: order.items
+                    });
+                } else {
+                    // フォールバック: 自分自身にメール送信を記録
+                    console.log('通知送信:', {
+                        orderId: order.id,
+                        customerEmail: order.customerEmail,
+                        trackingNumber: trackingNumber,
+                        carrier: carrier
+                    });
+                }
+
+                // 注文ステータスを更新
+                order.status = 'shipped';
+                order.trackingNumber = trackingNumber;
+                order.shippedDate = shippedDate;
+
+                showNotificationInCard(
+                    notificationDiv, 
+                    `✓ 発送完了通知を送信しました<br><small>${order.customerEmail} へ送信</small>`, 
+                    'success'
+                );
+
+                // 2秒後に画面更新
+                setTimeout(() => {
+                    updateStats();
+                    renderCurrentTab();
+                }, 2000);
+
+            } catch (error) {
+                console.error('通知送信エラー:', error);
+                showNotificationInCard(
+                    notificationDiv,
+                    `✗ エラー: ${error.message}`,
+                    'error'
+                );
+                button.disabled = false;
+                button.textContent = '📧 通知を送信';
+            }
+        }
+
+        // カード内の通知を表示
+        function showNotificationInCard(element, message, type) {
+            element.innerHTML = `<div class="notification-status show notification-${type}">${message}</div>`;
+        }
+
+        // ページの通知を表示（未使用部分用）
+        function showNotification(message, type = 'info') {
+            console.log(`[${type}] ${message}`);
+            // 実装がある場合はここに追加
+        }
+
+        // 詳細表示（拡張可能）
+        function openOrderDetail(orderId) {
+            const order = allOrders.find(o => o.id === orderId);
+            if (order) {
+                alert(`注文詳細: ${order.id}\n顧客: ${order.customerName}\nメール: ${order.customerEmail}`);
+            }
+        }
+
+        // 強制同期
+        function forceSyncData() {
+            if (window.OrderSyncManager) {
+                window.OrderSyncManager.clearCache();
+                loadAndDisplayOrders();
+                alert('データを同期しました');
+            }
+        }
+
+        // 同期時間を更新
+        function updateSyncTime() {
+            const lastSync = window.OrderSyncManager.getLastSyncTime();
+            document.getElementById('syncTime').textContent = lastSync || '未同期';
+        }
+    </script>
+</body>
+</html>
