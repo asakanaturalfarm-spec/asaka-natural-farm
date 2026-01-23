@@ -728,18 +728,11 @@
 
     <script>
         // カートデータを取得
-        let cartItems = [];
+        let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
         let inventoryAdjusted = false;
         let adjustedItems = [];
         
-        try {
-            const savedCart = localStorage.getItem('cartItems');
-            if (savedCart) {
-                cartItems = JSON.parse(savedCart);
-            }
-        } catch (e) {
-            console.error('カートデータの読み込みエラー:', e);
-        }
+        console.log('[checkout.html] カートデータを読み込みました:', cartItems);
 
         // カートが空の場合はカートページへリダイレクト
         if (cartItems.length === 0) {
