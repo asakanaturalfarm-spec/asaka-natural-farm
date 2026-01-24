@@ -69,6 +69,7 @@
 
 html {
     scroll-behavior: smooth;
+    height: 100%;
 }
 
 body {
@@ -76,6 +77,7 @@ body {
     background-color: var(--bg-cream);
     color: var(--text-dark);
     line-height: 1.75;
+    height: 100%;
 }
 
 /* スキップリンク（アクセスビリティ向上） */
@@ -777,7 +779,7 @@ button {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    overflow: hidden;
+    /* overflow: hidden; 削除 */
 }
 
 /* 細めのパララックス（農園と商品の間） */
