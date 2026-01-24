@@ -43,6 +43,9 @@
     .parallax-wide {
         min-height: auto;
     }
+    .parallax-overlay {
+        background: rgba(255,255,255,0.55); /* 透明度を下げて背景をよりクリアに */
+    }
 }
 /* ========================================
    フォント定義

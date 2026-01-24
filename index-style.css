@@ -1,3 +1,47 @@
+/* スマホ用ナビゲーション開閉 */
+@media (max-width: 900px) {
+    .header-container {
+        position: relative;
+    }
+    .nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        display: none;
+        flex-direction: column;
+        z-index: 100;
+        padding: 1.2rem 0;
+    }
+    .nav.nav-open {
+        display: flex;
+    }
+    .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 0.6rem;
+        margin-left: auto;
+        z-index: 101;
+    }
+    .menu-toggle.active .menu-toggle-bar {
+        background: #4a5d3f;
+    }
+    .nav-link {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        border-bottom: 1px solid #eee;
+        color: #333;
+        text-align: left;
+    }
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+}
 /* Home-only style */
 :root {
     --home-ink: #131611;
