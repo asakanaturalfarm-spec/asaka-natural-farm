@@ -775,11 +775,12 @@ button {
 
 .parallax-section {
     position: relative;
-    background-attachment: fixed;
-    background-position: center;
+    background-image: inherit;
+    background-attachment: fixed !important;
+    background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    /* overflow: hidden; 削除 */
+    z-index: 0;
 }
 
 /* 細めのパララックス（農園と商品の間） */
@@ -800,6 +801,15 @@ button {
     height: 100%;
     background: rgba(255, 255, 255, 0.85);
     z-index: 1;
+    pointer-events: none;
+}
+.cta.parallax-section {
+    position: relative;
+    z-index: 0;
+}
+.cta .container {
+    position: relative;
+    z-index: 2;
 }
 
 /* 商品セクションのコンテンツをオーバーレイの上に表示 */

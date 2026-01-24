@@ -107,11 +107,11 @@ function displayFilteredProducts(products) {
     
     // 在庫情報を取得
     const inventory = typeof getSharedInventory === 'function' ? getSharedInventory() : {};
-    
+
     const html = products.map(product => {
-        const stock = inventory[product.name]?.stock || 0;
+        const stock = inventory[product.id]?.stock || 0;
         const inStock = stock > 0;
-        
+
         return `
             <div class="product-card" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s;" 
                  onmouseover="this.style.transform='translateY(-5px)'" 
@@ -143,7 +143,7 @@ function displayFilteredProducts(products) {
             </div>
         `;
     }).join('');
-    
+
     container.innerHTML = html;
 }
 
@@ -210,7 +210,7 @@ function addToCartEnhanced(productId) {
     
     // 在庫チェック
     const inventory = typeof getSharedInventory === 'function' ? getSharedInventory() : {};
-    const stock = inventory[product.name]?.stock || 0;
+    const stock = inventory[productId]?.stock || 0;
     
     if (stock <= 0) {
         alert('申し訳ございません。この商品は現在在庫切れです。');
