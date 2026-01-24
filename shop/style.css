@@ -768,12 +768,66 @@ button {
 }
 
 /* ========================================
+   パララックスエフェクト
+   ======================================== */
+
+.parallax-section {
+    position: relative;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+/* 細めのパララックス（農園と商品の間） */
+.parallax-narrow {
+    min-height: 200px;
+}
+
+/* 広めのパララックス（商品セクション） */
+.parallax-wide {
+    min-height: 100vh;
+}
+
+.parallax-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: 1;
+}
+
+/* 商品セクションのコンテンツをオーバーレイの上に表示 */
+.parallax-wide .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* レスポンシブ対応：モバイルでは背景固定を解除 */
+@media (max-width: 768px) {
+    .parallax-section {
+        background-attachment: scroll;
+    }
+    
+    .parallax-narrow {
+        min-height: 120px;
+    }
+    
+    .parallax-wide {
+        min-height: auto;
+    }
+}
+
+/* ========================================
    商品セクション
    ======================================== */
 
 .products {
     padding: 100px 40px;
-    background-color: var(--bg-white);
+    background-color: transparent;
 }
 
 .section-subtitle {
