@@ -1,4 +1,50 @@
 /* ========================================
+   パララックスエフェクト（背景固定＋レイヤー構造）
+   ======================================== */
+.parallax-section {
+    position: relative;
+    background-attachment: fixed !important;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 0;
+}
+.parallax-narrow {
+    min-height: 200px;
+}
+.parallax-wide {
+    min-height: 100vh;
+}
+.parallax-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: 1;
+    pointer-events: none;
+}
+.cta.parallax-section {
+    position: relative;
+    z-index: 0;
+}
+.cta .container {
+    position: relative;
+    z-index: 2;
+}
+@media (max-width: 768px) {
+    .parallax-section {
+        background-attachment: scroll;
+    }
+    .parallax-narrow {
+        min-height: 120px;
+    }
+    .parallax-wide {
+        min-height: auto;
+    }
+}
+/* ========================================
    フォント定義
    ======================================== */
 @font-face {
