@@ -1,3 +1,113 @@
+/* inflow1.html専用：スマホUI崩れ修正 */
+@media (max-width: 900px) {
+    .hero-question {
+        padding: 2.5rem 0.5rem 1.5rem;
+        text-align: center;
+    }
+    .hero-question-title {
+        font-size: 1.2rem;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+    .hero-question-text {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+    .breadcrumb {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.5rem;
+    }
+    .section {
+        padding: 2rem 0.5rem;
+    }
+    .section-title {
+        font-size: 1.05rem;
+        margin-bottom: 1.2rem;
+    }
+    .section-description {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+    .problem-list {
+        gap: 1.2rem;
+    }
+    .problem-item-title {
+        font-size: 1rem;
+    }
+    .problem-item-text {
+        font-size: 0.92rem;
+        line-height: 1.7;
+    }
+    .comparison-table {
+        font-size: 0.92rem;
+        overflow-x: auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .comparison-header, .comparison-row {
+        min-width: 480px;
+    }
+    .logic-flow {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+    .logic-step {
+        padding: 1rem 0.5rem;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        margin-bottom: 0.8rem;
+    }
+    .logic-number {
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+    }
+    .logic-title {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+    }
+    .logic-text {
+        font-size: 0.92rem;
+        line-height: 1.7;
+    }
+    .logic-arrow {
+        font-size: 1.5rem;
+        margin: 0.2rem 0;
+        text-align: center;
+    }
+    .soil-aspect-title, .seed-point-title {
+        font-size: 1rem;
+    }
+    .soil-aspect-text, .seed-point-text {
+        font-size: 0.92rem;
+        line-height: 1.7;
+    }
+    .closing-content {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+    .related-grid {
+        gap: 1rem;
+        grid-template-columns: 1fr;
+    }
+    .related-card {
+        padding: 1rem 0.5rem;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .cta-section {
+        padding: 2rem 0.5rem;
+    }
+    .cta-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+    .cta-description {
+        font-size: 0.95rem;
+        margin-bottom: 1.2rem;
+    }
+}
 /* ========================================
    パララックスエフェクト（背景固定＋レイヤー構造）
    ======================================== */
