@@ -160,28 +160,47 @@
         </script>
 </head>
 <body class="home">
-    <!-- ヘッダー -->
-    <header class="header">
-        <div class="header-container">
-            <h1 class="logo"><a href="index.html">🌱 安積自然農園</a></h1>
-            <button class="menu-toggle" aria-label="メニュー">
-                <span class="menu-toggle-bar"></span>
-                <span class="menu-toggle-bar"></span>
-                <span class="menu-toggle-bar"></span>
-            </button>
-            <nav class="nav">
-                <a href="#method" class="nav-link">農法</a>
-                <a href="#vegetables" class="nav-link">野菜</a>
-                <a href="#products" class="nav-link">加工品</a>
-                <a href="#location" class="nav-link">農園</a>
-                <a href="#philosophy" class="nav-link">生産者からのあいさつ</a>
-                <a href="/shop/index.html" class="nav-link nav-link-shop">オンラインショップ</a>
+        <!-- レスポンシブヘッダー -->
+        <header class="header">
+            <a href="index.html" class="header-logo" aria-label="ホーム">
+                <img src="favicon.png" alt="安積自然農園ロゴ" style="height:40px;vertical-align:middle;">
+            </a>
+            <nav class="header-nav">
+                <a href="index.html">ホームページ</a>
+                <a href="#greeting">生産者挨拶</a>
+                <a href="account.html">ログイン</a>
             </nav>
-        </div>
-    </header>
+            <div class="hamburger" id="hamburger-menu" aria-label="メニュー" tabindex="0">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="mobile-nav" id="mobile-nav">
+                <a href="index.html">ホームページ</a>
+                <a href="#greeting">生産者挨拶</a>
+                <a href="account.html">ログイン</a>
+            </div>
+        </header>
+        <script>
+        // ハンバーガーメニューの開閉
+        const hamburger = document.getElementById('hamburger-menu');
+        const mobileNav = document.getElementById('mobile-nav');
+        hamburger.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+        });
+        hamburger.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                mobileNav.classList.toggle('active');
+            }
+        });
+        document.addEventListener('click', function(e) {
+            if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+                mobileNav.classList.remove('active');
+            }
+        });
+        </script>
 
-    <!-- ヘッダースペーサー（グローバルナビ固定用） -->
-    <div class="header-spacer"></div>
+    <!-- ...existing code... -->
 
     <!-- メインビジュアル -->
     <section class="hero">
