@@ -8,9 +8,10 @@
             white-space: normal;
             overflow-x: visible;
             text-overflow: unset;
-            width: 80vw;
-            max-width: 80vw;
             box-sizing: border-box;
+        }
+        .section-title {
+            text-align: center;
         }
     body {
         font-size: 0.98rem;
@@ -587,6 +588,7 @@ body {
     color: #2c3e50;
     margin-bottom: 0.7em;
     letter-spacing: 0.08em;
+    text-align: center;
 }
 
 .section-subtitle {
