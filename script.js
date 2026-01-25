@@ -1,4 +1,25 @@
 // ========================================
+// ハンバーガーメニュー（全ページ共通）
+// ========================================
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+    if (!menuToggle || !nav) return;
+
+    menuToggle.addEventListener('click', function() {
+        nav.classList.toggle('nav-open');
+        menuToggle.classList.toggle('active');
+    });
+
+    // メニューリンククリック時は自動で閉じる
+    nav.querySelectorAll('.nav-link').forEach(function(link) {
+        link.addEventListener('click', function() {
+            nav.classList.remove('nav-open');
+            menuToggle.classList.remove('active');
+        });
+    });
+});
+// ========================================
 // グローバル変数
 // ========================================
 
