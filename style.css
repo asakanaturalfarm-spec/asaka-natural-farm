@@ -225,8 +225,8 @@
             white-space: normal;
             overflow-x: visible;
             text-overflow: unset;
-            width: 90%;
-            max-width: 90%;
+            width: 98%;
+            max-width: 1100px;
             margin-left: auto;
             margin-right: auto;
             box-sizing: border-box;
@@ -445,10 +445,30 @@
     box-shadow: 0 2px 12px rgba(0,0,0,0.04);
     margin: 2.5em auto;
     padding: 2.5em 1.5em;
-    max-width: 98vw;
+    max-width: 1100px;
     width: 98vw;
     margin-left: auto;
     margin-right: auto;
+}
+@media (max-width: 768px) {
+    .section-title,
+    .section-subtitle,
+    .message-text,
+    .products-intro,
+    .location-text,
+    .vegetables-intro,
+    .form-label {
+        width: 99vw;
+        max-width: 99vw;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .problem-statement, .structural-difference, .why-this-method {
+        max-width: 99vw;
+        width: 99vw;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
 }
 
 .problem-list {
