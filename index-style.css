@@ -1,16 +1,3 @@
-/* セクションタイトル中央揃え強制 */
-.section-title,
-.section-subtitle,
-body.home h2,
-body.home h3,
-body.home h4,
-body.home h5,
-body.home h6 {
-    text-align: center !important;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-}
 /* スマホ用ナビゲーション開閉 */
 @media (max-width: 900px) {
     .header-container {
@@ -378,16 +365,6 @@ body.home .split {
     align-items: start;
 }
 
-body.home .section-head,
-body.home .section-title {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-}
-
-body.home .section-title {
-    align-items: flex-start;
-}
 
 body.home .stack {
     display: flex;
