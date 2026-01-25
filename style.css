@@ -8,8 +8,8 @@
             white-space: normal;
             overflow-x: visible;
             text-overflow: unset;
-            width: 100vw;
-            max-width: 100vw;
+            width: 80vw;
+            max-width: 80vw;
             box-sizing: border-box;
         }
     body {
