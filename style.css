@@ -1394,12 +1394,13 @@ a:hover {
 }
 
 .contact-form-wrapper {
-    max-width: 380px;
-    margin: 24px auto 0;
+    max-width: 95vw;
+    margin: 16px auto 0;
     background-color: white;
-    padding: 18px 12px;
+    padding: 8px 2vw;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow-x: hidden;
 }
 
 .contact-form {
@@ -1410,7 +1411,10 @@ a:hover {
         "message message"
         "button button"
         "success success";
-    gap: 12px;
+    gap: 10px;
+    max-width: 320px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .form-group {
