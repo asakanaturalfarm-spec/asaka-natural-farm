@@ -1,195 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
-    <style>
-    /* inflow1.html UI改善：全端末対応（ハンバーガーメニューCSSはstyle.cssに統一） */
-    body {
-        background: #fafaf9;
-        color: #2c2c2c;
-        font-family: 'Noto Sans JP', 'Noto Serif JP', serif;
-        letter-spacing: 0.02em;
-    }
-    /* --- ここから下は既存UI改善CSS --- */
-            .section {
-                max-width: 900px;
-                margin: 0 auto 2.5rem auto;
-                padding: 2.5rem 1.2rem;
-                background: #fff;
-                border-radius: 16px;
-                box-shadow: 0 2px 16px rgba(0,0,0,0.04);
-            }
-            .section-title {
-                font-size: 1.5rem;
-                color: #3a5d3f;
-                font-weight: 600;
-                margin-bottom: 1.2rem;
-                text-align: center;
-                letter-spacing: 0.08em;
-            }
-            .section-description {
-                font-size: 1.08rem;
-                color: #444;
-                margin-bottom: 1.2rem;
-                text-align: center;
-            }
-            .comparison-table {
-                width: 100%;
-                overflow-x: auto;
-                border-radius: 10px;
-                background: #f6f8f4;
-                box-shadow: 0 1px 8px rgba(0,0,0,0.04);
-                margin-bottom: 1.5rem;
-                border: 1px solid #e0e0dc;
-            }
-            .comparison-header, .comparison-row {
-                display: flex;
-                border-bottom: 1px solid #e0e0dc;
-                padding: 0.7rem 0.5rem;
-            }
-            .comparison-header {
-                background: #eaf3e7;
-                font-weight: 600;
-            }
-            .comparison-col {
-                flex: 1;
-                text-align: center;
-                font-size: 1rem;
-            }
-            .logic-flow {
-                display: flex;
-                flex-direction: row;
-                gap: 1.5rem;
-                flex-wrap: wrap;
-                justify-content: center;
-                margin-bottom: 2rem;
-            }
-            .logic-step {
-                background: #f7fdf6;
-                border-radius: 12px;
-                box-shadow: 0 1px 8px rgba(60,120,60,0.06);
-                padding: 1.2rem 1rem;
-                min-width: 220px;
-                max-width: 320px;
-                margin-bottom: 0.5rem;
-                border: 1px solid #e0e0dc;
-            }
-            .logic-number {
-                font-size: 1.2rem;
-                color: #3a5d3f;
-                font-weight: 700;
-                margin-bottom: 0.3rem;
-            }
-            .logic-title {
-                font-size: 1.08rem;
-                font-weight: 600;
-                margin-bottom: 0.3rem;
-                color: #2c2c2c;
-            }
-            .logic-text {
-                font-size: 0.98rem;
-                color: #444;
-                line-height: 1.7;
-            }
-            .logic-arrow {
-                font-size: 1.5rem;
-                color: #3a5d3f;
-                text-align: center;
-                margin: 0.2rem 0;
-            }
-            .related-grid {
-                display: flex;
-                gap: 1.2rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .related-card {
-                background: #f6f8f4;
-                border-radius: 10px;
-                box-shadow: 0 1px 8px rgba(0,0,0,0.04);
-                padding: 1.2rem 1rem;
-                min-width: 220px;
-                max-width: 320px;
-                border: 1px solid #e0e0dc;
-                font-size: 1rem;
-                transition: box-shadow 0.2s;
-            }
-            .related-card:hover {
-                box-shadow: 0 4px 16px rgba(60,120,60,0.10);
-                background: #eaf3e7;
-            }
-            .cta-section {
-                text-align: center;
-                background: #eaf3e7;
-                border-radius: 16px;
-                margin: 2rem auto;
-                padding: 2rem 1rem;
-                max-width: 700px;
-                box-shadow: 0 2px 16px rgba(0,0,0,0.04);
-            }
-            .cta-title {
-                font-size: 1.3rem;
-                color: #3a5d3f;
-                font-weight: 700;
-                margin-bottom: 1rem;
-            }
-            .cta-description {
-                font-size: 1.05rem;
-                color: #444;
-                margin-bottom: 1.2rem;
-            }
-            .cta-button {
-                display: inline-block;
-                padding: 0.9rem 2.2rem;
-                background: #3a5d3f;
-                color: #fff;
-                border-radius: 999px;
-                font-size: 1.08rem;
-                font-weight: 600;
-                letter-spacing: 0.08em;
-                text-decoration: none;
-                border: none;
-                box-shadow: 0 2px 8px rgba(60,120,60,0.10);
-                transition: background 0.2s, box-shadow 0.2s;
-            }
-            .cta-button:hover {
-                background: #2c4d2c;
-                box-shadow: 0 4px 16px rgba(60,120,60,0.18);
-            }
-            .footer {
-                background: #f6f8f4;
-                border-top: 1px solid #e0e0dc;
-                padding: 2.5rem 1.2rem 1.2rem 1.2rem;
-                text-align: center;
-                font-size: 0.98rem;
-                color: #444;
-            }
-            .footer-title {
-                color: #3a5d3f;
-                font-weight: 600;
-                font-size: 1.08rem;
-                margin-bottom: 0.5rem;
-            }
-            .footer-link {
-                color: #3a5d3f;
-                text-decoration: underline;
-                margin: 0 0.5rem;
-                font-size: 0.98rem;
-            }
-            @media (max-width: 700px) {
-                .section, .cta-section {
-                    padding: 1.2rem 0.3rem;
-                    border-radius: 8px;
-                }
-                .logic-flow, .related-grid {
-                    flex-direction: column;
-                    gap: 1rem;
-                }
-                .logic-step, .related-card {
-                    min-width: 0;
-                    max-width: 100%;
-                }
-            }
-    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="favicon.png">
@@ -234,8 +45,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="index-style.css">
 </head>
-<body>
+<body class="home">
     <!-- ヘッダー（共通） -->
     <header class="header">
         <div class="header-container">
@@ -328,43 +140,47 @@
                 慣行農法は「人の手で管理する」ことを前提としているのに対し、自然農法は「自然の循環」を意識し、野菜や土の持つ本来の力を活かす考え方です。<br>
                 この根本的な思想の違いが、具体的な農法の違いとして現れています。
             </p>
-            <div class="comparison-table">
-                <div class="comparison-header">
-                    <div class="comparison-col">観点</div>
-                    <div class="comparison-col">慣行農法</div>
-                    <div class="comparison-col">自然農法（当園）</div>
-                </div>
-                <div class="comparison-row">
-                    <div class="comparison-col"><strong>土への認識</strong></div>
-                    <div class="comparison-col">補うべき対象</div>
-                    <div class="comparison-col">信頼すべき存在</div>
-                </div>
-                <div class="comparison-row">
-                    <div class="comparison-col"><strong>養分供給</strong></div>
-                    <div class="comparison-col">外部投入（肥料）</div>
-                    <div class="comparison-col">内部循環（微生物・分解）</div>
-                </div>
-                <div class="comparison-row">
-                    <div class="comparison-col"><strong>病害虫</strong></div>
-                    <div class="comparison-col">排除対象</div>
-                    <div class="comparison-col">生態系の一部</div>
-                </div>
-                <div class="comparison-row">
-                    <div class="comparison-col"><strong>種の扱い</strong></div>
-                    <div class="comparison-col">毎年購入（F1種）</div>
-                    <div class="comparison-col">自家採種・循環</div>
-                </div>
-                <div class="comparison-row">
-                    <div class="comparison-col"><strong>人間の役割</strong></div>
-                    <div class="comparison-col">管理者・支配者</div>
-                    <div class="comparison-col">観察者・協働者</div>
-                </div>
-                <div class="comparison-row">
-                    <div class="comparison-col"><strong>目標</strong></div>
-                    <div class="comparison-col">収量最大化・安定化</div>
-                    <div class="comparison-col">持続可能性・健全性</div>
-                </div>
-            </div>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>観点</th>
+                                    <th>慣行農法</th>
+                                    <th>自然農法（当園）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>土への認識</strong></td>
+                                    <td>補うべき対象</td>
+                                    <td>信頼すべき存在</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>養分供給</strong></td>
+                                    <td>外部投入（肥料）</td>
+                                    <td>内部循環（微生物・分解）</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>病害虫</strong></td>
+                                    <td>排除対象</td>
+                                    <td>生態系の一部</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>種の扱い</strong></td>
+                                    <td>毎年購入（F1種）</td>
+                                    <td>自家採種・循環</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>人間の役割</strong></td>
+                                    <td>管理者・支配者</td>
+                                    <td>観察者・協働者</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>目標</strong></td>
+                                    <td>収量最大化・安定化</td>
+                                    <td>持続可能性・健全性</td>
+                                </tr>
+                            </tbody>
+                        </table>
             <p class="section-note">
                 このように、慣行農法は野菜の生育循環に人為的に入り込み、目に見える成果を優先した管理型の生育環境を作っています。
             </p>

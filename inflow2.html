@@ -9,6 +9,8 @@
     <title>未来への視点 | 安積自然農園 - 食・農・土地・未来の接続</title>
     <meta name="keywords" content="持続可能な農業,次世代,土壌保全,生物多様性,食の安全,自然農法,環境保護,地産地消,福島県,郡山市">
     <link rel="canonical" href="https://asakanatural.jp/inflow2.html">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index-style.css">
     
     <!-- Open Graph / SNS -->
     <meta property="og:type" content="article">
@@ -44,8 +46,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index-style.css">
 </head>
-<body>
+<body class="home">
     <!-- ヘッダー（共通） -->
     <header class="header">
         <div class="header-container">
@@ -396,5 +399,26 @@
     </footer>
 
     <script src="script.js"></script>
+    <!-- スマホ用ナビゲーション開閉 -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('.nav');
+        if (!menuToggle || !nav) return;
+
+        menuToggle.addEventListener('click', function() {
+            nav.classList.toggle('nav-open');
+            menuToggle.classList.toggle('active');
+        });
+
+        // メニューリンククリック時は自動で閉じる
+        nav.querySelectorAll('.nav-link').forEach(function(link) {
+            link.addEventListener('click', function() {
+                nav.classList.remove('nav-open');
+                menuToggle.classList.remove('active');
+            });
+        });
+    });
+    </script>
 </body>
 </html>
