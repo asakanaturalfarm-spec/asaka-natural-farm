@@ -1,3 +1,4 @@
+
 /**
  * メール送信テストスクリプト
  * 
@@ -49,12 +50,7 @@ const testPayment = {
     amount: 3132
 };
 
-(async () => {
-    if (!process.env.EMAIL_SERVICE) return;
-    try { await sendOrderConfirmation(testOrder); } catch {}
-    try { await sendShippingNotification(testShipment); } catch {}
-    try { await sendPaymentFailureNotification(testPayment); } catch {}
-})();
+async function runTests() {
     if (!process.env.EMAIL_SERVICE) {
         console.error('❌ EMAIL_SERVICE が設定されていません');
         console.log('   .envファイルを作成し、必要な環境変数を設定してください');
@@ -64,7 +60,7 @@ const testPayment = {
     console.log(`✅ EMAIL_SERVICE: ${process.env.EMAIL_SERVICE}`);
     console.log(`✅ EMAIL_FROM: ${process.env.EMAIL_FROM}`);
     console.log(`✅ DOMAIN: ${process.env.DOMAIN}\n`);
-    
+
     // テスト1: 注文確定メール
     try {
         console.log('[2] 注文確定メールテスト');
@@ -76,10 +72,10 @@ const testPayment = {
     } catch (error) {
         console.error('❌ 送信失敗:', error.message, '\n');
     }
-    
+
     // 待機（レート制限対策）
     await new Promise(resolve => setTimeout(resolve, 7000));
-    
+
     // テスト2: 発送完了メール
     try {
         console.log('[3] 発送完了メールテスト');
@@ -91,10 +87,10 @@ const testPayment = {
     } catch (error) {
         console.error('❌ 送信失敗:', error.message, '\n');
     }
-    
+
     // 待機
     await new Promise(resolve => setTimeout(resolve, 7000));
-    
+
     // テスト3: 支払失敗メール
     try {
         console.log('[4] 支払失敗メールテスト');
@@ -106,7 +102,7 @@ const testPayment = {
     } catch (error) {
         console.error('❌ 送信失敗:', error.message, '\n');
     }
-    
+
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('  テスト完了');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
