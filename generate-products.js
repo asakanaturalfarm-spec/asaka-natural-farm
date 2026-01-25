@@ -364,10 +364,10 @@ function generateProductPage(product) {
                     addBtn.disabled = true;
                 } else if (stock < 5) {
                     stockInfo.className = 'stock-info low';
-                    stockText.textContent = `残りわずか（在庫: ${stock}${document.querySelector('.product-price .unit').textContent.replace('/ ', '')}）`;
+                    stockText.textContent = '残りわずか(在庫: ' + stock + document.querySelector('.product-price .unit').textContent.replace('/ ', '') + ')';
                 } else {
                     stockInfo.className = 'stock-info';
-                    stockText.textContent = `在庫あり（${stock}${document.querySelector('.product-price .unit').textContent.replace('/ ', '')}）`;
+                    stockText.textContent = '在庫あり(' + stock + document.querySelector('.product-price .unit').textContent.replace('/ ', '') + ')';
                 }
             } catch (error) {
                 console.error('在庫確認エラー:', error);
@@ -394,7 +394,7 @@ function generateProductPage(product) {
                 cart.push(product);
             }
             localStorage.setItem('cart', JSON.stringify(cart));
-            alert(`${PRODUCT_NAME} を${quantity}個カートに追加しました`);
+            alert(PRODUCT_NAME + ' を' + quantity + '個カートに追加しました');
             if (confirm('カートを確認しますか？')) {
                 window.location.href = 'cart.html';
             }
@@ -406,14 +406,7 @@ function generateProductPage(product) {
                 p.category === PRODUCT_CATEGORY && p.id !== PRODUCT_ID
             ).slice(0, 4);
             const grid = document.getElementById('relatedProductsGrid');
-            grid.innerHTML = related.map(p => `
-                <div class="product-card">
-                    <a href="product-${p.id}.html">
-                        <h3>${p.name}</h3>
-                        <p class="price">￥${p.price.toLocaleString()}</p>
-                    </a>
-                </div>
-            `).join('');
+            grid.innerHTML = related.map(p => '<div class="product-card"><a href="product-' + p.id + '.html"><h3>' + p.name + '</h3><p class="price">￥' + p.price.toLocaleString() + '</p></a></div>').join('');
         }
         // 初期化
         document.addEventListener('DOMContentLoaded', () => {
