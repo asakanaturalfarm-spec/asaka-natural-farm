@@ -215,58 +215,143 @@
                 padding: 10px 0;
             }
         }
-        .section-title,
-        .section-subtitle,
-        .message-text,
-        .products-intro,
-        .location-text,
-        .vegetables-intro,
-        .form-label {
-            white-space: normal;
-            overflow-x: visible;
-            text-overflow: unset;
-            width: 98%;
-            max-width: 1100px;
-            margin-left: auto;
-            margin-right: auto;
-            box-sizing: border-box;
-        }
-        /* セクションタイトル中央揃え・幅調整 */
-        .section-title {
-            margin-top: 4em;
-            text-align: center;
-            width: 100%;
-            max-width: 100vw;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-        }
+/* セクションタイトル・アンダーバー・テキスト要素の一元管理 */
+.section-title,
+.section-subtitle,
+.message-text,
+.products-intro,
+.location-text,
+.vegetables-intro,
+.form-label {
+    white-space: normal;
+    overflow-x: visible;
+    text-overflow: unset;
+    width: 100%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+.section-title {
+    margin-top: 4em;
+    text-align: center;
+    font-size: 2.1rem;
+    color: #2c3e50;
+    margin-bottom: 0.7em;
+    letter-spacing: 0.08em;
+    position: relative;
+}
+.section-underline, .section-title::after {
+    display: block;
+    margin: 1.2rem auto 0 auto;
+    width: 3.5em;
+    max-width: 90vw;
+    height: 3px;
+    background: var(--color-accent, #4a5d3f);
+    border-radius: 2px;
+    content: '';
+}
 
-        /* アンダーバー装飾（例: .section-underline）中央揃え・幅調整 */
-        .section-underline {
-            display: block;
-            margin: 0.5em auto 0 auto;
-            width: 3.5em;
-            height: 3px;
-            background: var(--color-accent, #4a5d3f);
-            border-radius: 2px;
-        }
-    @media (max-width: 768px) {
-        .section-title {
-            width: 100vw;
-            max-width: 100vw;
-            padding-left: 0;
-            padding-right: 0;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .section-underline {
-            width: 2.5em;
-            margin-left: auto;
-            margin-right: auto;
-        }
+/* お問い合わせフォーム */
+.contact-form-wrapper {
+    max-width: 520px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 16px 2vw;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    box-sizing: border-box;
+}
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+.form-label {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+.form-input,
+.form-textarea {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 12px;
+    border: 1px solid #e2dfd6;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+.form-textarea {
+    min-height: 80px;
+    max-height: 180px;
+}
+.form-submit-btn {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1.05rem;
+    background: var(--color-accent, #4a5d3f);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.form-submit-btn:hover {
+    background: var(--color-accent-hover, #3a4d2f);
+}
+
+@media (max-width: 768px) {
+    .section-title,
+    .section-subtitle,
+    .message-text,
+    .products-intro,
+    .location-text,
+    .vegetables-intro,
+    .form-label {
+        width: 99vw;
+        max-width: 99vw;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        font-size: 1.1rem;
     }
+    .section-title {
+        font-size: 1.35rem;
+        margin-top: 2em;
+        margin-bottom: 0.5em;
+    }
+    .section-underline, .section-title::after {
+        width: 2.5em;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 90vw;
+    }
+    .contact-form-wrapper {
+        max-width: 99vw;
+        padding: 8px 2vw;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .contact-form {
+        gap: 8px;
+    }
+    .form-label {
+        font-size: 0.95rem;
+    }
+    .form-input,
+    .form-textarea {
+        font-size: 0.95rem;
+        padding: 8px 8px;
+    }
+    .form-textarea {
+        min-height: 60px;
+        max-height: 120px;
+    }
+    .form-submit-btn {
+        font-size: 0.98rem;
+        padding: 10px 0;
+    }
+}
     body {
         font-size: 0.98rem;
         line-height: 1.7;
