@@ -16,35 +16,19 @@
             align-items: center;
             justify-content: space-between;
             height: 48px;
-/* ===== セクションタイトル・アンダーバー・テキスト要素の一元管理 ===== */
-.section-title,
-.section-subtitle,
-.message-text,
-.products-intro,
-.location-text,
-.vegetables-intro,
-.form-label {
-    white-space: normal;
-    overflow-x: visible;
-    text-overflow: unset;
-    width: 100%;
-    max-width: 1100px;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-}
+/* ===== セクションタイトル・アンダーバー一元管理 ===== */
 .section-title {
     margin-top: 4em;
+    margin-bottom: 0.7em;
     text-align: center;
     font-size: 2.1rem;
     color: #2c3e50;
-    margin-bottom: 0.7em;
     letter-spacing: 0.08em;
     position: relative;
     width: 100%;
-    max-width: 100vw;
+    max-width: 1100px;
+    box-sizing: border-box;
 }
-/* アンダーバーは.section-underlineのみで統一 */
 .section-underline {
     display: block;
     margin: 1.2rem auto 0 auto;
@@ -65,12 +49,16 @@
     border-radius: 10px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.04);
     box-sizing: border-box;
+    overflow-x: visible;
 }
 .contact-form {
     display: flex;
     flex-direction: column;
     gap: 12px;
     width: 100%;
+    min-width: 220px;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 .form-label {
     font-size: 1rem;
@@ -105,40 +93,38 @@
 }
 
 @media (max-width: 768px) {
-    .section-title,
-    .section-subtitle,
-    .message-text,
-    .products-intro,
-    .location-text,
-    .vegetables-intro,
-    .form-label {
-        width: 99vw;
-        max-width: 99vw;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-        font-size: 1.1rem;
-    }
     .section-title {
         font-size: 1.35rem;
         margin-top: 2em;
         margin-bottom: 0.5em;
-        width: 100vw;
-        max-width: 100vw;
+        width: auto;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
     }
     .section-underline {
         width: 2.5em;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 1.2rem auto 0 auto;
         max-width: 90vw;
+        display: block;
     }
     .contact-form-wrapper {
-        max-width: 99vw;
+        max-width: 100%;
+        margin: 0 auto;
         padding: 8px 2vw;
-        border-radius: 0;
-        box-shadow: none;
+        border-radius: 10px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        text-align: center;
     }
     .contact-form {
         gap: 8px;
+        min-width: 180px;
+        max-width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     .form-label {
         font-size: 0.95rem;
@@ -305,21 +291,27 @@
             }
         }
 /* セクションタイトル・アンダーバー・テキスト要素の一元管理 */
-.section-title,
-.section-subtitle,
-.message-text,
-.products-intro,
-.location-text,
-.vegetables-intro,
-.form-label {
-    white-space: normal;
-    overflow-x: visible;
-    text-overflow: unset;
+/* セクションタイトル・アンダーバー一元管理 */
+.section-title {
+    margin-top: 4em;
+    margin-bottom: 0.7em;
+    text-align: center;
+    font-size: 2.1rem;
+    color: #2c3e50;
+    letter-spacing: 0.08em;
+    position: relative;
     width: 100%;
     max-width: 1100px;
-    margin-left: auto;
-    margin-right: auto;
     box-sizing: border-box;
+}
+.section-underline {
+    display: block;
+    margin: 1.2rem auto 0 auto;
+    width: 3.5em;
+    max-width: 90vw;
+    height: 3px;
+    background: var(--color-accent, #4a5d3f);
+    border-radius: 2px;
 }
 .section-title {
     margin-top: 4em;
@@ -651,15 +643,15 @@
     box-shadow: 0 2px 12px rgba(0,0,0,0.04);
     margin: 2.5em auto;
     padding: 2.5em 1.5em;
-    max-width: 1100px;
-    width: 98vw;
-    margin-left: auto;
-    margin-right: auto;
-}
-@media (max-width: 768px) {
-    .section-title,
-    .section-subtitle,
-    .message-text,
+    max-width: 520px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 16px 2vw;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    box-sizing: border-box;
+    overflow-x: visible;
     .products-intro,
     .location-text,
     .vegetables-intro,
@@ -2071,13 +2063,16 @@ a:hover {
     margin: 0 auto;
 }
 
+
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
     width: 100%;
+    min-width: 220px;
+    max-width: 100%;
+    box-sizing: border-box;
 }
-
 .contact-form .form-group:nth-child(1) { grid-area: name; }
 .contact-form .form-group:nth-child(2) { grid-area: email; }
 .contact-form .form-group:nth-child(3) { grid-area: message; }
@@ -2085,57 +2080,8 @@ a:hover {
 
 .form-label {
     font-family: var(--font-sans);
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--color-text);
-    letter-spacing: 0.05em;
 }
-
-.required {
-    color: #dc3545;
-    font-weight: 600;
-    margin-left: 2px;
-}
-
-.form-input,
-.form-textarea {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    padding: 12px 14px;
-    border: 1.5px solid var(--color-border);
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    color: var(--color-text);
-    line-height: 1.6;
-    letter-spacing: 0.03em;
-}
-
-.form-input:focus,
-.form-textarea:focus {
-    outline: none;
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(74, 93, 63, 0.1);
-    background-color: rgba(74, 93, 63, 0.02);
-}
-
-.form-textarea {
-    resize: vertical;
-    font-family: inherit;
-}
-
-.form-error {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    color: #dc3545;
-    display: none;
-    margin-top: -4px;
-}
-
-.form-error.show {
-    display: block;
-}
-
-.form-success {
+.contact-form .success-message {
     grid-area: success;
     font-family: var(--font-sans);
     font-size: 0.95rem;
