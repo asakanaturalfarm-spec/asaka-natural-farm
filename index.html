@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="index-style.css?v=2026123">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
 
-        <!-- Open Graph / SNS -->
         <meta property="og:locale" content="ja_JP">
         <meta property="og:type" content="website">
         <meta property="og:title" content="安積自然農園 | 無肥料無農薬栽培">
@@ -81,6 +80,7 @@
                     },
                     {
                         "@type": "Offer",
+        <!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="favicon.png"><meta name="description" content="福島県郡山市・安積疏水流域に位置する自然農園。無肥料・無農薬・自家採種により、土と水の循環に根ざした野菜と無添加加工品を生産・販売しています。"><meta name="keywords" content="自然農法,無農薬野菜,無肥料栽培,有機野菜,オーガニック,産地直送,福島県,郡山市,安積自然農園,自家採種,無添加,野菜通販,安積疏水,自然農,オンライン直売所"><meta name="author" content="安積自然農園"><title>安積自然農園 | 無肥料無農薬栽培 - 福島県郡山市の自然農法野菜</title><link rel="alternate" hreflang="ja" href="/"><meta name="robots" content="index,follow"><link rel="canonical" href="https://asakanatural.jp/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" href="fonts/NIS_TAK.otf" as="font" type="font/otf" crossorigin><link rel="stylesheet" href="style.css?v=2026123"><link rel="stylesheet" href="index-style.css?v=2026123"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet"><meta property="og:locale" content="ja_JP"><meta property="og:type" content="website"><meta property="og:title" content="安積自然農園 | 無肥料無農薬栽培"><meta property="og:description" content="福島県郡山市の安積疏水流域で、無肥料・無農薬・自家採種による自然農法を実践。土と水の力を生かした野菜と無添加加工品を届けます。"><meta property="og:url" content="https://asakanatural.jp/"><meta property="og:image" content="https://asakanatural.jp/無肥料.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="安積自然農園 - 無肥料無農薬栽培"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@asakanatural"><meta name="twitter:title" content="安積自然農園 | 無肥料無農薬栽培"><meta name="twitter:description" content="福島県郡山市の安積疏水流域で、無肥料・無農薬・自家採種による自然農法を実践"><meta name="twitter:image" content="https://asakanatural.jp/無肥料.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"安積自然農園","alternateName":"Asaka Natural Farm","description":"福島県郡山市・安積疏水流域で無肥料・無農薬・自家採種による自然農法を実践。土と水の循環に根ざした野菜と無添加加工品を生産・販売","url":"https://asakanatural.jp/","logo":"https://asakanatural.jp/無肥料.png","image":"https://asakanatural.jp/無肥料.png","telephone":"","email":"info@asakanatural.jp","foundingDate":"2020","address":{"@type":"PostalAddress","addressLocality":"郡山市","addressRegion":"福島県","addressCountry":"JP"},"geo":{}}
                         "itemOffered": {
                             "@type": "Product",
                             "name": "無添加加工食品",
@@ -442,28 +442,21 @@
                 <form id="contactForm" class="contact-form">
                     <div class="form-group">
                         <label for="contactName" class="form-label">お名前 <span class="required">*</span></label>
-                        <input type="text" id="contactName" name="name" class="form-input" placeholder="山田 太郎" required>
-                        <div class="form-error" id="nameError"></div>
+                        <input type="text" id="contactName" name="name" class="form-input" placeholder="山田 太郎" required pattern="^[\u3040-\u30FF\u4E00-\u9FFF\uFF66-\uFF9F\uFF10-\uFF19A-Za-z\s]+$" title="全角・半角文字のみ">
                     </div>
 
                     <div class="form-group">
                         <label for="contactEmail" class="form-label">メールアドレス <span class="required">*</span></label>
-                        <input type="email" id="contactEmail" name="email" class="form-input" placeholder="example@example.com" required>
-                        <div class="form-error" id="emailError"></div>
+                        <input type="email" id="contactEmail" name="email" class="form-input" placeholder="example@example.com" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" title="有効なメールアドレスを入力してください">
                     </div>
 
                     <div class="form-group">
                         <label for="contactMessage" class="form-label">お問い合わせ内容 <span class="required">*</span></label>
                         <textarea id="contactMessage" name="message" class="form-textarea" placeholder="お問い合わせ内容をご記入ください" rows="6" required></textarea>
-                        <div class="form-error" id="messageError"></div>
                     </div>
 
                     <div class="form-group">
                         <button type="submit" class="form-submit-btn">送信する</button>
-                    </div>
-
-                    <div class="form-success" id="successMessage" style="display: none;">
-                        ✓ お問い合わせを送信しました。ご入力いただいたメールアドレスに確認メールを送信させていただきます。
                     </div>
                 </form>
             </div>
@@ -499,144 +492,9 @@
                     const submitBtn = document.querySelector('.form-submit-btn');
                     const successMessage = document.getElementById('successMessage');
                     
-                    // エラーメッセージのリセット
-                    resetErrors();
-                    
+
+                    <!-- JS削除済み：フォームバリデーション・送信処理、メニュー開閉、カルーセル初期化 -->
+                </body>
                     // バリデーション
+
                     let isValid = true;
-                    
-                    if (!nameInput.value.trim()) {
-                        showError('nameError', 'お名前を入力してください');
-                        isValid = false;
-                    }
-                    
-                    if (!emailInput.value.trim()) {
-                        showError('emailError', 'メールアドレスを入力してください');
-                        isValid = false;
-                    } else if (!isValidEmail(emailInput.value)) {
-                        showError('emailError', '有効なメールアドレスを入力してください');
-                        isValid = false;
-                    }
-                    
-                    if (!messageInput.value.trim()) {
-                        showError('messageError', 'お問い合わせ内容を入力してください');
-                        isValid = false;
-                    }
-                    
-                    if (!isValid) {
-                        return;
-                    }
-                    
-                    // 送信処理
-                    const submitBtnText = submitBtn.textContent;
-                    submitBtn.disabled = true;
-                    submitBtn.textContent = '送信中...';
-                    
-                    try {
-                        // Google Forms または メールサービスへの送信
-                        const formData = new FormData();
-                        formData.append('entry.name', nameInput.value);
-                        formData.append('entry.email', emailInput.value);
-                        formData.append('entry.message', messageInput.value);
-                        
-                        // コンソールに送信内容をログ出力（実装例）
-                        console.log('お問い合わせ送信:', {
-                            name: nameInput.value,
-                            email: emailInput.value,
-                            message: messageInput.value,
-                            timestamp: new Date().toISOString()
-                        });
-                        
-                        // 実際の送信処理をここに実装
-                        // 例：fetch('/api/contact', { method: 'POST', body: formData })
-                        
-                        // 成功メッセージの表示
-                        successMessage.style.display = 'block';
-                        contactForm.style.display = 'none';
-                        
-                        // フォームのリセット
-                        setTimeout(() => {
-                            contactForm.reset();
-                            contactForm.style.display = 'flex';
-                            successMessage.style.display = 'none';
-                            submitBtn.disabled = false;
-                            submitBtn.textContent = submitBtnText;
-                        }, 5000);
-                        
-                    } catch (error) {
-                        console.error('フォーム送信エラー:', error);
-                        showError('messageError', '送信に失敗しました。もう一度お試しください');
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = submitBtnText;
-                    }
-                });
-            }
-            
-            function showError(elementId, message) {
-                const errorElement = document.getElementById(elementId);
-                if (errorElement) {
-                    errorElement.textContent = message;
-                    errorElement.classList.add('show');
-                }
-            }
-            
-            function resetErrors() {
-                const errorElements = document.querySelectorAll('.form-error');
-                errorElements.forEach(el => {
-                    el.textContent = '';
-                    el.classList.remove('show');
-                });
-            }
-            
-            function isValidEmail(email) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return emailRegex.test(email);
-            }
-        });
-        
-        // カルーセル（ベルトコンベア）初期化
-        document.addEventListener('DOMContentLoaded', function() {
-            function initializeCarousel(carouselId) {
-                const carousel = document.getElementById(carouselId);
-                if (!carousel) return;
-                
-                const items = carousel.querySelectorAll('.carousel-item');
-                if (items.length === 0) return;
-                
-                // アイテムを複製してシームレスなループを実現
-                items.forEach(item => {
-                    const clone = item.cloneNode(true);
-                    carousel.appendChild(clone);
-                });
-            }
-            
-            // 各カルーセルを初期化
-            initializeCarousel('vegetablesCarousel');
-            initializeCarousel('productsCarousel');
-        });
-    </script>
-</body>
-
-<script>
-// スマホ用ナビゲーション開閉
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.nav');
-    if (!menuToggle || !nav) return;
-
-    menuToggle.addEventListener('click', function() {
-        nav.classList.toggle('nav-open');
-        menuToggle.classList.toggle('active');
-    });
-
-    // メニューリンククリック時は自動で閉じる
-    nav.querySelectorAll('.nav-link').forEach(function(link) {
-        link.addEventListener('click', function() {
-            nav.classList.remove('nav-open');
-            menuToggle.classList.remove('active');
-        });
-    });
-});
-</script>
-</html>
-

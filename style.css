@@ -166,21 +166,6 @@
 /* ========================================
    フォント定義
    ======================================== */
-@font-face {
-    font-family: 'NIS Tak';
-    src: url('fonts/NIS_TAK.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'NIS Tak Narrow';
-    src: url('fonts/NIS_TAKN.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
 
 /* ========================================
 * {
@@ -1409,23 +1394,23 @@ a:hover {
 }
 
 .contact-form-wrapper {
-    max-width: 600px;
-    margin: 40px auto 0;
+    max-width: 380px;
+    margin: 24px auto 0;
     background-color: white;
-    padding: 40px;
-    border-radius: 12px;
+    padding: 18px 12px;
+    border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .contact-form {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: 1fr;
     grid-template-areas:
         "name email"
         "message message"
         "button button"
         "success success";
-    gap: 24px;
+    gap: 12px;
 }
 
 .form-group {

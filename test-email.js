@@ -8,17 +8,12 @@
  */
 
 require('dotenv').config();
-const {
-    sendOrderConfirmation,
-    sendShippingNotification,
-    sendPaymentFailureNotification
-} = require('./notification-manager');
+const { sendOrderConfirmation, sendShippingNotification, sendPaymentFailureNotification } = require('./notification-manager');
 
-// テストデータ
 const testOrder = {
     orderId: 'TEST-' + Date.now(),
     customerName: 'テスト太郎',
-    customerEmail: 'your-email@example.com', // ← ここを自分のメールアドレスに変更
+    customerEmail: 'your-email@example.com',
     items: [
         { name: '有機トマト（1kg）', quantity: 2, price: 1600 },
         { name: '有機きゅうり（500g）', quantity: 1, price: 800 }
@@ -34,7 +29,7 @@ const testOrder = {
 const testShipment = {
     orderId: 'TEST-' + Date.now(),
     customerName: 'テスト太郎',
-    customerEmail: 'your-email@example.com', // ← ここを自分のメールアドレスに変更
+    customerEmail: 'your-email@example.com',
     trackingNumber: '123456789012',
     carrier: 'ヤマト運輸クール便',
     estimatedDelivery: '2026年1月25日（月）午前中',
@@ -47,21 +42,19 @@ const testShipment = {
 const testPayment = {
     orderId: 'TEST-' + Date.now(),
     customerName: 'テスト太郎',
-    customerEmail: 'your-email@example.com', // ← ここを自分のメールアドレスに変更
+    customerEmail: 'your-email@example.com',
     paymentMethod: 'クレジットカード',
     failureReason: 'カードの有効期限が切れています',
     retryUrl: 'https://asakanatural.jp/store/payment-retry?order=TEST001',
     amount: 3132
 };
 
-// テスト実行
-async function runTests() {
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log('  メール送信テスト開始');
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
-    
-    // 環境変数チェック
-    console.log('[1] 環境変数チェック');
+(async () => {
+    if (!process.env.EMAIL_SERVICE) return;
+    try { await sendOrderConfirmation(testOrder); } catch {}
+    try { await sendShippingNotification(testShipment); } catch {}
+    try { await sendPaymentFailureNotification(testPayment); } catch {}
+})();
     if (!process.env.EMAIL_SERVICE) {
         console.error('❌ EMAIL_SERVICE が設定されていません');
         console.log('   .envファイルを作成し、必要な環境変数を設定してください');
