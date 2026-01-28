@@ -1,4 +1,4 @@
-        /* =============================
+/* =============================
              ヘッダー・ナビゲーション レスポンシブ最適化
         ============================= */
         .header {
@@ -383,30 +383,6 @@
 }
 
 @media (max-width: 768px) {
-    .section-title,
-    .section-subtitle,
-    .message-text,
-    .products-intro,
-    .location-text,
-    .vegetables-intro,
-    .form-label {
-        width: 99vw;
-        max-width: 99vw;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-        font-size: 1.1rem;
-    }
-    .section-title {
-        font-size: 1.35rem;
-        margin-top: 2em;
-        margin-bottom: 0.5em;
-    }
-    .section-underline, .section-title::after {
-        width: 2.5em;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 90vw;
-    }
     .contact-form-wrapper {
         max-width: 99vw;
         padding: 8px 2vw;
@@ -1062,14 +1038,33 @@ body {
 .hero-content {
     text-align: center;
     margin: 0 auto;
-    padding: 2.5rem 1.5rem 2.5rem 1.5rem;
+    padding: 2.2rem 1.2rem 2.2rem 1.2rem;
     background: none;
     border-radius: 0;
     box-shadow: none;
-    max-width: 520px;
+    max-width: 480px;
     border: none;
     position: relative;
-    z-index: 4;
+    z-index: 10;
+}
+
+.hero-btn-minimal {
+    display: inline-block;
+    margin-top: 1.6rem;
+    padding: 0.7em 2.2em;
+    font-size: 1.08rem;
+    font-weight: 500;
+    color: #fff;
+    background: #4a5d3f;
+    border-radius: 2em;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(60,60,60,0.07);
+    transition: background 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.08em;
+}
+.hero-btn-minimal:hover {
+    background: #2c3e50;
+    box-shadow: 0 4px 16px rgba(60,60,60,0.13);
 }
 
 .hero-catch {

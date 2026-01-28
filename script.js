@@ -793,22 +793,26 @@ function createProductCard(product) {
 
 function setupEventListeners() {
     // ハンバーガーメニュー
+
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
-
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        mobileMenu.classList.toggle('show');
-    });
+    if (hamburger && mobileMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+    }
 
     // モバイルメニューリンク
     const mobileLinks = document.querySelectorAll('.mobile-link');
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('show');
+    if (hamburger && mobileMenu && mobileLinks.length > 0) {
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
         });
-    });
+    }
 
     // アンケートボタン
     const surveyBtn = document.getElementById('surveyBtn');
@@ -817,7 +821,8 @@ function setupEventListeners() {
     const closeModal = document.getElementById('closeModal');
     const surveyForm = document.getElementById('surveyForm');
 
-    surveyBtn.addEventListener('click', () => {
+    if (surveyBtn && surveyModal) {
+        surveyBtn.addEventListener('click', () => {
         surveyModal.classList.add('show');
     });
 
@@ -917,11 +922,13 @@ function submitSurvey() {
 
 function showEventBanner() {
     const banner = document.getElementById('eventBanner');
+    if (!banner) return;
     banner.classList.remove('hidden');
 }
 
 function closeEventBanner() {
     const banner = document.getElementById('eventBanner');
+    if (!banner) return;
     banner.classList.add('hidden');
 }
 
@@ -1298,6 +1305,7 @@ function addToCart(productId) {
 
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
     if (window.scrollY > 50) {
         navbar.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.1)';
     } else {
@@ -1460,3 +1468,5 @@ function updateCarousel(type) {
     const offset = -currentIndex * cardWidth;
     carousel.style.transform = `translateX(${offset}px)`;
 }
+
+

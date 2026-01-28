@@ -1,3 +1,10 @@
+/* ヒーローセクションの枠・影・角丸・背景色を完全除去 */
+.hero, .hero *, .hero-inner, .hero-content, .hero-title, .hero-desc, .hero-catch {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
 /* スマホ用ナビゲーション開閉 */
 @media (max-width: 900px) {
     .header-container {
@@ -53,6 +60,99 @@
     --home-accent-soft: #dbe5dc;
     --home-sand: #ede7dc;
     --home-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+}
+
+/* お問い合わせフォーム レスポンシブ対応・デザイン */
+.contact-section {
+    background: #fff;
+    padding: 64px 0 48px;
+}
+.contact-form-wrapper {
+    max-width: 480px;
+    margin: 0 auto;
+    background: #faf9f6;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    padding: 32px 24px;
+}
+.contact-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.form-label {
+    font-size: 1rem;
+    color: var(--home-ink);
+    font-weight: 500;
+}
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 0.7em 1em;
+    border: 1px solid var(--home-line);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fff;
+    color: var(--home-ink);
+    box-sizing: border-box;
+    transition: border 0.2s;
+}
+.form-input:focus,
+.form-textarea:focus {
+    border-color: var(--home-accent);
+    outline: none;
+}
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+.form-submit-btn {
+    background: var(--home-accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.9em 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+.form-submit-btn:hover,
+.form-submit-btn:focus-visible {
+    background: #0c2a19;
+}
+.required {
+    color: #d32f2f;
+    font-size: 0.95em;
+}
+
+@media (max-width: 640px) {
+    .contact-form-wrapper {
+        padding: 18px 6px;
+        max-width: 98vw;
+    }
+    .contact-section {
+        padding: 36px 0 24px;
+    }
+    .form-label {
+        font-size: 0.98rem;
+    }
+    .form-input, .form-textarea {
+        font-size: 0.98rem;
+        padding: 0.6em 0.7em;
+    }
+    .form-submit-btn {
+        font-size: 1rem;
+        padding: 0.8em 0;
+    }
 }
 
 body.home {
@@ -298,9 +398,9 @@ body.home .hero-meta span {
     align-items: center;
     gap: 0.4rem;
     padding: 0.35rem 0.75rem;
-    background: #ffffff;
-    border: 1px solid var(--home-line);
-    border-radius: 999px;
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
 }
 
 body.home .hero-panel {
