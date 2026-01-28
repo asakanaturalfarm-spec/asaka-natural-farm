@@ -17,9 +17,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="fonts/NIS_TAK.otf" as="font" type="font/otf" crossorigin>
+    <link rel="stylesheet" href="fonts/NIS_TAK.css">
     <link rel="stylesheet" href="style.css?v=2026123">
     <link rel="stylesheet" href="index-style.css?v=2026123">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+        <style>
+            body, .section-title, .logo, h1, h2, h3, h4, h5, h6 {
+                font-family: 'NIS Tak', 'Noto Serif JP', serif;
+            }
+        </style>
 
         <meta property="og:locale" content="ja_JP">
         <meta property="og:type" content="website">
@@ -203,11 +209,17 @@
     <!-- ...existing code... -->
 
     <!-- メインビジュアル -->
-    <section class="hero">
-        <div class="hero-content">
-            <p class="hero-subtitle">自然への信頼から生まれる、美味しい食材。</p>
-        </div>
-    </section>
+        <section class="hero">
+            <div class="hero-background"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-inner">
+                <div class="hero-content">
+                    <span class="hero-catch">土と種由来の野菜</span>
+                    <h1 class="hero-title">安積自然農園</h1>
+                    <span class="hero-desc">無肥料・無農薬・自家採種<br>福島・安積疎水流域より</span>
+                </div>
+            </div>
+        </section>
 
     <!-- 農法について -->
     <section id="method" class="section method">

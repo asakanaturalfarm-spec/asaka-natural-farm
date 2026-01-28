@@ -719,7 +719,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeUI() {
     // モバイルメニューの初期状態
     const mobileMenu = document.getElementById('mobileMenu');
-    mobileMenu.classList.remove('show');
+    if (mobileMenu) {
+        mobileMenu.classList.remove('show');
+    }
 
     // イベントバナーの表示
     if (!couponGranted) {
@@ -1348,10 +1350,10 @@ function initCarousels() {
 }
 
 function initCarousel(type) {
-    const carousel = document.getElementById(${type}-products);
-    const prevBtn = document.querySelector([data-carousel=""] .carousel-prev);
-    const nextBtn = document.querySelector([data-carousel=""] .carousel-next);
-    const dotsContainer = document.getElementById(${type}-dots);
+    const carousel = document.getElementById(`${type}-products`);
+    const prevBtn = document.querySelector(`[data-carousel="${type}"] .carousel-prev`);
+    const nextBtn = document.querySelector(`[data-carousel="${type}"] .carousel-next`);
+    const dotsContainer = document.getElementById(`${type}-dots`);
     
     if (!carousel || !prevBtn || !nextBtn) return;
     
@@ -1408,7 +1410,7 @@ function createDots(type, container) {
     for (let i = 0; i < totalPages; i++) {
         const dot = document.createElement('button');
         dot.className = 'carousel-dot';
-        dot.setAttribute('aria-label', �y�[�W );
+        dot.setAttribute('aria-label', `ページ${i+1}` );
         if (i === 0) dot.classList.add('active');
         dot.addEventListener('click', () => goToPage(type, i));
         container.appendChild(dot);
@@ -1416,7 +1418,7 @@ function createDots(type, container) {
 }
 
 function updateDots(type) {
-    const dotsContainer = document.getElementById(${type}-dots);
+    const dotsContainer = document.getElementById(`${type}-dots`);
     if (!dotsContainer) return;
     
     const { currentIndex, visibleCards, totalPages } = carousels[type];
@@ -1456,5 +1458,5 @@ function goToPage(type, page) {
 function updateCarousel(type) {
     const { carousel, currentIndex, cardWidth } = carousels[type];
     const offset = -currentIndex * cardWidth;
-    carousel.style.transform = 	ranslateX(px);
+    carousel.style.transform = `translateX(${offset}px)`;
 }
