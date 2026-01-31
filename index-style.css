@@ -1,3 +1,22 @@
+/* 長文用レスポンシブサイドパディング */
+.responsive-side-padding {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+@media (max-width: 900px) {
+    .responsive-side-padding {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .responsive-side-padding {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
 /* ヒーローセクションの枠・影・角丸・背景色を完全除去 */
 .hero, .hero *, .hero-inner, .hero-content, .hero-title, .hero-desc, .hero-catch {
     background: none !important;
