@@ -28,7 +28,6 @@
 }
 
 :root {
-    /* 洗練されたカラーパレット */
     --primary-color: #3d5a3d;
     --primary-light: #4a6b4a;
     --primary-dark: #2c4a2c;
@@ -42,7 +41,6 @@
     --bg-light-green: #f5f7f5;
     --border-subtle: #e8e6e3;
     --border-medium: #d4d2cf;
-    
     /* レガシー変数（互換性のため維持）*/
     --main-green: #3d5a3d;
     --accent: #c29979;
@@ -52,13 +50,16 @@
     --bg-light: #faf8f5;
     --border-color: #e8e6e3;
     --success-color: #4a6b4a;
-    
     /* トランジションとシャドウ */
     --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --shadow-subtle: 0 2px 12px rgba(0, 0, 0, 0.04);
     --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.06);
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.1);
+}
+
+body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.primary, .button.ghost {
+    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif !important;
 }
 
 * {
@@ -135,18 +136,47 @@ button {
    ボタンスタイル
    ======================================== */
 
-.btn-primary {
+/* --- Minimal Flat CTA Button --- */
+.btn-primary, .btn-secondary, .form-submit-btn, .button.primary, .button.ghost {
+    display: inline-block;
+    padding: 0.7em 1.5em;
     background: var(--primary-color);
     color: #fff;
     border: none;
-    padding: 14px 32px;
-    border-radius: 8px;
-    cursor: pointer;
+    border-radius: 0;
+    /* 先頭で !important 付きで全体指定済み */
+    font-size: 1.05rem;
+    letter-spacing: .08em;
+    text-decoration: none;
+    margin: 0 0.3em 0 0;
+    transition: background .2s, color .2s;
+    box-shadow: none;
+    outline: none;
+    min-width: 110px;
+    min-height: 40px;
     font-weight: 500;
-    font-size: 15px;
-    letter-spacing: 0.3px;
-    transition: var(--transition);
-    box-shadow: var(--shadow-subtle);
+}
+.btn-secondary, .button.ghost {
+    background: #fff;
+    color: var(--primary-color);
+}
+.btn-primary:hover, .form-submit-btn:hover, .button.primary:hover,
+.btn-primary:focus-visible, .form-submit-btn:focus-visible, .button.primary:focus-visible {
+    background: var(--primary-dark);
+    color: #fff;
+}
+.btn-secondary:hover, .button.ghost:hover, .btn-secondary:focus-visible, .button.ghost:focus-visible {
+    background: #f0f0f0;
+    color: var(--primary-color);
+}
+/* 隣接CTAボタンの間に境界線なし */
+.btn-primary + .btn-secondary,
+.btn-secondary + .form-submit-btn,
+.form-submit-btn + .btn-primary,
+.button.primary + .button.ghost,
+.button.ghost + .button.primary {
+    border-left: none;
+    margin-left: 0;
 }
 
 .btn-primary:hover {
@@ -396,11 +426,12 @@ button {
 .navbar {
     position: sticky;
     top: 0;
-    background-color: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-subtle);
+    background: #fff;
+    backdrop-filter: none;
+    border-bottom: none;
     z-index: 100;
-    box-shadow: var(--shadow-subtle);
+    box-shadow: none;
+    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif;
 }
 
 .navbar-container {
@@ -457,24 +488,33 @@ button {
 
 .nav-menu {
     display: flex;
-    gap: 4px;
+    gap: 0.5rem;
     flex: 1;
     margin-left: 32px;
     align-items: center;
+    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif;
+    background: none;
+    box-shadow: none;
+    border: none;
+    padding: 0;
 }
 
 .nav-link {
     color: var(--text-medium);
     font-weight: 500;
-    font-size: 14px;
+    font-size: 15px;
     position: relative;
     overflow: hidden;
     text-decoration: none;
-    padding: 8px 14px;
-    border-radius: 8px;
-    transition: var(--transition);
-    letter-spacing: 0.3px;
+    padding: 0.35rem 0.7rem;
+    border-radius: 0;
+    transition: color 0.2s ease;
+    letter-spacing: 0.08em;
     white-space: nowrap;
+    border: none;
+    background: none;
+    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif;
+    box-shadow: none;
 }
 
 .nav-link::after {
@@ -547,7 +587,7 @@ button {
 }
 
 /* ========================================
-   ヒーロセクション
+   ヒーローセクション
    ======================================== */
 
 .hero {

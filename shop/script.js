@@ -22,17 +22,12 @@ const purchaseLocks = new Map(); // productId -> { userId, timestamp, quantity }
 const LOCK_TIMEOUT = 10 * 60 * 1000; // 10分でロック自動解除
 
 // 購入ロックを取得
-function acquirePurchaseLock(productId, userId, quantity) {
+const acquirePurchaseLock = (productId, userId, quantity) => {
     const now = Date.now();
     const existingLock = purchaseLocks.get(productId);
-    
     // 既存のロックが期限切れかチェック
-    if (existingLock && (now - existingLock.timestamp) > LOCK_TIMEOUT) {
-        purchaseLocks.delete(productId);
-    }
-    
+    if (existingLock && (now - existingLock.timestamp) > LOCK_TIMEOUT) purchaseLocks.delete(productId);
     const currentLock = purchaseLocks.get(productId);
-    
     // 他のユーザーがロック中
     if (currentLock && currentLock.userId !== userId) {
         const remainingTime = Math.ceil((LOCK_TIMEOUT - (now - currentLock.timestamp)) / 1000);
@@ -41,14 +36,8 @@ function acquirePurchaseLock(productId, userId, quantity) {
             message: `他のお客様が購入手続き中です。\n${remainingTime}秒後に再度お試しください。`
         };
     }
-    
     // ロックを取得
-    purchaseLocks.set(productId, {
-        userId: userId,
-        timestamp: now,
-        quantity: quantity
-    });
-    
+    purchaseLocks.set(productId, { userId, timestamp: now, quantity });
     // 自動解放タイマー
     setTimeout(() => {
         const lock = purchaseLocks.get(productId);
@@ -57,12 +46,11 @@ function acquirePurchaseLock(productId, userId, quantity) {
             console.log(`[購入ロック] ${productId} のロックを自動解放しました`);
         }
     }, LOCK_TIMEOUT);
-    
     return { success: true };
-}
+};
 
 // 購入ロックを解放
-function releasePurchaseLock(productId, userId) {
+const releasePurchaseLock = (productId, userId) => {
     const lock = purchaseLocks.get(productId);
     if (lock && lock.userId === userId) {
         purchaseLocks.delete(productId);
@@ -70,7 +58,7 @@ function releasePurchaseLock(productId, userId) {
         return true;
     }
     return false;
-}
+};
 
 // ============================================
 // セッション管理（セキュリティ強化）
@@ -79,381 +67,15 @@ const SESSION_KEY = 'checkout_session';
 const SESSION_TIMEOUT = 30 * 60 * 1000; // 30分
 
 // セッション作成
-function createCheckoutSession(cartItems) {
-    const sessionId = 'SESSION_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-    const session = {
-        id: sessionId,
-        userId: window.Auth?.getCurrentUser()?.id || 'guest',
-        createdAt: Date.now(),
-        expiresAt: Date.now() + SESSION_TIMEOUT,
-        cartItems: cartItems,
-        verified: false,
-        calculationHash: null
-    };
-    
-    // セッションを暗号化して保存（簡易版）
-    const sessionData = btoa(JSON.stringify(session));
-    sessionStorage.setItem(SESSION_KEY, sessionData);
-    
-    console.log('[セッション] チェックアウトセッションを作成しました:', sessionId);
-    return session;
-}
+const createCheckoutSession = cartItems => {
+    const sessionId = `SESSION_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    // 共通ロジックは common.js で管理
+    // <script src="../../common.js"></script> をHTMLで読み込んでください
+    // ...existing code...
+};
 
-// セッション取得
-function getCheckoutSession() {
-    const sessionData = sessionStorage.getItem(SESSION_KEY);
-    if (!sessionData) return null;
-    
-    try {
-        const session = JSON.parse(atob(sessionData));
-        
-        // セッション有効期限チェック
-        if (Date.now() > session.expiresAt) {
-            console.warn('[セッション] セッションが期限切れです');
-            sessionStorage.removeItem(SESSION_KEY);
-            return null;
-        }
-        
-        return session;
-    } catch (error) {
-        console.error('[セッション] セッション復元エラー:', error);
-        sessionStorage.removeItem(SESSION_KEY);
-        return null;
-    }
-}
-
-// セッション更新
-function updateCheckoutSession(updates) {
-    const session = getCheckoutSession();
-    if (!session) return null;
-    
-    const updatedSession = { ...session, ...updates };
-    const sessionData = btoa(JSON.stringify(updatedSession));
-    sessionStorage.setItem(SESSION_KEY, sessionData);
-    
-    return updatedSession;
-}
-
-// セッション削除
-function clearCheckoutSession() {
-    sessionStorage.removeItem(SESSION_KEY);
-    console.log('[セッション] チェックアウトセッションを削除しました');
-}
-
-// ============================================
-// 金額計算エンジン（改ざん防止・サーバー側ロジック）
-// ============================================
-
-// 商品価格を商品IDから取得（DB相当）
-function getProductPriceFromDatabase(productId) {
-    const product = PRODUCTS.find(p => p.id === productId);
-    if (!product) {
-        throw new Error(`商品ID ${productId} が見つかりません`);
-    }
-    
-    return {
-        id: product.id,
-        sku: product.sku,
-        name: product.name,
-        price: product.price,           // 税抜価格
-        priceWithTax: product.priceWithTax,  // 税込価格
-        taxRate: product.taxRate,
-        taxType: product.taxType,
-        unit: product.unit
-    };
-}
-
-// 送料計算（shipping-calculator.jsを使用）
-function recalculateOrderTotal(cartItems) {
-    if (!Array.isArray(cartItems) || cartItems.length === 0) {
-        throw new Error('カートが空です');
-    }
-    
-    let subtotal = 0;           // 小計（税抜）
-    let totalTax = 0;           // 消費税合計
-    let total = 0;              // 合計（税込）
-    let totalWithTax = 0;       // 税込合計
-    const itemDetails = [];
-    
-    // 各商品を再計算
-    for (const cartItem of cartItems) {
-        try {
-            // フロントから送られた価格は無視し、DBから取得
-            const productData = getProductPriceFromDatabase(cartItem.id);
-            
-            // 数量検証
-            const quantity = parseInt(cartItem.quantity);
-            if (isNaN(quantity) || quantity < 1) {
-                throw new Error(`${productData.name}の数量が不正です`);
-            }
-            
-            // 在庫チェック
-            const availability = checkProductAvailability(cartItem.id, quantity);
-            if (!availability.available && availability.type !== 'pre_order') {
-                throw new Error(`${productData.name}の在庫が不足しています`);
-            }
-            
-            // 金額計算（税抜）
-            const itemSubtotal = productData.price * quantity;
-            
-            // 税額計算
-            const itemTax = Math.floor(itemSubtotal * productData.taxRate);
-            
-            // 税込金額
-            const itemTotal = itemSubtotal + itemTax;
-            
-            subtotal += itemSubtotal;
-            totalTax += itemTax;
-            totalWithTax += itemTotal;
-            
-            itemDetails.push({
-                id: productData.id,
-                sku: productData.sku,
-                name: productData.name,
-                price: productData.price,
-                quantity: quantity,
-                unit: productData.unit,
-                subtotal: itemSubtotal,
-                tax: itemTax,
-                taxRate: productData.taxRate,
-                taxType: productData.taxType,
-                total: itemTotal
-            });
-            
-        } catch (error) {
-            console.error('[金額計算エラー]', error);
-            throw error;
-        }
-    }
-    
-    // 送料計算（shipping-calculator.js を使用）
-    let shippingFee = 0;
-    let shippingTax = 0;
-    let shippingTotal = 0;
-    
-    if (typeof window !== 'undefined' && window.ShippingCalculator) {
-        const shippingCalc = window.ShippingCalculator.calculateShippingFee(subtotal);
-        shippingFee = shippingCalc.fee;
-        shippingTax = shippingFee > 0 ? Math.floor(shippingFee * TAX_RATE.STANDARD) : 0;
-        shippingTotal = shippingFee + shippingTax;
-    } else {
-        // フォールバック：最低注文金額以上なら送料500円
-        if (subtotal >= 4500) {
-            shippingFee = 500;
-            shippingTax = Math.floor(shippingFee * TAX_RATE.STANDARD);
-            shippingTotal = shippingFee + shippingTax;
-        }
-    }
-    
-    // 最終合計
-    const finalTotal = totalWithTax + shippingTotal;
-    
-    // 計算結果のハッシュ生成（改ざん検知用）
-    const calculationData = JSON.stringify({
-        items: itemDetails,
-        subtotal,
-        totalTax,
-        totalWithTax,
-        shippingFee,
-        finalTotal,
-        timestamp: Date.now()
-    });
-    const calculationHash = btoa(calculationData).substr(0, 32);
-    
-    return {
-        items: itemDetails,
-        subtotal: subtotal,              // 商品小計（税抜）
-        totalTax: totalTax,              // 消費税合計
-        totalWithTax: totalWithTax,      // 商品合計（税込）
-        shippingFee: shippingFee,        // 送料（税抜）
-        shippingTax: shippingTax,        // 送料消費税
-        shippingTotal: shippingTotal,    // 送料合計（税込）
-        finalTotal: finalTotal,          // 最終合計金額
-        calculationHash: calculationHash, // 改ざん検知ハッシュ
-        calculatedAt: new Date().toISOString()
-    };
-}
-
-// 金額検証（フロント送信値とサーバー計算値の比較）
-function verifyOrderAmount(clientTotal, serverCalculation) {
-    const difference = Math.abs(clientTotal - serverCalculation.finalTotal);
-    
-    if (difference > 1) { // 1円以上の誤差は改ざんの可能性
-        console.error('[金額検証失敗]', {
-            clientTotal,
-            serverTotal: serverCalculation.finalTotal,
-            difference
-        });
-        return {
-            valid: false,
-            message: '金額に不整合があります。カートを確認してください。',
-            tampering: true
-        };
-    }
-    
-    return {
-        valid: true,
-        serverCalculation: serverCalculation
-    };
-}
-
-// チェックアウト実行（セキュア版）
-function secureCheckout(formData) {
-    try {
-        // 1. セッション検証
-        const session = getCheckoutSession();
-        if (!session) {
-            throw new Error('セッションが無効です。最初からやり直してください。');
-        }
-        
-        // 2. カート取得
-        const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-        if (cartItems.length === 0) {
-            throw new Error('カートが空です');
-        }
-        
-        // 3. サーバー側で金額再計算
-        const serverCalculation = recalculateOrderTotal(cartItems);
-        
-        // 4. クライアント側の金額と検証
-        const clientTotal = parseFloat(formData.totalAmount || 0);
-        const verification = verifyOrderAmount(clientTotal, serverCalculation);
-        
-        if (!verification.valid) {
-            throw new Error(verification.message);
-        }
-        
-        // 5. セッション更新（計算結果を保存）
-        updateCheckoutSession({
-            verified: true,
-            calculationHash: serverCalculation.calculationHash,
-            serverCalculation: serverCalculation
-        });
-        
-        // 6. 注文データ作成
-        const orderData = {
-            orderId: 'ORD_' + Date.now(),
-            sessionId: session.id,
-            userId: session.userId,
-            items: serverCalculation.items,
-            amounts: {
-                subtotal: serverCalculation.subtotal,
-                tax: serverCalculation.totalTax,
-                shipping: serverCalculation.shippingTotal,
-                total: serverCalculation.finalTotal
-            },
-            calculationHash: serverCalculation.calculationHash,
-            customerInfo: formData.customerInfo,
-            paymentMethod: formData.paymentMethod,
-            createdAt: new Date().toISOString(),
-            status: 'pending'
-        };
-        
-        console.log('[チェックアウト成功]', orderData);
-        
-        return {
-            success: true,
-            order: orderData
-        };
-        
-    } catch (error) {
-        console.error('[チェックアウトエラー]', error);
-        return {
-            success: false,
-            error: error.message
-        };
-    }
-}
-
+// 商品データ配列
 const PRODUCTS = [
-    {
-        id: 'v1',
-        sku: 'ASAKA-V001',           // SKU（Stock Keeping Unit）
-        name: 'ほうれん草',
-        price: 300,                   // 税抜価格
-        taxRate: TAX_RATE.REDUCED,   // 軽減税率8%
-        taxType: '軽減',              // 税区分表示
-        priceWithTax: 324,           // 税込価格（300 × 1.08）
-        unit: '袋',
-        period: '今期',
-        category: '青果',
-        img: 'image/seika/sample1.jpg',
-        description: '甘みが強く栄養満点',
-        seasonMonths: [10, 11, 12, 1, 2, 3], // 旬の月
-        stock: 50,                    // 在庫数
-        stockStatus: 'available',     // available / low / out_of_stock
-        saleType: SALE_TYPE.NORMAL,   // 販売タイプ
-        preOrderLeadTime: null,       // 受注生産リードタイム（日数）
-        minOrder: 1,                  // 最小注文数
-        maxOrder: 10,                 // 最大注文数
-        autoHideWhenOutOfStock: true  // 在庫0時自動非表示
-    },
-    {
-        id: 'v2',
-        sku: 'ASAKA-V002',
-        name: '水菜',
-        price: 220,
-        taxRate: TAX_RATE.REDUCED,
-        taxType: '軽減',
-        priceWithTax: 238,
-        unit: '袋',
-        period: '今期',
-        category: '青果',
-        img: 'image/seika/sample2.jpg',
-        description: 'シャキシャキ食感',
-        seasonMonths: [11, 12, 1, 2, 3],
-        stock: 30,
-        stockStatus: 'available',
-        saleType: SALE_TYPE.NORMAL,
-        preOrderLeadTime: null,
-        minOrder: 1,
-        maxOrder: 10,
-        autoHideWhenOutOfStock: true
-    },
-    {
-        id: 'v3',
-        sku: 'ASAKA-V003',
-        name: 'たまねぎ',
-        price: 180,
-        taxRate: TAX_RATE.REDUCED,
-        taxType: '軽減',
-        priceWithTax: 194,
-        unit: 'kg',
-        period: '保存',
-        category: '青果',
-        img: 'image/seika/sample3.jpg',
-        description: '完熟の甘さ',
-        seasonMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-        stock: 100,
-        stockStatus: 'available',
-        saleType: SALE_TYPE.NORMAL,
-        preOrderLeadTime: null,
-        minOrder: 1,
-        maxOrder: 20,
-        autoHideWhenOutOfStock: false  // 通年商品なので非表示にしない
-    },
-    {
-        id: 'v4',
-        name: 'ルッコラ',
-        price: 250,
-        unit: '袋',
-        period: '今期',
-        category: '青果',
-        img: 'image/seika/sample1.jpg',
-        description: 'ピリッとした風味が特徴のハーブ野菜',
-        seasonMonths: [3, 4, 5, 10, 11]
-    },
-    {
-        id: 'v5',
-        name: 'リーフレタス',
-        price: 280,
-        unit: '株',
-        period: '今期',
-        category: '青果',
-        img: 'image/seika/リーフレタス　イメージ.jpg',
-        description: '柔らかく甘みのある葉が魅力',
-        seasonMonths: [4, 5, 6, 10, 11]
-    },
     {
         id: 'v6',
         name: 'じゃがいも',
@@ -676,7 +298,7 @@ const PRODUCTS = [
     }
 ];
 
-let couponGranted = localStorage.getItem('asaka_coupon_granted') === 'true';
+const couponGranted = localStorage.getItem('asaka_coupon_granted') === 'true';
 let showAllSeika = false;
 let showAllKakou = false;
 
@@ -695,74 +317,57 @@ document.addEventListener('DOMContentLoaded', () => {
 // UI初期化
 // ========================================
 
-function initializeUI() {
-    // モバイルメニューの初期状態
+const initializeUI = () => {
     const mobileMenu = document.getElementById('mobileMenu');
-    mobileMenu.classList.remove('show');
-
-    // イベントバナーの表示
-    if (!couponGranted) {
-        showEventBanner();
-    }
-}
+    mobileMenu && mobileMenu.classList.remove('show');
+    !couponGranted && showEventBanner();
+};
 
 // ========================================
 // 商品レンダリング
 // ========================================
 
-function renderProducts() {
+const renderProducts = () => {
     renderSeikaProducts();
     renderKakouProducts();
-    
-    // カルーセル初期化（レンダリング後に実行）
-    setTimeout(() => {
-        initCarousels();
-    }, 100);
-}
+    setTimeout(initCarousels, 100);
+};
 
-function renderSeikaProducts() {
-    const seikaProducts = PRODUCTS.filter(p => p.category === '青果');
+const renderSeikaProducts = () => {
+    const seikaProducts = PRODUCTS.filter(({ category }) => category === '青果');
     const seikaGrid = document.getElementById('seika-products');
-    
     if (!seikaGrid) return;
-    
-    const seikaHTML = seikaProducts.map(product => createProductCard(product)).join('');
-    seikaGrid.innerHTML = seikaHTML;
-}
+    seikaGrid.innerHTML = seikaProducts.map(createProductCard).join('');
+};
 
-function renderKakouProducts() {
-    const kakouProducts = PRODUCTS.filter(p => p.category === '加工');
+const renderKakouProducts = () => {
+    const kakouProducts = PRODUCTS.filter(({ category }) => category === '加工');
     const kakouGrid = document.getElementById('kakou-products');
-    
     if (!kakouGrid) return;
-    
-    const kakouHTML = kakouProducts.map(product => createProductCard(product)).join('');
-    kakouGrid.innerHTML = kakouHTML;
-}
+    kakouGrid.innerHTML = kakouProducts.map(createProductCard).join('');
+};
 
-function createProductCard(product) {
-    return `
-        <div class="product-card">
-            <a href="product.html?id=${product.id}" style="text-decoration: none; color: inherit;">
-                <div class="product-image">
-                    <img src="${product.img}" alt="${product.name}" loading="lazy">
-                    <span class="product-badge">${product.period}</span>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">${product.name}</h3>
-                    <p class="product-description">${product.description}</p>
-                    <div class="product-price">¥${product.price}</div>
-                    <div class="product-unit">（${product.unit}）</div>
-                </div>
-            </a>
-            <div class="product-info" style="padding-top: 0;">
-                <button class="btn-primary" onclick="addToCart('${product.id}')">
-                    カートに追加
-                </button>
+const createProductCard = ({ id, img, name, period, description, price, unit }) => `
+    <div class="product-card">
+        <a href="product.html?id=${id}" style="text-decoration: none; color: inherit;">
+            <div class="product-image">
+                <img src="${img}" alt="${name}" loading="lazy">
+                <span class="product-badge">${period}</span>
             </div>
+            <div class="product-info">
+                <h3 class="product-name">${name}</h3>
+                <p class="product-description">${description}</p>
+                <div class="product-price">¥${price}</div>
+                <div class="product-unit">（${unit}）</div>
+            </div>
+        </a>
+        <div class="product-info" style="padding-top: 0;">
+            <button class="btn-primary" onclick="addToCart('${id}')">
+                カートに追加
+            </button>
         </div>
-    `;
-}
+    </div>
+`;
 
 // ========================================
 // イベントリスナー設定
@@ -794,99 +399,46 @@ function setupEventListeners() {
     const closeModal = document.getElementById('closeModal');
     const surveyForm = document.getElementById('surveyForm');
 
-    surveyBtn.addEventListener('click', () => {
-        surveyModal.classList.add('show');
-    });
-
-    closeModal.addEventListener('click', () => {
-        surveyModal.classList.remove('show');
-    });
-
-    surveyModal.addEventListener('click', (e) => {
-        if (e.target === surveyModal) {
-            surveyModal.classList.remove('show');
-        }
-    });
-
-    surveyForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        submitSurvey();
-    });
-
-    // ログインボタン
-    loginBtn.addEventListener('click', () => {
-        alert('ログイン機能は別実装です。');
-    });
-
-    // イベントバナークローズ
-    const closeBanner = document.getElementById('closeBanner');
-    closeBanner.addEventListener('click', () => {
-        closeEventBanner();
-    });
-
-    // ニュースレター購読
-    const newsletterForm = document.getElementById('newsletterForm');
-    newsletterForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        subscribeNewsletter();
-    });
-
-    // カートボタン
-    const cartBtn = document.getElementById('cartBtn');
-    cartBtn.addEventListener('click', () => {
-        alert('カート機能は別実装です。');
-    });
+  surveyBtn.addEventListener('click', () => surveyModal.classList.add('show'));
+  closeModal.addEventListener('click', () => surveyModal.classList.remove('show'));
+  surveyModal.addEventListener('click', e => e.target === surveyModal && surveyModal.classList.remove('show'));
+  surveyForm.addEventListener('submit', e => { e.preventDefault(); submitSurvey(); });
+  loginBtn.addEventListener('click', () => alert('ログイン機能は別実装です。'));
+  const closeBanner = document.getElementById('closeBanner');
+  closeBanner.addEventListener('click', closeEventBanner);
+  const newsletterForm = document.getElementById('newsletterForm');
+  newsletterForm.addEventListener('submit', e => { e.preventDefault(); subscribeNewsletter(); });
+  const cartBtn = document.getElementById('cartBtn');
+  cartBtn.addEventListener('click', () => alert('カート機能は別実装です。'));
 }
 
 // ========================================
 // カート機能
 // ========================================
 
-function addToCart(productId) {
-    const product = PRODUCTS.find(p => p.id === productId);
-    if (product) {
-        alert(`${product.name}をカートに追加しました！`);
-        // 実装時はここで実際のカート機能を実装
-    }
-}
+const addToCart = productId => {
+    const product = PRODUCTS.find(({ id }) => id === productId);
+    product && alert(`${product.name}をカートに追加しました！`);
+    // 実装時はここで実際のカート機能を実装
+};
 
 // ========================================
 // アンケート機能
 // ========================================
 
-function submitSurvey() {
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const comment = document.getElementById('comment').value;
-
-    // バリデーション
-    if (!email && !name) {
-        alert('メールアドレスまたはお名前のいずれかを入力してください。');
-        return;
-    }
-
-    // クーポン付与
-    localStorage.setItem('asaka_coupon_granted', 'true');
-    couponGranted = true;
-
-    // モーダルクローズ
-    document.getElementById('surveyModal').classList.remove('show');
-
-    // フォームリセット
-    document.getElementById('surveyForm').reset();
-
-    // サンキューメッセージ
-    showNotification(
-        '✅ アンケートありがとうございます！',
-        '5%OFF（上限¥10,000）のクーポンコード: ASAKA5OFF を進呈いたしました。'
-    );
-
-    // イベントバナー非表示
-    closeEventBanner();
-
-    // クーポン通知表示
-    showCouponNotification();
-}
+const submitSurvey = () => {
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  // バリデーション
+  if (!email && !name) return alert('メールアドレスまたはお名前のいずれかを入力してください。');
+  localStorage.setItem('asaka_coupon_granted', 'true');
+  couponGranted = true;
+  document.getElementById('surveyModal').classList.remove('show');
+  document.getElementById('surveyForm').reset();
+  showNotification('✅ アンケートありがとうございます！', '5%OFF（上限¥10,000）のクーポンコード: ASAKA5OFF を進呈いたしました。');
+  closeEventBanner();
+  showCouponNotification();
+};
 
 // ========================================
 // イベントバナー
@@ -1000,34 +552,19 @@ function showCouponNotification() {
 // ニュースレター購読
 // ========================================
 
-function subscribeNewsletter() {
-    const email = document.querySelector('.newsletter-form input').value;
-
-    if (!email) {
-        alert('メールアドレスを入力してください。');
-        return;
-    }
-
-    if (!isValidEmail(email)) {
-        alert('有効なメールアドレスを入力してください。');
-        return;
-    }
-
-    // フォームリセット
-    document.querySelector('.newsletter-form input').value = '';
-
-    // サンキューメッセージ
-    showNotification(
-        '✅ 登録ありがとうございます！',
-        `${email} に確認メールを送信しました。`
-    );
-}
+const subscribeNewsletter = () => {
+  const email = document.querySelector('.newsletter-form input').value;
+  if (!email) return alert('メールアドレスを入力してください。');
+  if (!isValidEmail(email)) return alert('有効なメールアドレスを入力してください。');
+  document.querySelector('.newsletter-form input').value = '';
+  showNotification('✅ 登録ありがとうございます！', `${email} に確認メールを送信しました。`);
+};
 
 // ========================================
 // 通知表示
 // ========================================
 
-function showNotification(title, message) {
+const showNotification = (title, message) => {
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.innerHTML = `
@@ -1036,7 +573,6 @@ function showNotification(title, message) {
             <p>${message}</p>
         </div>
     `;
-
     // スタイル追加
     if (!document.getElementById('notification-styles')) {
         const style = document.createElement('style');
@@ -1104,95 +640,43 @@ function showNotification(title, message) {
 // ユーティリティ関数
 // ========================================
 
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
+const isValidEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 // ========================================
 // カート機能（在庫制御・ロック機能付き）
 // ========================================
 
 // 在庫0の商品を非表示にする
-function filterAvailableProducts() {
-    return PRODUCTS.filter(product => {
-        // 在庫チェック
+const filterAvailableProducts = () =>
+    PRODUCTS.filter(product => {
         const inventory = window.InventorySync ? window.InventorySync.get(product.id) : null;
         const currentStock = inventory?.stock || product.stock || 0;
-        
-        // 受注生産商品は常に表示
-        if (product.saleType === SALE_TYPE.PRE_ORDER) {
-            return true;
-        }
-        
-        // 在庫0時自動非表示がONの場合
-        if (product.autoHideWhenOutOfStock && currentStock === 0) {
-            return false;
-        }
-        
-        return true;
+        return product.saleType === SALE_TYPE.PRE_ORDER || !(product.autoHideWhenOutOfStock && currentStock === 0);
     });
-}
 
 // 販売可能かチェック（受注生産対応）
-function checkProductAvailability(productId, requestedQuantity = 1) {
+const checkProductAvailability = (productId, requestedQuantity = 1) => {
     const product = PRODUCTS.find(p => p.id === productId);
-    if (!product) {
-        return { available: false, message: '商品が見つかりません' };
-    }
-    
-    // 受注生産の場合
-    if (product.saleType === SALE_TYPE.PRE_ORDER) {
+    if (!product) return { available: false, message: '商品が見つかりません' };
+    if (product.saleType === SALE_TYPE.PRE_ORDER)
         return {
             available: true,
             type: 'pre_order',
             message: `受注生産商品です。発送まで約${product.preOrderLeadTime}日かかります。`,
             leadTime: product.preOrderLeadTime
         };
-    }
-    
-    // 通常販売の在庫チェック
     const inventory = window.InventorySync ? window.InventorySync.get(productId) : null;
     const currentStock = inventory?.stock || product.stock || 0;
-    
-    if (currentStock === 0) {
-        return {
-            available: false,
-            type: 'out_of_stock',
-            message: '申し訳ございません。現在在庫切れです。'
-        };
-    }
-    
-    if (currentStock < requestedQuantity) {
-        return {
-            available: false,
-            type: 'insufficient_stock',
-            message: `在庫が不足しています。\n現在の在庫：${currentStock}${product.unit}`,
-            currentStock: currentStock
-        };
-    }
-    
-    // 注文数制限チェック
-    if (requestedQuantity < product.minOrder) {
-        return {
-            available: false,
-            message: `最小注文数は${product.minOrder}${product.unit}です。`
-        };
-    }
-    
-    if (requestedQuantity > product.maxOrder) {
-        return {
-            available: false,
-            message: `最大注文数は${product.maxOrder}${product.unit}です。`
-        };
-    }
-    
-    return {
-        available: true,
-        type: 'normal',
-        currentStock: currentStock
-    };
-}
+    if (currentStock === 0)
+        return { available: false, type: 'out_of_stock', message: '申し訳ございません。現在在庫切れです。' };
+    if (currentStock < requestedQuantity)
+        return { available: false, type: 'insufficient_stock', message: `在庫が不足しています。\n現在の在庫：${currentStock}${product.unit}`, currentStock };
+    if (requestedQuantity < product.minOrder)
+        return { available: false, message: `最小注文数は${product.minOrder}${product.unit}です。` };
+    if (requestedQuantity > product.maxOrder)
+        return { available: false, message: `最大注文数は${product.maxOrder}${product.unit}です。` };
+    return { available: true, type: 'normal', currentStock };
+};
 
 function addToCart(productId) {
     const product = PRODUCTS.find(p => p.id === productId);
@@ -1217,56 +701,35 @@ function addToCart(productId) {
     
     // 3. カートデータを取得
     let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-    
-    // 既存のカートアイテムを確認
     const existingItem = cartItems.find(item => item.id === productId);
-    const currentCartQuantity = existingItem ? existingItem.quantity : 0;
-    const newQuantity = currentCartQuantity + 1;
-    
-    // 4. 再度在庫チェック（念のため）
+    const newQuantity = (existingItem?.quantity || 0) + 1;
     const recheckAvailability = checkProductAvailability(productId, newQuantity);
-    if (!recheckAvailability.available) {
-        releasePurchaseLock(productId, userId);
-        alert(recheckAvailability.message);
-        return;
-    }
-    
-    // 5. カートに追加
-    if (existingItem) {
-        existingItem.quantity = newQuantity;
-        existingItem.saleType = product.saleType;
-        existingItem.preOrderLeadTime = product.preOrderLeadTime;
-    } else {
-        cartItems.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            priceWithTax: product.priceWithTax,
-            taxRate: product.taxRate,
-            taxType: product.taxType,
-            unit: product.unit,
-            image: product.img,
-            description: product.description,
-            quantity: 1,
-            saleType: product.saleType,
-            preOrderLeadTime: product.preOrderLeadTime,
-            stock: recheckAvailability.currentStock
+    if (!recheckAvailability.available) return releasePurchaseLock(productId, userId), alert(recheckAvailability.message);
+    existingItem
+      ? Object.assign(existingItem, { quantity: newQuantity, saleType: product.saleType, preOrderLeadTime: product.preOrderLeadTime })
+      : cartItems.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          priceWithTax: product.priceWithTax,
+          taxRate: product.taxRate,
+          taxType: product.taxType,
+          unit: product.unit,
+          image: product.img,
+          description: product.description,
+          quantity: 1,
+          saleType: product.saleType,
+          preOrderLeadTime: product.preOrderLeadTime,
+          stock: recheckAvailability.currentStock
         });
-    }
-    
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    
-    // 6. 受注生産商品の場合は注意喚起
-    if (availability.type === 'pre_order') {
-        showNotification(`${product.name}をカートに追加しました！\n※${availability.message}`, 'info');
-    } else {
-        showNotification(`${product.name}をカートに追加しました！`, 'success');
-    }
-    
-    // 7. ロック解放（カート追加後10分で自動解放）
-    setTimeout(() => {
-        releasePurchaseLock(productId, userId);
-    }, LOCK_TIMEOUT);
+    showNotification(
+      availability.type === 'pre_order'
+        ? `${product.name}をカートに追加しました！\n※${availability.message}`
+        : `${product.name}をカートに追加しました！`,
+      availability.type === 'pre_order' ? 'info' : 'success'
+    );
+    setTimeout(() => releasePurchaseLock(productId, userId), LOCK_TIMEOUT);
 }
 
 // ========================================
@@ -1274,12 +737,11 @@ function addToCart(productId) {
 // ========================================
 
 window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.05)';
-    }
+  const navbar = document.querySelector('.navbar');
+  if (!navbar) return;
+  navbar.style.boxShadow = window.scrollY > 50
+    ? '0 2px 12px rgba(0, 0, 0, 0.1)'
+    : '0 2px 4px rgba(0, 0, 0, 0.05)';
 });
 
 // ========================================
@@ -1290,27 +752,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.hero-slide');
     if (slides.length > 1) {
         let currentSlide = 0;
-        
-        function changeSlide() {
+        const changeSlide = () => {
             slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % slides.length;
             slides[currentSlide].classList.add('active');
-        }
-        
-        // 5秒ごとに画像を切り替え
+        };
         setInterval(changeSlide, 5000);
     }
-    
-    // 「詳しく知る」ボタンのスクロール機能
     const scrollFeaturesBtn = document.getElementById('scrollFeaturesBtn');
-    if (scrollFeaturesBtn) {
-        scrollFeaturesBtn.addEventListener('click', () => {
-            const featuresSection = document.querySelector('.features');
-            if (featuresSection) {
-                featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    }
+    scrollFeaturesBtn && scrollFeaturesBtn.addEventListener('click', () => {
+        const featuresSection = document.querySelector('.features');
+        featuresSection && featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
 });
 
 // ========================================
@@ -1327,10 +780,10 @@ function initCarousels() {
 }
 
 function initCarousel(type) {
-    const carousel = document.getElementById(${type}-products);
-    const prevBtn = document.querySelector([data-carousel=""] .carousel-prev);
-    const nextBtn = document.querySelector([data-carousel=""] .carousel-next);
-    const dotsContainer = document.getElementById(${type}-dots);
+    const carousel = document.getElementById(`${type}-products`);
+    const prevBtn = document.querySelector(`[data-carousel="${type}"] .carousel-prev`);
+    const nextBtn = document.querySelector(`[data-carousel="${type}"] .carousel-next`);
+    const dotsContainer = document.getElementById(`${type}-dots`);
     
     if (!carousel || !prevBtn || !nextBtn) return;
     
@@ -1371,69 +824,53 @@ function initCarousel(type) {
     });
 }
 
-function getVisibleCards() {
+const getVisibleCards = () => {
     const width = window.innerWidth;
-    if (width < 480) return 1;
-    if (width < 768) return 2;
-    if (width < 1024) return 3;
-    return 4;
-}
+    return width < 480 ? 1 : width < 768 ? 2 : width < 1024 ? 3 : 4;
+};
 
-function createDots(type, container) {
+const createDots = (type, container) => {
     if (!container) return;
     const { totalPages } = carousels[type];
     container.innerHTML = '';
-    
-    for (let i = 0; i < totalPages; i++) {
+    Array.from({ length: totalPages }, (_, i) => {
         const dot = document.createElement('button');
         dot.className = 'carousel-dot';
-        dot.setAttribute('aria-label', �y�[�W );
-        if (i === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToPage(type, i));
+        dot.setAttribute('aria-label', `ページ${i+1}`);
+        dot.onclick = () => goToPage(type, i);
+        i === 0 && dot.classList.add('active');
         container.appendChild(dot);
-    }
-}
-
-function updateDots(type) {
-    const dotsContainer = document.getElementById(${type}-dots);
-    if (!dotsContainer) return;
-    
-    const { currentIndex, visibleCards, totalPages } = carousels[type];
-    const currentPage = Math.floor(currentIndex / visibleCards);
-    
-    // �h�b�g�����ς�����ꍇ�͍Đ���
-    const existingDots = dotsContainer.querySelectorAll('.carousel-dot');
-    if (existingDots.length !== totalPages) {
-        createDots(type, dotsContainer);
-        return;
-    }
-    
-    existingDots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentPage);
     });
-}
+};
 
-function moveCarousel(type, direction) {
+const updateDots = type => {
+  const dotsContainer = document.getElementById(`${type}-dots`);
+  if (!dotsContainer) return;
+  const { currentIndex, visibleCards, totalPages } = carousels[type];
+  const currentPage = Math.floor(currentIndex / visibleCards);
+  const existingDots = dotsContainer.querySelectorAll('.carousel-dot');
+  if (existingDots.length !== totalPages) return createDots(type, dotsContainer);
+  existingDots.forEach((dot, i) => dot.classList.toggle('active', i === currentPage));
+};
+
+const moveCarousel = (type, direction) => {
     const { cards, currentIndex, visibleCards } = carousels[type];
     const maxIndex = cards.length - visibleCards;
-    
-    let newIndex = currentIndex + (direction * visibleCards);
-    newIndex = Math.max(0, Math.min(newIndex, maxIndex));
-    
+    const newIndex = Math.max(0, Math.min(currentIndex + direction * visibleCards, maxIndex));
     carousels[type].currentIndex = newIndex;
     updateCarousel(type);
     updateDots(type);
-}
+};
 
-function goToPage(type, page) {
+const goToPage = (type, page) => {
     const { visibleCards } = carousels[type];
     carousels[type].currentIndex = page * visibleCards;
     updateCarousel(type);
     updateDots(type);
-}
+};
 
-function updateCarousel(type) {
+const updateCarousel = type => {
     const { carousel, currentIndex, cardWidth } = carousels[type];
     const offset = -currentIndex * cardWidth;
-    carousel.style.transform = 	ranslateX(px);
-}
+    carousel.style.transform = `translateX(${offset}px)`;
+};

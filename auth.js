@@ -1,6 +1,9 @@
-// ========================================
-// 認証システム
-// ========================================
+
+/**
+ * Authentication System
+ * ユーザー認証・管理を行うクラス
+ */
+
 
 class AuthSystem {
     constructor() {
@@ -8,8 +11,10 @@ class AuthSystem {
         this.init();
     }
 
-    init() {
-        // ページ読み込み時にログイン状態をチェック
+    /**
+     * 初期化処理
+     */
+    init = () => {
         const savedUser = localStorage.getItem('currentUser');
         if (savedUser) {
             this.currentUser = JSON.parse(savedUser);
@@ -17,192 +22,155 @@ class AuthSystem {
         }
     }
 
-    // ユーザー登録
-    register(email, password, name) {
-        // 既存のユーザーを取得
+
+    /**
+     * ユーザー登録
+     * @param {string} email
+     * @param {string} password
+     * @param {string} name
+     * @returns {object}
+     */
+    register = (email, password, name) => {
         const users = this.getUsers();
-        
-        // メールアドレスの重複チェック
-        if (users.some(u => u.email === email)) {
-            return { success: false, message: 'このメールアドレスは既に登録されています' };
-        }
-
-        // 認証トークンを生成
-        const verificationToken = 'verify_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-
-        // 新しいユーザーを作成（未認証状態）
+        if (users.some(u => u.email === email)) return { success: false, message: 'このメールアドレスは既に登録されています' };
+        const verificationToken = `verify_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         const newUser = {
-            id: 'user_' + Date.now(),
-            email: email,
-            password: password, // 本番環境ではハッシュ化が必要
-            name: name,
-            verified: false, // メール未認証
-            verificationToken: verificationToken,
+            id: `user_${Date.now()}`,
+            email,
+            password, // 本番環境ではハッシュ化が必要
+            name,
+            verified: false,
+            verificationToken,
             createdAt: new Date().toISOString()
         };
-
         users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
-
-        // 認証メールのシミュレーション
         this.sendVerificationEmail(email, verificationToken, name);
-
-        // 管理者への通知
         this.notifyAdmin('新規登録', `新しいユーザーが登録されました\nメール: ${email}\n名前: ${name}`);
-
-        return { 
-            success: true, 
-            message: '登録が完了しました。確認メールをご確認ください。',
-            verificationToken: verificationToken // 開発用
-        };
+        return { success: true, message: '登録が完了しました。確認メールをご確認ください。', verificationToken };
     }
 
-    // メール認証を実行
-    verifyEmail(token) {
+
+    /**
+     * メール認証を実行
+     * @param {string} token
+     * @returns {object}
+     */
+    verifyEmail = token => {
         const users = this.getUsers();
         const userIndex = users.findIndex(u => u.verificationToken === token && !u.verified);
-
-        if (userIndex === -1) {
-            return { success: false, message: '無効な認証リンクです' };
-        }
-
-        // ユーザーを認証済みに更新
+        if (userIndex === -1) return { success: false, message: '無効な認証リンクです' };
         users[userIndex].verified = true;
-        users[userIndex].verificationToken = null; // トークンを削除
+        users[userIndex].verificationToken = null;
         localStorage.setItem('users', JSON.stringify(users));
-
-        // 管理者への通知
         this.notifyAdmin('メール認証完了', `ユーザーがメール認証を完了しました\nメール: ${users[userIndex].email}\n名前: ${users[userIndex].name}`);
-
-        return { 
-            success: true, 
-            message: 'メール認証が完了しました。ログインできます。',
-            user: users[userIndex]
-        };
+        return { success: true, message: 'メール認証が完了しました。ログインできます。', user: users[userIndex] };
     }
 
-    // 認証メールのシミュレーション
-    sendVerificationEmail(email, token, name) {
-        const verificationUrl = `${window.location.origin}/verify-email.html?token=${token}`;
-        
-        // 実際の環境ではバックエンドAPIでメール送信
-        console.log('=== 認証メール送信 ===');
-        console.log(`宛先: ${email}`);
-        console.log(`件名: 【安積直売所】メールアドレスの認証`);
-        console.log(`本文:`);
-        console.log(`${name}様\n\n安積直売所にご登録いただきありがとうございます。\n\n以下のリンクをクリックして、メールアドレスの認証を完了してください：\n${verificationUrl}\n\nこのリンクは24時間有効です。\n\n※このメールに心当たりがない場合は、このメールを無視してください。\n\n安積直売所`);
-        console.log('====================');
 
-        // 開発用：認証リンクをアラートで表示
+    /**
+     * 認証メール送信（開発用）
+     * @param {string} email
+     * @param {string} token
+     * @param {string} name
+     */
+    sendVerificationEmail = (email, token, name) => {
+        const verificationUrl = `${window.location.origin}/verify-email.html?token=${token}`;
         alert(`【開発モード】認証リンク:\n${verificationUrl}\n\n※本番環境ではメールで送信されます`);
     }
 
-    // 管理者への通知
-    notifyAdmin(subject, message) {
+
+    /**
+     * 管理者への通知
+     * @param {string} subject
+     * @param {string} message
+     */
+    notifyAdmin = (subject, message) => {
         const adminNotifications = JSON.parse(localStorage.getItem('adminNotifications') || '[]');
-        
         const notification = {
-            id: 'notif_' + Date.now(),
-            subject: subject,
-            message: message,
+            id: `notif_${Date.now()}`,
+            subject,
+            message,
             timestamp: new Date().toISOString(),
             read: false
         };
-
         adminNotifications.unshift(notification);
         localStorage.setItem('adminNotifications', JSON.stringify(adminNotifications));
-
-        console.log('=== 管理者通知 ===');
-        console.log(`件名: ${subject}`);
-        console.log(`内容: ${message}`);
-        console.log('==================');
     }
 
-    // ログイン
-    login(email, password, remember = false) {
+
+    /**
+     * ログイン処理
+     * @param {string} email
+     * @param {string} password
+     * @param {boolean} remember
+     * @returns {object}
+     */
+    login = (email, password, remember = false) => {
         const users = this.getUsers();
         const user = users.find(u => u.email === email && u.password === password);
-
-        if (!user) {
-            return { success: false, message: 'メールアドレスまたはパスワードが正しくありません' };
-        }
-
-        // メール認証チェック
-        if (!user.verified) {
-            return { 
-                success: false, 
-                message: 'メールアドレスが認証されていません。\n登録時に送信された認証メールをご確認ください。',
-                needsVerification: true
-            };
-        }
-
-        // ログイン成功
-        this.currentUser = {
-            id: user.id,
-            email: user.email,
-            name: user.name
-        };
-
-        // ログイン状態を保存
-        if (remember) {
-            localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-        } else {
-            sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-        }
-
+        if (!user) return { success: false, message: 'メールアドレスまたはパスワードが正しくありません' };
+        if (!user.verified) return { success: false, message: 'メールアドレスが認証されていません。\n登録時に送信された認証メールをご確認ください。', needsVerification: true };
+        this.currentUser = { id: user.id, email: user.email, name: user.name };
+        remember
+            ? localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
+            : sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
         this.updateUIForLoggedInUser();
-
         return { success: true, message: 'ログインしました', user: this.currentUser };
     }
 
-    // ログアウト
-    logout() {
+
+    /**
+     * ログアウト処理
+     * @returns {object}
+     */
+    logout = () => {
         this.currentUser = null;
         localStorage.removeItem('currentUser');
         sessionStorage.removeItem('currentUser');
-        
-        // UIを更新
         this.updateUIForLoggedOutUser();
-        
         return { success: true, message: 'ログアウトしました' };
     }
 
-    // 現在のユーザーを取得
-    getCurrentUser() {
+
+    /**
+     * 現在のユーザーを取得
+     * @returns {object|null}
+     */
+    getCurrentUser = () => {
         if (!this.currentUser) {
             const savedUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
-            if (savedUser) {
-                this.currentUser = JSON.parse(savedUser);
-            }
+            if (savedUser) this.currentUser = JSON.parse(savedUser);
         }
         return this.currentUser;
     }
 
-    // ログイン状態の確認
-    isLoggedIn() {
-        return this.getCurrentUser() !== null;
-    }
 
-    // ユーザー一覧を取得
-    getUsers() {
+    /**
+     * ログイン状態の確認
+     * @returns {boolean}
+     */
+    isLoggedIn = () => this.getCurrentUser() !== null;
+
+
+    /**
+     * ユーザー一覧を取得
+     * @returns {Array}
+     */
+    getUsers = () => {
         const users = localStorage.getItem('users');
         return users ? JSON.parse(users) : [];
     }
 
-    // UIをログイン状態に更新
-    updateUIForLoggedInUser() {
+    /**
+     * UIをログイン状態に更新
+     */
+    updateUIForLoggedInUser = () => {
         const user = this.getCurrentUser();
         if (!user) return;
-
-        // ログインボタンを非表示、ユーザー名を表示
-        const loginButtons = document.querySelectorAll('.btn-secondary[href="login.html"], a[href="login.html"]');
-        loginButtons.forEach(btn => {
-            if (btn.textContent.includes('ログイン')) {
-                btn.style.display = 'none';
-            }
+        document.querySelectorAll('.btn-secondary[href="login.html"], a[href="login.html"]').forEach(btn => {
+            if (btn.textContent.includes('ログイン')) btn.style.display = 'none';
         });
-
-        // ユーザーメニューを追加
         const navActions = document.querySelector('.nav-actions');
         if (navActions && !document.getElementById('userMenu')) {
             const userMenu = document.createElement('div');
@@ -219,21 +187,15 @@ class AuthSystem {
                 </div>
             `;
             navActions.insertBefore(userMenu, navActions.firstChild);
-
-            // ドロップダウンメニューの制御
             const userMenuBtn = document.getElementById('userMenuBtn');
             const userDropdown = document.getElementById('userDropdown');
-            
-            userMenuBtn.addEventListener('click', (e) => {
+            userMenuBtn.addEventListener('click', e => {
                 e.stopPropagation();
                 userDropdown.style.display = userDropdown.style.display === 'none' ? 'block' : 'none';
             });
-
             document.addEventListener('click', () => {
                 userDropdown.style.display = 'none';
             });
-
-            // ログアウトボタン
             document.getElementById('logoutBtn').addEventListener('click', () => {
                 if (confirm('ログアウトしますか？')) {
                     this.logout();
@@ -244,23 +206,18 @@ class AuthSystem {
         }
     }
 
-    // UIをログアウト状態に更新
-    updateUIForLoggedOutUser() {
-        // ユーザーメニューを削除
+    /**
+     * UIをログアウト状態に更新
+     */
+    updateUIForLoggedOutUser = () => {
         const userMenu = document.getElementById('userMenu');
-        if (userMenu) {
-            userMenu.remove();
-        }
-
-        // ログインボタンを表示
-        const loginButtons = document.querySelectorAll('.btn-secondary[href="login.html"], a[href="login.html"]');
-        loginButtons.forEach(btn => {
-            if (btn.textContent.includes('ログイン')) {
-                btn.style.display = 'inline-block';
-            }
+        if (userMenu) userMenu.remove();
+        document.querySelectorAll('.btn-secondary[href="login.html"], a[href="login.html"]').forEach(btn => {
+            if (btn.textContent.includes('ログイン')) btn.style.display = 'inline-block';
         });
     }
 }
+
 
 // グローバルインスタンスを作成
 window.Auth = new AuthSystem();

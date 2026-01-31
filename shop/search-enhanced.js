@@ -196,101 +196,21 @@ function updateCartBadge() {
     }
 }
 
-// ===== カート追加（改良版） =====
+// ===== カート追加（共通関数呼び出し） =====
 function addToCartEnhanced(productId) {
-    if (typeof getSharedProducts !== 'function') return;
-    
-    const products = getSharedProducts();
-    const product = products.find(p => p.id === productId);
-    
-    if (!product) {
-        alert('商品が見つかりません');
-        return;
-    }
-    
-    // 在庫チェック
-    const inventory = typeof getSharedInventory === 'function' ? getSharedInventory() : {};
-    const stock = inventory[productId]?.stock || 0;
-    
-    if (stock <= 0) {
-        alert('申し訳ございません。この商品は現在在庫切れです。');
-        return;
-    }
-    
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    
-    // 既にカートにある場合は数量を増やす
-    const existingItem = cart.find(item => item.productId === productId);
-    
-    if (existingItem) {
-        if (existingItem.quantity >= stock) {
-            alert('在庫数を超えて追加できません');
-            return;
-        }
-        existingItem.quantity++;
+    if (typeof addToCartEnhancedCommon === 'function') {
+        addToCartEnhancedCommon(productId);
     } else {
-        cart.push({
-            productId: productId,
-            name: product.name,
-            price: product.price,
-            unit: product.unit,
-            quantity: 1,
-            addedAt: new Date().toISOString()
-        });
+        alert('カート機能が利用できません');
     }
-    
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartBadge();
-    
-    // 追加通知
-    showCartNotification(product.name);
 }
 
 // ===== カート追加通知 =====
+// ===== カート追加通知（共通関数呼び出し） =====
 function showCartNotification(productName) {
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: linear-gradient(135deg, #10b981, #059669);
-        color: white;
-        padding: 15px 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
-        z-index: 10000;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        animation: slideIn 0.3s ease-out;
-    `;
-    notification.innerHTML = `
-        <span style="font-size: 24px;">✓</span>
-        <div>
-            <div style="font-weight: bold;">${productName}</div>
-            <div style="font-size: 12px; opacity: 0.9;">カートに追加しました</div>
-        </div>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // アニメーション追加
-    if (!document.getElementById('cartNotifStyle')) {
-        const style = document.createElement('style');
-        style.id = 'cartNotifStyle';
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100px); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-        `;
-        document.head.appendChild(style);
+    if (typeof showCartNotificationCommon === 'function') {
+        showCartNotificationCommon(productName);
     }
-    
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
 }
 
 // ===== エクスポート =====

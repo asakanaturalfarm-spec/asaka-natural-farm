@@ -52,6 +52,7 @@ function generateProductHTML(product) {
     <meta property="og:site_name" content="安積直売所">
     <meta property="product:price:amount" content="${priceWithTax}">
     <meta property="product:price:currency" content="JPY">
+    <script src="../../common.js"></script>
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -274,7 +275,7 @@ function generateProductHTML(product) {
                         ` : ''}
                     </div>
 
-                    <button class="btn-add-cart" onclick="addToCart('${product.id}')">
+                    <button class="btn-add-cart" onclick="addToCartStaticPage()">
                         カートに追加
                     </button>
                 </div>
@@ -282,30 +283,19 @@ function generateProductHTML(product) {
         </div>
     </main>
 
-    <script src="../cart-helper.js"></script>
     <script>
-        function addToCart(productId) {
-            // カート追加処理（既存のロジックを流用）
-            const product = ${JSON.stringify(product)};
-            const cart = JSON.parse(localStorage.getItem('asaka_cart') || '[]');
-            const existingItem = cart.find(item => item.id === productId);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
+        function addToCartStaticPage() {
+            const product = {
+                id: '${product.id}',
+                name: '${product.name}',
+                price: ${product.price},
+                quantity: 1
+            };
+            if (typeof addToCart === 'function') {
+                addToCart(product);
             } else {
-                cart.push({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    priceWithTax: ${priceWithTax},
-                    unit: product.unit,
-                    img: product.img,
-                    quantity: 1
-                });
+                alert('カート機能が利用できません');
             }
-            
-            localStorage.setItem('asaka_cart', JSON.stringify(cart));
-            alert('カートに追加しました');
         }
     </script>
 </body>

@@ -1,20 +1,70 @@
-/* 長文用レスポンシブサイドパディング */
-.responsive-side-padding {
-    padding-left: 40px;
-    padding-right: 40px;
+body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.primary, .button.ghost {
+    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif !important;
 }
+/* --- Minimal Flat CTA Button --- */
+.hero-btn-primary, .btn-primary, .btn-secondary, .form-submit-btn, .button.primary, .button.ghost {
+    display: inline-block;
+    padding: 0.7em 1.5em;
+    background: var(--home-accent);
+    color: #fff;
+    border: none;
+    border-radius: 0;
+    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: .08em;
+    text-decoration: none;
+    margin: 0 0.3em 0 0;
+    transition: background .2s, color .2s;
+    box-shadow: none;
+    outline: none;
+    min-width: 110px;
+    min-height: 40px;
+}
+.btn-secondary, .button.ghost {
+    background: #fff;
+    color: var(--home-accent);
+}
+.hero-btn-primary:hover, .btn-primary:hover, .form-submit-btn:hover, .button.primary:hover,
+.hero-btn-primary:focus-visible, .btn-primary:focus-visible, .form-submit-btn:focus-visible, .button.primary:focus-visible {
+    background: #0c2a19;
+    color: #fff;
+}
+.btn-secondary:hover, .button.ghost:hover, .btn-secondary:focus-visible, .button.ghost:focus-visible {
+    background: #f0f0f0;
+    color: var(--home-accent);
+}
+/* 隣接CTAボタンの間に境界線なし */
+.hero-btn-primary + .btn-primary,
+.btn-primary + .btn-secondary,
+.btn-secondary + .form-submit-btn,
+.form-submit-btn + .btn-primary,
+.button.primary + .button.ghost,
+.button.ghost + .button.primary {
+    border-left: none;
+    margin-left: 0;
+}
+.hero-btn-primary:hover,
+.hero-btn-primary:focus-visible {
+    background: #0c2a19;
+    color: #fff;
+}
+/* 長文用レスポンシブサイドパディング */
+
+.responsive-side-padding {
+    padding: 0 24px;
+}
+
 
 @media (max-width: 900px) {
     .responsive-side-padding {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding: 0 10px;
     }
 }
 
+
 @media (max-width: 600px) {
     .responsive-side-padding {
-        padding-left: 8px;
-        padding-right: 8px;
+        padding: 0 4px;
     }
 }
 /* ヒーローセクションの枠・影・角丸・背景色を完全除去 */
@@ -24,48 +74,142 @@
     border: none !important;
     border-radius: 0 !important;
 }
-/* スマホ用ナビゲーション開閉 */
+/* --- ナビゲーションバー統一 --- */
+.navbar {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    backdrop-filter: none;
+    border-bottom: none;
+    z-index: 100;
+    box-shadow: none;
+    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif !important;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+    margin-right: 0;
+    text-decoration: none;
+    color: var(--home-accent);
+}
+
+.logo-text h1 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--home-accent);
+    font-family: 'NIS Tak', 'Noto Serif JP', serif;
+    margin: 0;
+    letter-spacing: 0.2em;
+    line-height: 1.2;
+}
+
+.logo-text p {
+    display: none;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+    margin-left: 40px;
+    align-items: center;
+    background: none;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+}
+
+.nav-link {
+    color: var(--home-accent);
+    font-weight: 500;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    padding: 0.35rem 0.7rem;
+    border-radius: 0 !important;
+    transition: color 0.2s ease;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    border: none;
+    background: none;
+    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif !important;
+    box-shadow: none !important;
+}
+
+.nav-link:hover, .nav-link:focus-visible {
+    background: #f0f0f0;
+    color: var(--home-accent);
+    box-shadow: none;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.hamburger span {
+    width: 24px;
+    height: 2.5px;
+    background-color: var(--home-accent);
+    border-radius: 2px;
+    transition: var(--transition, all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94));
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-bottom: 1px solid var(--home-line);
+    padding: 20px;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 99;
+    animation: slideDown 0.3s ease;
+}
+
+.mobile-link {
+    padding: 10px 0;
+    color: var(--home-accent);
+    font-weight: 500;
+}
+
 @media (max-width: 900px) {
-    .header-container {
-        position: relative;
-    }
-    .nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: #fff;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    .nav-menu {
         display: none;
-        flex-direction: column;
-        z-index: 100;
-        padding: 1.2rem 0;
     }
-    .nav.nav-open {
+    .hamburger {
         display: flex;
     }
-    .menu-toggle {
-        display: block;
-        background: none;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 0.6rem;
-        margin-left: auto;
-        z-index: 101;
-    }
-    .menu-toggle.active .menu-toggle-bar {
-        background: #4a5d3f;
-    }
-    .nav-link {
-        padding: 1rem 2rem;
-        font-size: 1.1rem;
-        border-bottom: 1px solid #eee;
-        color: #333;
-        text-align: left;
-    }
-    .nav-link:last-child {
-        border-bottom: none;
+    .mobile-menu.show {
+        display: flex;
     }
 }
 /* Home-only style */
@@ -81,14 +225,7 @@
     --home-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
 }
 
-/* お問い合わせフォーム レスポンシブ対応・デザイン */
-.contact-section {
-    background: #fff;
-    padding: 64px 0 48px;
-}
 .contact-form-wrapper {
-    max-width: 480px;
-    margin: 0 auto;
     background: #faf9f6;
     border-radius: 12px;
     box-shadow: 0 2px 16px rgba(0,0,0,0.06);
@@ -113,14 +250,14 @@
 .form-input,
 .form-textarea {
     width: 100%;
-    padding: 0.7em 1em;
+    padding: .7em 1em;
     border: 1px solid var(--home-line);
     border-radius: 8px;
     font-size: 1rem;
     background: #fff;
     color: var(--home-ink);
     box-sizing: border-box;
-    transition: border 0.2s;
+    transition: border .2s;
 }
 .form-input:focus,
 .form-textarea:focus {
@@ -130,23 +267,6 @@
 .form-textarea {
     min-height: 120px;
     resize: vertical;
-}
-.form-submit-btn {
-    background: var(--home-accent);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 0.9em 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-    width: 100%;
-    margin-top: 0.5rem;
-}
-.form-submit-btn:hover,
-.form-submit-btn:focus-visible {
-    background: #0c2a19;
 }
 .required {
     color: #d32f2f;
@@ -168,10 +288,7 @@
         font-size: 0.98rem;
         padding: 0.6em 0.7em;
     }
-    .form-submit-btn {
-        font-size: 1rem;
-        padding: 0.8em 0;
-    }
+    /* 削除：ミニマル定義に統一 */
 }
 
 body.home {
@@ -196,9 +313,11 @@ body.home .site-header {
     position: sticky;
     top: 0;
     z-index: 12;
-    background: rgba(247, 245, 239, 0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--home-line);
+    background: #fff;
+    backdrop-filter: none;
+    border-bottom: none;
+    box-shadow: none;
+    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif;
 }
 
 body.home .header-inner {
@@ -227,21 +346,7 @@ body.home .brand-name {
     color: var(--home-muted);
 }
 
-body.home .site-nav {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    font-size: 0.9rem;
-    letter-spacing: 0.08em;
-}
-
-body.home .site-nav a {
-    text-decoration: none;
-    color: var(--home-muted);
-    padding: 0.35rem 0;
-    transition: color 0.2s ease;
-}
-
+/* 不要な削除コメントと壊れたCSSを除去 */
 body.home .site-nav a:hover,
 body.home .site-nav a:focus-visible {
     color: var(--home-accent);
@@ -367,41 +472,6 @@ body.home .hero-actions {
     display: flex;
     gap: 0.8rem;
     flex-wrap: wrap;
-}
-
-body.home .button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.85rem 1.4rem;
-    border-radius: 999px;
-    font-size: 0.95rem;
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    border: 1px solid var(--home-ink);
-    transition: all 0.2s ease;
-}
-
-body.home .button.primary {
-    background: var(--home-accent);
-    border-color: var(--home-accent);
-    color: #ffffff;
-}
-
-body.home .button.primary:hover,
-body.home .button.primary:focus-visible {
-    background: #0c2a19;
-}
-
-body.home .button.ghost {
-    background: transparent;
-    color: var(--home-ink);
-}
-
-body.home .button.ghost:hover,
-body.home .button.ghost:focus-visible {
-    border-color: var(--home-accent);
-    color: var(--home-accent);
 }
 
 body.home .hero-meta {
@@ -686,32 +756,15 @@ body.home .footer-links a:focus-visible {
     body.home .hero-inner {
         grid-template-columns: 1fr;
     }
-
     body.home .hero-panel {
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     }
 }
 
 @media (max-width: 900px) {
-    body.home .site-nav {
-        position: absolute;
-        right: 4%;
-        top: 74px;
-        background: #ffffff;
-        border: 1px solid var(--home-line);
-        border-radius: 16px;
-        padding: 1rem 1.2rem;
-        box-shadow: var(--home-shadow);
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.9rem;
-        display: none;
-    }
-
     body.home .site-nav.is-open {
         display: flex;
     }
-
     body.home .nav-trigger {
         display: inline-flex;
     }

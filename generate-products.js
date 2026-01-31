@@ -19,6 +19,7 @@ function generateProductPage(product) {
     <link rel="canonical" href="https://asakanatural.jp/store/${slug}.html">
     <link rel="stylesheet" href="style.css?v=3">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="../common.js"></script>
     <!-- JSON-LD: Product Schema -->
     <script type="application/ld+json">
     {
@@ -334,7 +335,7 @@ function generateProductPage(product) {
                     <label for="quantity">数量:</label>
                     <input type="number" id="quantity" min="1" max="99" value="1">
                 </div>
-                <button class="btn-add-cart" id="addToCartBtn" onclick="addToCart()">
+                <button class="btn-add-cart" id="addToCartBtn" onclick="addToCartProductPage()">
                     カートに追加
                 </button>
             </div>
@@ -373,8 +374,8 @@ function generateProductPage(product) {
                 console.error('在庫確認エラー:', error);
             }
         }
-        // カートに追加
-        function addToCart() {
+        // 共通addToCartを利用
+        function addToCartProductPage() {
             const quantity = parseInt(document.getElementById('quantity').value);
             if (quantity < 1) {
                 alert('数量を選択してください');
@@ -386,17 +387,10 @@ function generateProductPage(product) {
                 price: PRODUCT_PRICE,
                 quantity: quantity
             };
-            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            const existing = cart.find(item => item.id === PRODUCT_ID);
-            if (existing) {
-                existing.quantity += quantity;
+            if (typeof addToCart === 'function') {
+                addToCart(product);
             } else {
-                cart.push(product);
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            alert(PRODUCT_NAME + ' を' + quantity + '個カートに追加しました');
-            if (confirm('カートを確認しますか？')) {
-                window.location.href = 'cart.html';
+                alert('カート機能が利用できません');
             }
         }
         // 関連商品表示

@@ -10,50 +10,58 @@
     // ==============================================
     // 1. 商品マスターデータ（全アプリ共通）
     // ==============================================
-    const PRODUCTS_MASTER = [
-        { id: 'v1', name: 'ほうれん草', category: '葉物野菜', price: 500, unit: '袋' },
-        { id: 'v2', name: '小松菜', category: '葉物野菜', price: 450, unit: '袋' },
-        { id: 'v3', name: '春菊', category: '葉物野菜', price: 480, unit: '袋' },
-        { id: 'v4', name: '水菜', category: '葉物野菜', price: 420, unit: '袋' },
-        { id: 'v5', name: 'ルッコラ', category: '葉物野菜', price: 550, unit: '袋' },
-        { id: 'v6', name: 'チンゲン菜', category: '葉物野菜', price: 430, unit: '袋' },
-        { id: 'v7', name: 'ベビーリーフ', category: '葉物野菜', price: 600, unit: '袋' },
-        { id: 'v8', name: 'サニーレタス', category: 'レタス類', price: 520, unit: '玉' },
-        { id: 'v9', name: 'ロメインレタス', category: 'レタス類', price: 580, unit: '玉' },
-        { id: 'v10', name: 'リーフレタス', category: 'レタス類', price: 500, unit: '袋' },
-        { id: 'v11', name: '大根', category: '根菜類', price: 300, unit: '本' },
-        { id: 'v12', name: 'かぶ', category: '根菜類', price: 350, unit: '袋' },
-        { id: 'v13', name: 'ブロッコリー', category: 'アブラナ科', price: 450, unit: '個' },
-        { id: 'v14', name: 'カリフラワー', category: 'アブラナ科', price: 480, unit: '個' },
-        { id: 'v15', name: 'キャベツ', category: 'アブラナ科', price: 350, unit: '玉' },
-        { id: 'v16', name: '白菜', category: 'アブラナ科', price: 400, unit: '玉' },
-        { id: 'v17', name: 'ケール', category: '葉物野菜', price: 600, unit: '袋' },
-        { id: 'v18', name: '赤軸ほうれん草', category: '葉物野菜', price: 550, unit: '袋' },
-        { id: 'v19', name: '紫水菜', category: '葉物野菜', price: 480, unit: '袋' },
-        { id: 'v20', name: 'からし菜', category: '葉物野菜', price: 450, unit: '袋' },
-        { id: 'v21', name: 'ミニトマト', category: '果菜類', price: 700, unit: 'パック' },
-        { id: 'v22', name: 'ミニ白菜', category: 'アブラナ科', price: 350, unit: '個' },
-        { id: 'v23', name: 'ラディッシュ', category: '根菜類', price: 380, unit: '袋' },
-        { id: 'v24', name: 'わさび菜', category: '葉物野菜', price: 480, unit: '袋' },
-        { id: 'v25', name: 'カボチャ', category: '果菜類', price: 600, unit: '個' },
-        { id: 'v26', name: 'ネギ', category: '葉物野菜', price: 400, unit: '本' },
-        { id: 'v27', name: 'なす', category: '果菜類', price: 450, unit: '袋' },
-        { id: 'v28', name: 'レタス', category: 'レタス類', price: 500, unit: '玉' },
-        { id: 'v29', name: 'じゃがいも', category: '根菜類', price: 500, unit: 'kg' },
-        { id: 'v30', name: 'さつまいも', category: '根菜類', price: 600, unit: 'kg' },
-        { id: 'v31', name: 'ピーマン', category: '果菜類', price: 400, unit: '袋' },
-        { id: 'v32', name: 'たまねぎ', category: '根菜類', price: 350, unit: 'kg' },
-        { id: 'v33', name: '里芋', category: '根菜類', price: 700, unit: 'kg' },
-        { id: 'v34', name: 'にんじん', category: '根菜類', price: 400, unit: '袋' },
-        { id: 'v35', name: 'にんにく', category: '香味野菜', price: 800, unit: '袋' },
-        { id: 'v36', name: 'とうもろこし', category: '果菜類', price: 500, unit: '本' },
-        { id: 'c1', name: '野菜セット', category: '加工品', price: 2500, unit: 'セット' }
+    /**
+     * 商品マスターデータ（全アプリ共通）
+     * @type {Array<{id: string, name: string, category: string, price: number, unit: string}>}
+     */
+    const productMaster = [
+        { id: 'v1', name: 'Spinach', category: 'LeafyVegetable', price: 500, unit: 'bag' },
+        { id: 'v2', name: 'Komatsuna', category: 'LeafyVegetable', price: 450, unit: 'bag' },
+        { id: 'v3', name: 'Shungiku', category: 'LeafyVegetable', price: 480, unit: 'bag' },
+        { id: 'v4', name: 'Mizuna', category: 'LeafyVegetable', price: 420, unit: 'bag' },
+        { id: 'v5', name: 'Rucola', category: 'LeafyVegetable', price: 550, unit: 'bag' },
+        { id: 'v6', name: 'Chingensai', category: 'LeafyVegetable', price: 430, unit: 'bag' },
+        { id: 'v7', name: 'BabyLeaf', category: 'LeafyVegetable', price: 600, unit: 'bag' },
+        { id: 'v8', name: 'SunnyLettuce', category: 'Lettuce', price: 520, unit: 'head' },
+        { id: 'v9', name: 'RomaineLettuce', category: 'Lettuce', price: 580, unit: 'head' },
+        { id: 'v10', name: 'LeafLettuce', category: 'Lettuce', price: 500, unit: 'bag' },
+        { id: 'v11', name: 'Daikon', category: 'RootVegetable', price: 300, unit: 'piece' },
+        { id: 'v12', name: 'Turnip', category: 'RootVegetable', price: 350, unit: 'bag' },
+        { id: 'v13', name: 'Broccoli', category: 'Brassica', price: 450, unit: 'piece' },
+        { id: 'v14', name: 'Cauliflower', category: 'Brassica', price: 480, unit: 'piece' },
+        { id: 'v15', name: 'Cabbage', category: 'Brassica', price: 350, unit: 'head' },
+        { id: 'v16', name: 'ChineseCabbage', category: 'Brassica', price: 400, unit: 'head' },
+        { id: 'v17', name: 'Kale', category: 'LeafyVegetable', price: 600, unit: 'bag' },
+        { id: 'v18', name: 'RedSpinach', category: 'LeafyVegetable', price: 550, unit: 'bag' },
+        { id: 'v19', name: 'PurpleMizuna', category: 'LeafyVegetable', price: 480, unit: 'bag' },
+        { id: 'v20', name: 'MustardGreen', category: 'LeafyVegetable', price: 450, unit: 'bag' },
+        { id: 'v21', name: 'MiniTomato', category: 'FruitVegetable', price: 700, unit: 'pack' },
+        { id: 'v22', name: 'MiniChineseCabbage', category: 'Brassica', price: 350, unit: 'piece' },
+        { id: 'v23', name: 'Radish', category: 'RootVegetable', price: 380, unit: 'bag' },
+        { id: 'v24', name: 'Wasabina', category: 'LeafyVegetable', price: 480, unit: 'bag' },
+        { id: 'v25', name: 'Pumpkin', category: 'FruitVegetable', price: 600, unit: 'piece' },
+        { id: 'v26', name: 'GreenOnion', category: 'LeafyVegetable', price: 400, unit: 'piece' },
+        { id: 'v27', name: 'Eggplant', category: 'FruitVegetable', price: 450, unit: 'bag' },
+        { id: 'v28', name: 'Lettuce', category: 'Lettuce', price: 500, unit: 'head' },
+        { id: 'v29', name: 'Potato', category: 'RootVegetable', price: 500, unit: 'kg' },
+        { id: 'v30', name: 'SweetPotato', category: 'RootVegetable', price: 600, unit: 'kg' },
+        { id: 'v31', name: 'GreenPepper', category: 'FruitVegetable', price: 400, unit: 'bag' },
+        { id: 'v32', name: 'Onion', category: 'RootVegetable', price: 350, unit: 'kg' },
+        { id: 'v33', name: 'Taro', category: 'RootVegetable', price: 700, unit: 'kg' },
+        { id: 'v34', name: 'Carrot', category: 'RootVegetable', price: 400, unit: 'bag' },
+        { id: 'v35', name: 'Garlic', category: 'AromaticVegetable', price: 800, unit: 'bag' },
+        { id: 'v36', name: 'Corn', category: 'FruitVegetable', price: 500, unit: 'piece' },
+        { id: 'c1', name: 'VegetableSet', category: 'Processed', price: 2500, unit: 'set' }
     ];
 
     // ==============================================
     // 2. ストレージキー定義（全アプリ統一）
     // ==============================================
-    const STORAGE_KEYS = {
+    /**
+     * ストレージキー定義（全アプリ統一）
+     * @type {Object}
+     */
+    const storageKeys = {
         // 在庫管理
         INVENTORY: 'inventory_realtime',
         INVENTORY_LOG: 'inventory_log',
@@ -82,88 +90,118 @@
     // ==============================================
     // 3. ユーティリティ関数
     // ==============================================
-    const Utils = {
-        // 日付フォーマット
-        formatDate(date, format = 'YYYY-MM-DD') {
+    /**
+     * ユーティリティ関数群
+     * @namespace
+     */
+    const utils = {
+        /**
+         * 日付を指定フォーマットで返す
+         * @param {Date|string|number} date 日付
+         * @param {string} format フォーマット例: 'YYYY-MM-DD'
+         * @returns {string}
+         */
+        formatDate: (date, format = 'YYYY-MM-DD') => {
             const d = new Date(date);
             const year = d.getFullYear();
             const month = String(d.getMonth() + 1).padStart(2, '0');
             const day = String(d.getDate()).padStart(2, '0');
             const hour = String(d.getHours()).padStart(2, '0');
             const minute = String(d.getMinutes()).padStart(2, '0');
-            
-            return format
-                .replace('YYYY', year)
-                .replace('MM', month)
-                .replace('DD', day)
-                .replace('HH', hour)
-                .replace('mm', minute);
+            return format.replace('YYYY', year).replace('MM', month).replace('DD', day).replace('HH', hour).replace('mm', minute);
         },
-
-        // 金額フォーマット
-        formatCurrency(amount) {
-            return '¥' + amount.toLocaleString('ja-JP');
-        },
-
-        // ユニークID生成
-        generateId(prefix = 'ID') {
-            return `${prefix}-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-        },
-
-        // LocalStorage操作
+        /**
+         * 金額を日本円表記で返す
+         * @param {number} amount 金額
+         * @returns {string}
+         */
+        formatCurrency: amount => '¥' + amount.toLocaleString('ja-JP'),
+        /**
+         * 一意なIDを生成
+         * @param {string} prefix 接頭辞
+         * @returns {string}
+         */
+        generateId: (prefix = 'ID') => `${prefix}-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
+        /**
+         * ローカルストレージ操作
+         */
         storage: {
-            get(key, defaultValue = null) {
+            /**
+             * ストレージから値を取得
+             * @param {string} key
+             * @param {*} defaultValue
+             * @returns {*}
+             */
+            get: (key, defaultValue = null) => {
                 try {
                     const data = localStorage.getItem(key);
                     return data ? JSON.parse(data) : defaultValue;
                 } catch (e) {
-                    console.error(`Storage get error for ${key}:`, e);
                     return defaultValue;
                 }
             },
-            
-            set(key, value) {
+            /**
+             * ストレージに値を保存
+             * @param {string} key
+             * @param {*} value
+             * @returns {boolean}
+             */
+            set: (key, value) => {
                 try {
                     localStorage.setItem(key, JSON.stringify(value));
                     return true;
                 } catch (e) {
-                    console.error(`Storage set error for ${key}:`, e);
                     return false;
                 }
             },
-            
-            remove(key) {
+            /**
+             * ストレージから値を削除
+             * @param {string} key
+             * @returns {boolean}
+             */
+            remove: key => {
                 try {
                     localStorage.removeItem(key);
                     return true;
                 } catch (e) {
-                    console.error(`Storage remove error for ${key}:`, e);
                     return false;
                 }
             }
         },
-
-        // 商品検索
-        findProduct(productId) {
-            return PRODUCTS_MASTER.find(p => p.id === productId);
-        },
-
-        // カテゴリ別商品取得
-        getProductsByCategory(category) {
-            return PRODUCTS_MASTER.filter(p => p.category === category);
-        },
-
-        // バリデーション
+        /**
+         * 商品IDから商品情報を取得
+         * @param {string} productId
+         * @returns {object|undefined}
+         */
+        findProduct: productId => productMaster.find(p => p.id === productId),
+        /**
+         * カテゴリで商品一覧を取得
+         * @param {string} category
+         * @returns {Array}
+         */
+        getProductsByCategory: category => productMaster.filter(p => p.category === category),
+        /**
+         * バリデーション関数群
+         */
         validate: {
-            email(email) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-            },
-            phone(phone) {
-                return /^[0-9-]+$/.test(phone);
-            },
-            required(value) {
-                return value !== null && value !== undefined && value !== '';
-            }
+            /**
+             * メールアドレス形式チェック
+             * @param {string} email
+             * @returns {boolean}
+             */
+            email: email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+            /**
+             * 電話番号形式チェック
+             * @param {string} phone
+             * @returns {boolean}
+             */
+            phone: phone => /^[0-9-]+$/.test(phone),
+            /**
+             * 必須チェック
+             * @param {*} value
+             * @returns {boolean}
+             */
+            required: value => value !== null && value !== undefined && value !== ''
         }
     };
 
@@ -347,26 +385,35 @@
     // ==============================================
     // 8. メインHUBクラス
     // ==============================================
+    /**
+     * 安積農園統合管理HUBクラス
+     * @class
+     */
     class AsakaHub {
         constructor() {
             this.version = '1.0.0';
-            this.products = PRODUCTS_MASTER;
-            this.storageKeys = STORAGE_KEYS;
-            this.utils = Utils;
+            this.products = productMaster;
+            this.storageKeys = storageKeys;
+            this.utils = utils;
             this.events = new EventBus();
             this.notification = new NotificationSystem();
             this.dataSync = new DataSync();
             this.logger = new Logger();
         }
 
-        // 初期化
+        /**
+         * HUB初期化処理
+         * @returns {AsakaHub}
+         */
         init() {
             this.logger.info('AsakaHub initialized', { version: this.version });
             this.injectStyles();
             return this;
         }
 
-        // 共通スタイル注入
+        /**
+         * 共通スタイルをheadへ注入
+         */
         injectStyles() {
             const style = document.createElement('style');
             style.textContent = `
@@ -427,7 +474,10 @@
             document.head.appendChild(style);
         }
 
-        // 統計情報取得
+        /**
+         * システム統計情報を取得
+         * @returns {object}
+         */
         getSystemStats() {
             return {
                 products: this.products.length,
@@ -442,18 +492,6 @@
     // 9. グローバル公開
     // ==============================================
     window.AsakaHub = new AsakaHub().init();
-    window.PRODUCTS = PRODUCTS_MASTER; // 後方互換性のため
-
-    console.log(`
-╔═══════════════════════════════════════════╗
-║   安積農園統合管理システム - Core HUB    ║
-║          Version ${window.AsakaHub.version}                  ║
-╚═══════════════════════════════════════════╝
-✅ 商品マスター: ${PRODUCTS_MASTER.length}件
-✅ ユーティリティ: 有効
-✅ イベントバス: 有効
-✅ 通知システム: 有効
-✅ ログシステム: 有効
-    `);
+    window.PRODUCTS = productMaster; // 後方互換性のため
 
 })(window);
