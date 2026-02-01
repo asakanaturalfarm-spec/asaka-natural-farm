@@ -44,29 +44,84 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="index-style.css">
+    <link rel="stylesheet" href="fonts/NIS_TAK.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index-style.css">
+    <style>
+        :root {
+            --home-accent: #0f3320;
+            --home-ink: #131611;
+            --home-muted: #4f5349;
+            --home-line: #e2dfd6;
+            --home-bg: #f7f5ef;
+            --home-panel: #ffffff;
+            --home-accent-soft: #dbe5dc;
+            --home-sand: #ede7dc;
+            --home-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+        }
+        .logo-text p { display: none !important; }
+        .logo-text h1 {
+            font-family: 'NIS Tak', 'Noto Serif JP', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2d3a1f;
+            margin: 0;
+            letter-spacing: 0.08em;
+        }
+        .logo-text p {
+            font-family: 'NIS Tak', 'Noto Sans JP', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #4b5d2a;
+            margin: 0;
+            letter-spacing: 0.08em;
+        }
+    </style>
 </head>
 <body class="home">
-    <!-- ヘッダー（共通） -->
-    <header class="header">
-        <div class="header-container">
-            <h1 class="logo"><a href="index.html"> 安積自然農園</a></h1>
-            <button class="menu-toggle" aria-label="メニュー">
-                <span class="menu-toggle-bar"></span>
-                <span class="menu-toggle-bar"></span>
-                <span class="menu-toggle-bar"></span>
-            </button>
-            <nav class="nav">
-                <a href="index.html#philosophy" class="nav-link">想い</a>
-                <a href="index.html#method" class="nav-link">農法</a>
-                <a href="production.html" class="nav-link">生産・工程</a>
-                <a href="distribution.html" class="nav-link">流通・取引</a>
-                <a href="index.html#products" class="nav-link">加工品</a>
-                <a href="shop/index.html" class="nav-link nav-link-shop">オンラインショップ</a>
-            </nav>
-        </div>
-    </header>
+        <!-- ナビゲーションバー（共通UI） -->
+        <header class="navbar">
+            <div class="navbar-container">
+                <a href="index.html" class="logo" title="ホーム">
+                    <div class="logo-text">
+                        <h1>安積自然農園</h1>
+                        <p>自然農法野菜</p>
+                    </div>
+                </a>
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">ホーム</a>
+                    <a href="index.html#philosophy" class="nav-link">想い</a>
+                    <a href="index.html#method" class="nav-link">農法</a>
+                    <a href="index.html#vegetables" class="nav-link">野菜</a>
+                    <a href="index.html#products" class="nav-link">加工品</a>
+                    <a href="business.html" class="nav-link">業務内容</a>
+                    <a href="distribution.html" class="nav-link">流通・取引</a>
+                    <a href="shop/index.html" class="nav-link nav-link-shop">オンラインショップ</a>
+                    <a href="#contact-section" class="nav-link">お問い合わせ</a>
+                </nav>
+                <div class="nav-actions">
+                    <a href="account.html" class="btn-secondary" style="display: inline-block; text-decoration: none;">ログイン</a>
+                </div>
+                <button class="hamburger" id="hamburger" aria-controls="mobileMenu" aria-expanded="false" aria-label="メニューを開く">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+        <nav class="mobile-menu" id="mobileMenu">
+            <a href="index.html" class="mobile-link">ホーム</a>
+            <a href="index.html#philosophy" class="mobile-link">想い</a>
+            <a href="index.html#method" class="mobile-link">農法</a>
+            <a href="index.html#vegetables" class="mobile-link">野菜</a>
+            <a href="index.html#products" class="mobile-link">加工品</a>
+            <a href="business.html" class="mobile-link">業務内容</a>
+            <a href="distribution.html" class="mobile-link">流通・取引</a>
+            <a href="shop/index.html" class="mobile-link">オンラインショップ</a>
+            <a href="#contact-section" class="mobile-link">お問い合わせ</a>
+            <hr>
+            <a href="account.html" style="display: block; width: 100%; margin-bottom: 8px;" class="btn-secondary">ログイン</a>
+        </nav>
 
     <!-- ヘッダースペーサー（グローバルナビ固定用） -->
     <div class="header-spacer"></div>
@@ -374,25 +429,22 @@
 
     <script src="script.js"></script>
 <script>
-// inflow1.html ハンバーガーメニュー開閉（style.cssの設計に合わせる）
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.nav');
-    if (menuToggle && nav) {
-        menuToggle.addEventListener('click', function() {
-            menuToggle.classList.toggle('active');
-            nav.classList.toggle('active'); // ←open→activeに修正
-        });
-        // ナビリンククリックで自動クローズ（モバイルのみ）
-        nav.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
-                if (window.innerWidth <= 900) {
-                    menuToggle.classList.remove('active');
-                    nav.classList.remove('active');
-                }
-            });
-        });
-    }
+// shop風ハンバーガーメニュー開閉（ES6+簡潔化）
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (!hamburger || !mobileMenu) return;
+    const setMenuState = isOpen => {
+        hamburger.setAttribute('aria-expanded', isOpen);
+        hamburger.classList.toggle('active', isOpen);
+        mobileMenu.classList.toggle('show', isOpen);
+    };
+    hamburger.addEventListener('click', () => {
+        setMenuState(hamburger.getAttribute('aria-expanded') !== 'true');
+    });
+    mobileMenu.querySelectorAll('a').forEach(link =>
+        link.addEventListener('click', () => setMenuState(false))
+    );
 });
 </script>
 </body>

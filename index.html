@@ -22,9 +22,24 @@
     <link rel="stylesheet" href="index-style.css?v=2026123">
     <link rel="stylesheet" href="navbar-shop.css?v=2026123">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+        <!-- ロゴ用CSSは<head>の一番最後に移動 -->
         <style>
-            body, .section-title, .logo, h1, h2, h3, h4, h5, h6 {
+                        .logo-text p { display: none !important; }
+            .logo-text h1 {
                 font-family: 'NIS Tak', 'Noto Serif JP', serif;
+                font-size: 2.2rem;
+                font-weight: 700;
+                color: #2d3a1f;
+                margin: 0;
+                letter-spacing: 0.08em;
+            }
+            .logo-text p {
+                font-family: 'NIS Tak', 'Noto Sans JP', sans-serif;
+                font-size: 1.1rem;
+                font-weight: 500;
+                color: #4b5d2a;
+                margin: 0;
+                letter-spacing: 0.08em;
             }
         </style>
 
@@ -84,42 +99,133 @@
         </script>
 </head>
 <body class="home">
-    <!-- ナビゲーションバー -->
-    <header class="navbar">
-        <div class="navbar-container">
-            <a href="index.html" class="logo" title="ホーム">
-                <div class="logo-text">
-                    <h1>安積自然農園</h1>
-                    <p>自然農法野菜</p>
+        <!-- ナビゲーションバー（共通UI） -->
+        <header class="navbar">
+            <div class="navbar-container">
+                <a href="index.html" class="logo" title="ホーム">
+                    <div class="logo-text">
+                        <h1>安積自然農園</h1>
+                        <p>自然農法野菜</p>
+                    </div>
+                </a>
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">ホーム</a>
+                    <a href="index.html#philosophy" class="nav-link">想い</a>
+                    <a href="index.html#method" class="nav-link">農法</a>
+                    <a href="index.html#vegetables" class="nav-link">野菜</a>
+                    <a href="index.html#products" class="nav-link">加工品</a>
+                    <a href="business.html" class="nav-link">業務内容</a>
+                    <a href="distribution.html" class="nav-link">流通・取引</a>
+
+                    <a href="#contact-section" class="nav-link">お問い合わせ</a>
+                </nav>
+                <div class="nav-actions">
+                    <a href="account.html" class="btn-secondary" style="display: inline-block; text-decoration: none;">ログイン</a>
                 </div>
-            </a>
-            <nav class="nav-menu">
-                <a href="index.html" class="nav-link">ホーム</a>
-                <a href="#philosophy" class="nav-link">生産者挨拶</a>
-                <a href="#vegetables" class="nav-link">旬の野菜</a>
-                <a href="#products" class="nav-link">加工品</a>
-                <a href="#contact-section" class="nav-link">お問い合わせ</a>
-            </nav>
-            <div class="nav-actions">
-                <a href="account.html" class="btn-secondary" style="display: inline-block; text-decoration: none;">ログイン</a>
+                <button class="hamburger" id="hamburger" aria-controls="mobileMenu" aria-expanded="false" aria-label="メニューを開く">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
-            <button class="hamburger" id="hamburger" aria-controls="mobileMenu" aria-expanded="false" aria-label="メニューを開く">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </header>
-    <!-- モバイルナビゲーション -->
-    <nav class="mobile-menu" id="mobileMenu">
-        <a href="index.html" class="mobile-link">ホーム</a>
-        <a href="#philosophy" class="mobile-link">生産者挨拶</a>
-        <a href="#vegetables" class="mobile-link">旬の野菜</a>
-        <a href="#products" class="mobile-link">加工品</a>
-        <a href="#contact-section" class="mobile-link">お問い合わせ</a>
-        <hr>
-        <a href="account.html" style="display: block; width: 100%; margin-bottom: 8px;" class="btn-secondary">ログイン</a>
-    </nav>
+        </header>
+        <nav class="mobile-menu" id="mobileMenu">
+            <a href="index.html" class="mobile-link">ホーム</a>
+            <a href="index.html#philosophy" class="mobile-link">想い</a>
+            <a href="index.html#method" class="mobile-link">農法</a>
+            <a href="index.html#vegetables" class="mobile-link">野菜</a>
+            <a href="index.html#products" class="mobile-link">加工品</a>
+            <a href="business.html" class="mobile-link">業務内容</a>
+            <a href="distribution.html" class="mobile-link">流通・取引</a>
+
+            </nav>
+            <!-- 画面右固定CTAボタン -->
+            <a href="/shop/index.html" class="cta-fixed-shop" target="_blank" rel="noopener">
+                <span class="cta-shop-icon">🛒</span>
+                <span class="cta-shop-label">ショップ</span>
+            </a>
+            </script>
+
+            <style>
+            .cta-fixed-shop {
+                position: fixed;
+                top: 50%;
+                right: 18px;
+                transform: translateY(-50%);
+                z-index: 2000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 56px;
+                height: 92px;
+                padding: 0;
+                background: linear-gradient(180deg, #1e5636 0%, #3fa46a 100%);
+                color: #fff;
+                font-size: 1.02rem;
+                font-weight: 800;
+                border-radius: 14px;
+                box-shadow: 0 4px 18px rgba(34, 60, 40, 0.18), 0 1.5px 0 #fff2 inset;
+                text-decoration: none;
+                letter-spacing: 0.09em;
+                transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
+                opacity: 0.97;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                will-change: transform, box-shadow;
+                animation: cta-fadein 0.7s cubic-bezier(.4,1.4,.6,1) 0.2s both;
+            }
+            .cta-shop-icon {
+                font-size: 2.1em;
+                margin-bottom: 0.18em;
+                filter: drop-shadow(0 1px 0 #fff8);
+                transition: transform 0.18s;
+            }
+            .cta-shop-label {
+                font-size: 0.98em;
+                font-weight: 700;
+                letter-spacing: 0.09em;
+                margin: 0;
+                padding: 0;
+                line-height: 1.1;
+            }
+            .cta-fixed-shop:hover, .cta-fixed-shop:focus-visible {
+                background: linear-gradient(180deg, #2e7d4f 0%, #4fd18c 100%);
+                color: #fff;
+                box-shadow: 0 10px 28px rgba(34, 60, 40, 0.22), 0 2px 0 #fff4 inset;
+                opacity: 1;
+                transform: translateY(-50%) scale(1.045);
+            }
+            .cta-fixed-shop:hover .cta-shop-icon, .cta-fixed-shop:focus-visible .cta-shop-icon {
+                transform: scale(1.13) translateY(-2px);
+            }
+            @media (max-width: 900px) {
+                .cta-fixed-shop {
+                    top: auto;
+                    bottom: 18px;
+                    right: 12px;
+                    left: auto;
+                    width: 48px;
+                    height: 78px;
+                    max-width: 90vw;
+                    transform: none;
+                    font-size: 0.97rem;
+                    border-radius: 10px;
+                }
+                .cta-shop-icon {
+                    font-size: 1.6em;
+                }
+            }
+            @keyframes cta-fadein {
+                0% { opacity: 0; transform: translateY(30px) scale(0.98); }
+                100% { opacity: 0.97; transform: translateY(0) scale(1); }
+            }
+            </style>
+            <a href="#contact-section" class="mobile-link">お問い合わせ</a>
+            <hr>
+            <a href="account.html" style="display: block; width: 100%; margin-bottom: 8px;" class="btn-secondary">ログイン</a>
+        </nav>
 <script>
 // shop風ハンバーガーメニュー開閉（ES6+簡潔化）
 document.addEventListener('DOMContentLoaded', () => {

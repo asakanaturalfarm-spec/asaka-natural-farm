@@ -52,21 +52,7 @@ body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.prima
     flex-shrink: 0;
     margin-right: 0;
     text-decoration: none;
-    color: var(--text);
-}
-
-.logo-text h1 {
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: var(--text-dark);
-    font-family: 'NIS Tak', 'Noto Serif JP', serif;
-    margin: 0;
-    letter-spacing: 0.2em;
-    line-height: 1.2;
-}
-
-.logo-text p {
-    display: none;
+    /* color指定削除: ロゴ色はHTML内<style>で統一 */
 }
 
 .nav-menu {
@@ -81,29 +67,7 @@ body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.prima
     padding: 0;
 }
 
-.nav-link {
-    color: var(--text-medium);
-    font-weight: 500;
-    font-size: 15px;
-    position: relative;
-    overflow: hidden;
-    text-decoration: none;
-    padding: 0.35rem 0.7rem;
-        border-radius: 0 !important;
-        transition: color 0.2s ease;
-        letter-spacing: 0.08em;
-        white-space: nowrap;
-        border: none;
-        background: none;
-        font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif !important;
-        box-shadow: none !important;
-}
 
-.nav-link:hover, .nav-link:focus-visible {
-    background: #f0f0f0;
-    color: var(--primary-color);
-    box-shadow: none;
-}
 
 .nav-actions {
     display: flex;

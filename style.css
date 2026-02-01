@@ -856,11 +856,7 @@ body {
     box-sizing: border-box;
 }
 .logo {
-    font-family: var(--font-takumi, 'Noto Serif JP', serif);
-    font-size: 1.1rem;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    color: #2c3e50;
+    /* ロゴの色・サイズ・太さはHTML内<style>で統一 */
     white-space: nowrap;
 }
 .nav {
@@ -869,18 +865,7 @@ body {
     gap: 0.1rem;
     white-space: nowrap;
 }
-.nav-link {
-    font-size: 0.82rem;
-    color: #2c3e50;
-    text-decoration: none;
-    padding: 0.1rem 0.4rem;
-    border-radius: 12px;
-    transition: background 0.2s;
-    white-space: nowrap;
-}
-.nav-link:hover {
-    background: #e2dfd6;
-}
+
 .menu-toggle {
     display: none;
 }

@@ -107,17 +107,9 @@ body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.prima
 }
 
 .logo-text h1 {
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: var(--home-accent);
-    font-family: 'NIS Tak', 'Noto Serif JP', serif;
-    margin: 0;
-    letter-spacing: 0.2em;
-    line-height: 1.2;
 }
 
 .logo-text p {
-    display: none;
 }
 
 .nav-menu {
@@ -213,13 +205,14 @@ body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.prima
     }
 }
 /* Home-only style */
+/* 全ページでナビゲーション色を統一 */
 :root {
+    --home-accent: #0f3320;
     --home-ink: #131611;
     --home-muted: #4f5349;
     --home-line: #e2dfd6;
     --home-bg: #f7f5ef;
     --home-panel: #ffffff;
-    --home-accent: #0f3320;
     --home-accent-soft: #dbe5dc;
     --home-sand: #ede7dc;
     --home-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
@@ -243,19 +236,17 @@ body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.prima
     gap: 0.5rem;
 }
 .form-label {
+    font-family: 'NIS Tak', 'Noto Serif JP', serif;
     font-size: 1rem;
+    font-weight: 700;
     color: var(--home-ink);
-    font-weight: 500;
-}
-.form-input,
-.form-textarea {
+    margin: 0;
+    letter-spacing: 0.08em;
     width: 100%;
     padding: .7em 1em;
     border: 1px solid var(--home-line);
     border-radius: 8px;
-    font-size: 1rem;
     background: #fff;
-    color: var(--home-ink);
     box-sizing: border-box;
     transition: border .2s;
 }
@@ -366,7 +357,12 @@ body.home .nav-pill:focus-visible {
 }
 
 body.home .nav-trigger {
-    display: none;
+    font-family: 'NIS Tak', 'Noto Sans JP', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #4b5d2a;
+    margin: 0;
+    letter-spacing: 0.08em;
     width: 44px;
     height: 44px;
     padding: 0;
