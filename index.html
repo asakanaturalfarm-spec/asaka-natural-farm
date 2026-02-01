@@ -64,23 +64,30 @@
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "安積自然農園",
-            "alternateName": "Asaka Natural Farm",
-            "description": "福島県郡山市・安積疎水流域で無肥料・無農薬・自家採種による自然農法を実践。土と水の循環に根ざした野菜と無添加加工品を生産・販売",
-            "url": "https://asakanatural.jp/",
-            "logo": "https://asakanatural.jp/無肥料.png",
-            "image": "https://asakanatural.jp/無肥料.png",
-            "telephone": "",
-            "email": "info@asakanatural.jp",
-            "foundingDate": "2020",
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "郡山市",
-                "addressRegion": "福島県",
-                "addressCountry": "JP"
-            },
-            "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": 37.4,
+                @media (max-width: 900px) {
+                    .cta-fixed-shop {
+                        top: auto;
+                        bottom: 18px;
+                        right: 12px;
+                        left: auto;
+                        width: 48px;
+                        height: 78px;
+                        max-width: 90vw;
+                        transform: none;
+                        font-size: 0.97rem;
+                        border-radius: 10px;
+                    }
+                    .cta-social-icons {
+                        top: auto !important;
+                        bottom: 110px !important;
+                        right: 18px !important;
+                        left: auto !important;
+                        flex-direction: row !important;
+                        gap: 16px !important;
+                    }
+                    .cta-shop-icon {
+                        font-size: 1.6em;
+                    }
                 "longitude": 140.35
             },
             "openingHoursSpecification": {
@@ -109,7 +116,9 @@
                     </div>
                 </a>
                 <nav class="nav-menu">
-                    <a href="index.html" class="nav-link">ホーム</a>
+                                        <a href="index.html" class="nav-link" style="padding:0; background:none; border:none;">
+                                            <img src="../../Downloads/素材/ホームページ.png" alt="ホーム" style="height:32px;width:auto;display:inline-block;vertical-align:middle;">
+                                        </a>
                     <a href="index.html#philosophy" class="nav-link">想い</a>
                     <a href="index.html#method" class="nav-link">農法</a>
                     <a href="index.html#vegetables" class="nav-link">野菜</a>
@@ -130,7 +139,9 @@
             </div>
         </header>
         <nav class="mobile-menu" id="mobileMenu">
-            <a href="index.html" class="mobile-link">ホーム</a>
+                        <a href="index.html" class="mobile-link" style="padding:0; background:none; border:none;">
+                            <img src="../../Downloads/素材/ホームページ.png" alt="ホーム" style="height:32px;width:auto;display:inline-block;vertical-align:middle;">
+                        </a>
             <a href="index.html#philosophy" class="mobile-link">想い</a>
             <a href="index.html#method" class="mobile-link">農法</a>
             <a href="index.html#vegetables" class="mobile-link">野菜</a>
@@ -141,8 +152,16 @@
             </nav>
             <!-- 画面右固定CTAボタン -->
             <a href="/shop/index.html" class="cta-fixed-shop" target="_blank" rel="noopener">
-                <span class="cta-shop-icon">🛒</span>
-                <span class="cta-shop-label">ショップ</span>
+                <img src="../../Downloads/素材/直売所CTA.png" alt="直売所トップへ" style="height:64px;width:auto;display:block;box-shadow:none;background:none;padding:0;margin:0;border:none;">
+            </a>
+            <div class="cta-social-icons" style="position:fixed;right:18px;top:calc(50% + 80px);z-index:2000;display:flex;flex-direction:column;align-items:center;gap:12px;">
+                <a href="https://www.instagram.com/48aguri_askd/" target="_blank" rel="noopener" style="display:block;">
+                    <img src="shop/instagram.png" alt="Instagram" style="height:32px;width:auto;display:block;">
+                </a>
+                    <a href="https://note.com/asaka_natural" target="_blank" rel="noopener" style="display:block;">
+                    <img src="shop/note.png" alt="note" style="height:32px;width:auto;display:block;">
+                </a>
+            </div>
             </a>
             </script>
 
@@ -153,47 +172,26 @@
                 right: 18px;
                 transform: translateY(-50%);
                 z-index: 2000;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 56px;
-                height: 92px;
-                padding: 0;
-                background: linear-gradient(180deg, #1e5636 0%, #3fa46a 100%);
-                color: #fff;
-                font-size: 1.02rem;
-                font-weight: 800;
-                border-radius: 14px;
-                box-shadow: 0 4px 18px rgba(34, 60, 40, 0.18), 0 1.5px 0 #fff2 inset;
-                text-decoration: none;
-                letter-spacing: 0.09em;
-                transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
-                opacity: 0.97;
-                border: none;
-                outline: none;
+                background: none !important;
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+                width: auto;
+                height: auto;
+                display: block;
                 cursor: pointer;
-                will-change: transform, box-shadow;
-                animation: cta-fadein 0.7s cubic-bezier(.4,1.4,.6,1) 0.2s both;
+                opacity: 1;
             }
             .cta-shop-icon {
-                font-size: 2.1em;
-                margin-bottom: 0.18em;
-                filter: drop-shadow(0 1px 0 #fff8);
-                transition: transform 0.18s;
+                display: none;
             }
             .cta-shop-label {
-                font-size: 0.98em;
-                font-weight: 700;
-                letter-spacing: 0.09em;
-                margin: 0;
-                padding: 0;
-                line-height: 1.1;
+                display: none;
             }
             .cta-fixed-shop:hover, .cta-fixed-shop:focus-visible {
-                background: linear-gradient(180deg, #2e7d4f 0%, #4fd18c 100%);
-                color: #fff;
-                box-shadow: 0 10px 28px rgba(34, 60, 40, 0.22), 0 2px 0 #fff4 inset;
+                background: none !important;
+                color: inherit !important;
+                box-shadow: none !important;
                 opacity: 1;
                 transform: translateY(-50%) scale(1.045);
             }
