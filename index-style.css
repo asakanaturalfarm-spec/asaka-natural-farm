@@ -1,3 +1,24 @@
+/* トップページのショップCTAボタン（hero-btn-minimal） */
+.hero-btn-minimal {
+    display: inline-block;
+    padding: 0.7em 1.5em;
+    background: #4a5d3f;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.15rem;
+    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif;
+    letter-spacing: .08em;
+    text-decoration: none;
+    margin: 1em 0 0 0;
+    transition: background .2s, color .2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    outline: none;
+}
+.hero-btn-minimal:hover, .hero-btn-minimal:focus-visible {
+    background: #0c2a19;
+    color: #fff;
+}
 body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.primary, .button.ghost {
     font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif !important;
 }
@@ -19,6 +40,30 @@ body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.prima
     outline: none;
     min-width: 110px;
     min-height: 40px;
+}
+/* --- Hero Minimal CTA Button --- */
+.hero-btn-minimal {
+    display: inline-block;
+    padding: 0.7em 1.5em;
+    background: #4a5d3f;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: .08em;
+    text-decoration: none;
+    margin: 1.2em 0 0 0;
+    transition: background .2s, color .2s;
+    box-shadow: none;
+    outline: none;
+    min-width: 110px;
+    min-height: 40px;
+    cursor: pointer;
+}
+.hero-btn-minimal:hover, .hero-btn-minimal:focus-visible {
+    background: #0c2a19;
+    color: #fff;
 }
 .btn-secondary, .button.ghost {
     background: #fff;
