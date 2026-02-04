@@ -123,10 +123,8 @@
                     <a href="index.html#method" class="nav-link">農法</a>
                     <a href="index.html#vegetables" class="nav-link">野菜</a>
                     <a href="index.html#products" class="nav-link">加工品</a>
-                    <a href="business.html" class="nav-link">業務内容</a>
-                    <a href="distribution.html" class="nav-link">流通・取引</a>
 
-                    <a href="#contact-section" class="nav-link">お問い合わせ</a>
+                    <a href="./business.html" class="nav-link">お問い合わせ</a>
                 </nav>
                 <div class="nav-actions">
                     <a href="account.html" class="btn-secondary" style="display: inline-block; text-decoration: none;">ログイン</a>
@@ -146,8 +144,6 @@
             <a href="index.html#method" class="mobile-link">農法</a>
             <a href="index.html#vegetables" class="mobile-link">野菜</a>
             <a href="index.html#products" class="mobile-link">加工品</a>
-            <a href="business.html" class="mobile-link">業務内容</a>
-            <a href="distribution.html" class="mobile-link">流通・取引</a>
 
             </nav>
             <!-- 画面右固定CTAボタン -->
@@ -220,7 +216,7 @@
                 100% { opacity: 0.97; transform: translateY(0) scale(1); }
             }
             </style>
-            <a href="#contact-section" class="mobile-link">お問い合わせ</a>
+            <a href="./business.html" class="mobile-link">お問い合わせ</a>
             <hr>
             <a href="account.html" style="display: block; width: 100%; margin-bottom: 8px;" class="btn-secondary">ログイン</a>
         </nav>
@@ -497,35 +493,12 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     </section>
 
-    <!-- お問い合わせセクション -->
+    <!-- お問い合わせボタンセクション -->
     <section class="section contact-section">
-        <div class="container">
+        <div class="container" style="text-align:center; padding: 48px 0;">
             <h2 class="section-title">お問い合わせ</h2>
-            <!-- <div class="section-underline"></div> -->
-            <p class="section-subtitle">ご質問やご相談がございましたら、お気軽にお問い合わせください</p>
-            
-            <div class="contact-form-wrapper">
-                <form id="contactForm" class="contact-form">
-                    <div class="form-group">
-                        <label for="contactName" class="form-label">お名前 <span class="required">*</span></label>
-                        <input type="text" id="contactName" name="name" class="form-input" placeholder="山田 太郎" required pattern="^[\u3040-\u30FF\u4E00-\u9FFF\uFF66-\uFF9F\uFF10-\uFF19A-Za-z\s]+$" title="全角・半角文字のみ">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="contactEmail" class="form-label">メールアドレス <span class="required">*</span></label>
-                        <input type="email" id="contactEmail" name="email" class="form-input" placeholder="example@example.com" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" title="有効なメールアドレスを入力してください">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="contactMessage" class="form-label">お問い合わせ内容 <span class="required">*</span></label>
-                        <textarea id="contactMessage" name="message" class="form-textarea" placeholder="お問い合わせ内容をご記入ください" rows="6" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="form-submit-btn">送信する</button>
-                    </div>
-                </form>
-            </div>
+            <p class="section-subtitle">ご質問やご相談は下記ボタンより事業者向けページへお進みください。</p>
+            <a href="./business.html" class="hero-btn-minimal" style="margin-top:2em; font-size:1.2rem;">事業者向けお問い合わせページへ</a>
         </div>
     </section>
 
@@ -535,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p class="footer-text">© 2025 安積自然農園</p>
             <div class="footer-links">
                 <a href="/shop/index.html" class="footer-link">オンラインショップ</a>
-                <a href="#contact-section" class="footer-link">お問い合わせ</a>
+                <a href="./business.html" class="footer-link">お問い合わせ</a>
             </div>
         </div>
     </footer>

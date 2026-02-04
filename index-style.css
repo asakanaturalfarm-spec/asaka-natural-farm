@@ -1,33 +1,7 @@
 /* トップページのショップCTAボタン（hero-btn-minimal） */
 .hero-btn-minimal {
     display: inline-block;
-    padding: 0.7em 1.5em;
-    background: #4a5d3f;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.15rem;
-    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif;
-    letter-spacing: .08em;
-    text-decoration: none;
-    margin: 1em 0 0 0;
-    transition: background .2s, color .2s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    outline: none;
-}
-.hero-btn-minimal:hover, .hero-btn-minimal:focus-visible {
-    background: #0c2a19;
-    color: #fff;
-}
-body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.primary, .button.ghost {
-    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif !important;
-}
-/* --- Minimal Flat CTA Button --- */
-.hero-btn-primary, .btn-primary, .btn-secondary, .form-submit-btn, .button.primary, .button.ghost {
-    display: inline-block;
-    padding: 0.7em 1.5em;
-    background: var(--home-accent);
-    color: #fff;
+    /* --- ナビゲーションメニュー --- */
     border: none;
     border-radius: 0;
     font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif;
@@ -158,16 +132,11 @@ body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.prima
 }
 
 .nav-menu {
-    display: flex;
-    gap: 0.5rem;
-    flex: 1;
-    margin-left: 40px;
     align-items: center;
     background: none;
     box-shadow: none;
     border: none;
     padding: 0;
-}
 
 .nav-link {
     color: var(--home-accent);
@@ -183,10 +152,7 @@ body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.prima
     white-space: nowrap;
     border: none;
     background: none;
-    font-family: 'Noto Sans JP', 'NIS Tak', 'Noto Serif JP', sans-serif !important;
-    box-shadow: none !important;
-}
-
+    /* Removed empty rules for .logo-text h1 and .logo-text p */
 .nav-link:hover, .nav-link:focus-visible {
     background: #f0f0f0;
     color: var(--home-accent);
@@ -249,8 +215,21 @@ body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.prima
         display: flex;
     }
 }
+}
 /* Home-only style */
 /* 全ページでナビゲーション色を統一 */
+/* 画面端まで広げるカルーセル */
+.carousel-wrapper,
+.carousel-track {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box;
+    overflow-x: auto;
+}
 :root {
     --home-accent: #0f3320;
     --home-ink: #131611;
@@ -309,7 +288,6 @@ body, .navbar, .nav-menu, .nav-link, .btn-primary, .btn-secondary, .button.prima
     font-size: 0.95em;
 }
 
-@media (max-width: 640px) {
     .contact-form-wrapper {
         padding: 18px 6px;
         max-width: 98vw;
