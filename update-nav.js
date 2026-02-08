@@ -14,7 +14,7 @@ const unifiedNav = `            <nav class="nav-menu">
                 <a href="index.html" class="nav-link">ショップ</a>
                 <a href="products.html" class="nav-link">商品一覧</a>
                 <a href="faq.html" class="nav-link">FAQ</a>
-                <a href="contact.html" class="nav-link">お問い合わせ</a>
+                <a href="shop-contact.html" class="nav-link">お問い合わせ</a>
             </nav>`;
 
 // ロゴのリンク先を親サイトに変更
@@ -23,7 +23,7 @@ const unifiedLogo = `            <a href="../" class="logo">`;
 // 対象ファイル
 const files = [
     'products.html',
-    'contact.html',
+    'shop-contact.html',
     'orders.html',
     'account.html',
     'cart.html',

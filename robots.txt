@@ -6,7 +6,7 @@ Allow: /index.html
 Allow: /products.html
 Allow: /product.html
 Allow: /faq.html
-Allow: /contact.html
+Allow: /shop-contact.html
 Allow: /privacy.html
 Allow: /tokushoho.html
 Allow: /returns.html

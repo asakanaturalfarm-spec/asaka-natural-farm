@@ -53,7 +53,7 @@ ${deliveryDate}
 安積直売所オンライン
 ${this.getBaseURL()}
 
-お問い合わせ: ${this.getBaseURL()}/contact.html
+お問い合わせ: ${this.getBaseURL()}/shop-contact.html
 特定商取引法表記: ${this.getBaseURL()}/tokushoho.html
 ━━━━━━━━━━━━━━━━━━━━━━━━
 `.trim();
@@ -118,12 +118,12 @@ ${this.getBaseURL()}
     
     <div style="background: #fff3e0; border-left: 4px solid #f57c00; padding: 15px; margin: 20px 0;">
         <p style="margin: 0;"><strong>キャンセルについて</strong></p>
-        <p style="margin: 5px 0 0 0;">発送前までキャンセル可能です。<a href="${this.getBaseURL()}/contact.html" style="color: #2c5f2d;">お問い合わせフォーム</a>よりご連絡ください。</p>
+        <p style="margin: 5px 0 0 0;">発送前までキャンセル可能です。<a href="${this.getBaseURL()}/shop-contact.html" style="color: #2c5f2d;">お問い合わせフォーム</a>よりご連絡ください。</p>
     </div>
     
     <div style="border-top: 2px solid #eee; margin-top: 30px; padding-top: 20px; font-size: 12px; color: #666;">
         <p style="margin: 0;"><strong>安積直売所オンライン</strong></p>
-        <p style="margin: 5px 0;"><a href="${this.getBaseURL()}" style="color: #2c5f2d;">トップページ</a> | <a href="${this.getBaseURL()}/contact.html" style="color: #2c5f2d;">お問い合わせ</a> | <a href="${this.getBaseURL()}/tokushoho.html" style="color: #2c5f2d;">特定商取引法表記</a></p>
+        <p style="margin: 5px 0;"><a href="${this.getBaseURL()}" style="color: #2c5f2d;">トップページ</a> | <a href="${this.getBaseURL()}/shop-contact.html" style="color: #2c5f2d;">お問い合わせ</a> | <a href="${this.getBaseURL()}/tokushoho.html" style="color: #2c5f2d;">特定商取引法表記</a></p>
     </div>
 </body>
 </html>
@@ -166,7 +166,7 @@ https://toi.kuronekoyamato.co.jp/cgi-bin/tneko?number=${trackingNumber}
 安積直売所オンライン
 ${this.getBaseURL()}
 
-お問い合わせ: ${this.getBaseURL()}/contact.html
+お問い合わせ: ${this.getBaseURL()}/shop-contact.html
 返品ポリシー: ${this.getBaseURL()}/returns.html
 ━━━━━━━━━━━━━━━━━━━━━━━━
 `.trim();
@@ -204,12 +204,12 @@ ${this.getBaseURL()}
     
     <div style="background: #fff3e0; border-left: 4px solid #f57c00; padding: 15px; margin: 20px 0;">
         <p style="margin: 0;"><strong>品質保証について</strong></p>
-        <p style="margin: 5px 0 0 0;">商品到着後、万一品質に問題がございましたら、到着後24時間以内に<a href="${this.getBaseURL()}/contact.html" style="color: #2c5f2d;">お問い合わせフォーム</a>よりご連絡ください。</p>
+        <p style="margin: 5px 0 0 0;">商品到着後、万一品質に問題がございましたら、到着後24時間以内に<a href="${this.getBaseURL()}/shop-contact.html" style="color: #2c5f2d;">お問い合わせフォーム</a>よりご連絡ください。</p>
     </div>
     
     <div style="border-top: 2px solid #eee; margin-top: 30px; padding-top: 20px; font-size: 12px; color: #666;">
         <p style="margin: 0;"><strong>安積直売所オンライン</strong></p>
-        <p style="margin: 5px 0;"><a href="${this.getBaseURL()}" style="color: #2c5f2d;">トップページ</a> | <a href="${this.getBaseURL()}/contact.html" style="color: #2c5f2d;">お問い合わせ</a> | <a href="${this.getBaseURL()}/returns.html" style="color: #2c5f2d;">返品ポリシー</a></p>
+        <p style="margin: 5px 0;"><a href="${this.getBaseURL()}" style="color: #2c5f2d;">トップページ</a> | <a href="${this.getBaseURL()}/shop-contact.html" style="color: #2c5f2d;">お問い合わせ</a> | <a href="${this.getBaseURL()}/returns.html" style="color: #2c5f2d;">返品ポリシー</a></p>
     </div>
 </body>
 </html>
@@ -249,7 +249,7 @@ ${retryUrl}
 安積直売所オンライン
 ${this.getBaseURL()}
 
-お問い合わせ: ${this.getBaseURL()}/contact.html
+お問い合わせ: ${this.getBaseURL()}/shop-contact.html
 ━━━━━━━━━━━━━━━━━━━━━━━━
 `.trim();
 
@@ -281,12 +281,12 @@ ${this.getBaseURL()}
     
     <div style="background: #e3f2fd; border-left: 4px solid #1976d2; padding: 15px; margin: 20px 0;">
         <p style="margin: 0;"><strong>ご不明な点がございましたら</strong></p>
-        <p style="margin: 5px 0 0 0;"><a href="${this.getBaseURL()}/contact.html" style="color: #1976d2;">お問い合わせフォーム</a>よりご連絡ください。</p>
+        <p style="margin: 5px 0 0 0;"><a href="${this.getBaseURL()}/shop-contact.html" style="color: #1976d2;">お問い合わせフォーム</a>よりご連絡ください。</p>
     </div>
     
     <div style="border-top: 2px solid #eee; margin-top: 30px; padding-top: 20px; font-size: 12px; color: #666;">
         <p style="margin: 0;"><strong>安積直売所オンライン</strong></p>
-        <p style="margin: 5px 0;"><a href="${this.getBaseURL()}" style="color: #2c5f2d;">トップページ</a> | <a href="${this.getBaseURL()}/contact.html" style="color: #2c5f2d;">お問い合わせ</a></p>
+        <p style="margin: 5px 0;"><a href="${this.getBaseURL()}" style="color: #2c5f2d;">トップページ</a> | <a href="${this.getBaseURL()}/shop-contact.html" style="color: #2c5f2d;">お問い合わせ</a></p>
     </div>
 </body>
 </html>

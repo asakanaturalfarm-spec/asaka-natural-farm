@@ -142,7 +142,7 @@ https://asakanatural.jp/store/product-v2.html
   <a href="index.html">ショップ</a>
   <a href="products.html">商品一覧</a>
   <a href="faq.html">FAQ</a>
-  <a href="contact.html">お問い合わせ</a>
+  <a href="shop-contact.html">お問い合わせ</a>
 </nav>
 ```
 

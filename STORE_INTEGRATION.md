@@ -17,7 +17,7 @@
     ├── cart.html          # カート
     ├── checkout.html      # チェックアウト
     ├── faq.html           # FAQ
-    ├── contact.html       # お問い合わせ
+    ├── shop-contact.html       # お問い合わせ
     ├── tokushoho.html     # 特定商取引法
     ├── privacy.html       # プライバシーポリシー
     ├── returns.html       # 返品ポリシー
@@ -56,7 +56,7 @@
     <a href="index.html">ショップ</a>
     <a href="products.html">商品一覧</a>
     <a href="faq.html">FAQ</a>
-    <a href="contact.html">お問い合わせ</a>
+    <a href="shop-contact.html">お問い合わせ</a>
 </nav>
 ```
 
