@@ -79,66 +79,54 @@
     </style>
 </head>
 <body class="home">
-        <!-- ナビゲーションバー（共通UI） -->
-        <header class="navbar">
-            <div class="navbar-container">
-                <a href="index.html" class="logo" title="ホーム">
-                    <div class="logo-text">
-                        <h1>安積自然農園</h1>
-                        <p>自然農法野菜</p>
-                    </div>
-                </a>
-                <nav class="nav-menu">
-                                        <a href="index.html" class="nav-link" style="padding:0; background:none; border:none;">
-                                            <img src="../../Downloads/素材/ホームページ.png" alt="ホーム" style="height:32px;width:auto;display:inline-block;vertical-align:middle;">
-                                        </a>
-                    <a href="index.html#philosophy" class="nav-link">想い</a>
-                    <a href="index.html#method" class="nav-link">農法</a>
-                    <a href="index.html#vegetables" class="nav-link">野菜</a>
-                    <a href="index.html#products" class="nav-link">加工品</a>
-                    <a href="business.html" class="nav-link">業務内容</a>
-                    <a href="distribution.html" class="nav-link">流通・取引</a>
-                    <a href="shop/index.html" class="nav-link nav-link-shop">オンラインショップ</a>
-                    <a href="#contact-section" class="nav-link">お問い合わせ</a>
-                </nav>
-                <div class="nav-actions">
-                    <a href="account.html" class="btn-secondary" style="display: inline-block; text-decoration: none;">ログイン</a>
+    <!-- グローバルナビゲーション（PC用） -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo" title="ホーム">
+                <div class="logo-text">
+                    <h1>安積自然農園</h1>
+                    <p>自然農法野菜</p>
                 </div>
-                <button class="hamburger" id="hamburger" aria-controls="mobileMenu" aria-expanded="false" aria-label="メニューを開く">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link" style="padding:0; background:none; border:none;">
+                    <img src="素材/ホームページ.png" alt="ホーム" style="height:32px;width:auto;display:inline-block;vertical-align:middle;">
+                </a>
+                <a href="index.html#philosophy" class="nav-link">想い</a>
+                <a href="index.html#method" class="nav-link">農法</a>
+                <a href="index.html#vegetables" class="nav-link">野菜</a>
+                <a href="index.html#products" class="nav-link">加工品</a>
+                <a href="business.html" class="nav-link">お問い合わせ</a>
+            </nav>
+            <div class="nav-actions">
+                 <!-- ログイン認証機能は外部サービス導入予定のため削除 -->
             </div>
-        </header>
-        <nav class="mobile-menu" id="mobileMenu">
-                        <a href="index.html" class="mobile-link" style="padding:0; background:none; border:none;">
-                            <img src="../../Downloads/素材/ホームページ.png" alt="ホーム" style="height:32px;width:auto;display:inline-block;vertical-align:middle;">
-                        </a>
-            <a href="index.html#philosophy" class="mobile-link">想い</a>
-            <a href="index.html#method" class="mobile-link">農法</a>
-            <a href="index.html#vegetables" class="mobile-link">野菜</a>
-            <a href="index.html#products" class="mobile-link">加工品</a>
-            <a href="business.html" class="mobile-link">業務内容</a>
-            <a href="distribution.html" class="mobile-link">流通・取引</a>
-            <a href="shop/index.html" class="mobile-link">オンラインショップ</a>
-            <a href="#contact-section" class="mobile-link">お問い合わせ</a>
-            <hr>
-            <a href="account.html" style="display: block; width: 100%; margin-bottom: 8px;" class="btn-secondary">ログイン</a>
-        </nav>
-
-    <!-- ヘッダースペーサー（グローバルナビ固定用） -->
-    <div class="header-spacer"></div>
-
-    <!-- パンくずリスト -->
-    <nav class="breadcrumb" aria-label="パンくずリスト">
-        <div class="container">
-            <ol class="breadcrumb-list">
-                <li class="breadcrumb-item"><a href="shop.html">ホーム</a></li>
-                <li class="breadcrumb-item" aria-current="page">農業の本質を問う</li>
-            </ol>
+            <!-- ハンバーガーメニュー（スマホ用） -->
+            <button class="hamburger" id="hamburger" aria-controls="mobileMenu" aria-expanded="false" aria-label="メニューを開く">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
+    </header>
+    <!-- モバイルメニュー（スマホ用） -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-link" style="padding:0; background:none; border:none;">
+            <img src="素材/ホームページ.png" alt="ホーム" style="height:32px;width:auto;display:inline-block;vertical-align:middle;">
+        </a>
+        <a href="index.html#philosophy" class="mobile-link">想い</a>
+        <a href="index.html#method" class="mobile-link">農法</a>
+        <a href="index.html#vegetables" class="mobile-link">野菜</a>
+        <a href="index.html#products" class="mobile-link">加工品</a>
+        <a href="business.html" class="mobile-link">お問い合わせ</a>
+        <hr>
+        <a href="account.html" style="display: block; width: 100%; margin-bottom: 8px;" class="btn-secondary">ログイン</a>
+            <!-- ログイン認証機能は外部サービス導入予定のため削除 -->
     </nav>
+    <!-- ハンバーガーメニューのスクリプトはscript.jsに統一 -->
+        <!-- ...グローバルメニュー削除... -->
+
+    <!-- ...パンくずリスト削除... -->
 
     <!-- 問題提起型ファーストビュー -->
     <section class="hero-question" role="banner">
@@ -419,7 +407,6 @@
                     <nav class="footer-nav">
                         <a href="shop.html" class="footer-link">ホーム</a>
                         <a href="production.html" class="footer-link">生産・工程</a>
-                        <a href="distribution.html" class="footer-link">流通・取引</a>
                         <a href="inflow1.html" class="footer-link">農業の本質</a>
                         <a href="inflow2.html" class="footer-link">未来への視点</a>
                     </nav>
@@ -432,24 +419,6 @@
     </footer>
 
     <script src="script.js"></script>
-<script>
-// shop風ハンバーガーメニュー開閉（ES6+簡潔化）
-document.addEventListener('DOMContentLoaded', () => {
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    if (!hamburger || !mobileMenu) return;
-    const setMenuState = isOpen => {
-        hamburger.setAttribute('aria-expanded', isOpen);
-        hamburger.classList.toggle('active', isOpen);
-        mobileMenu.classList.toggle('show', isOpen);
-    };
-    hamburger.addEventListener('click', () => {
-        setMenuState(hamburger.getAttribute('aria-expanded') !== 'true');
-    });
-    mobileMenu.querySelectorAll('a').forEach(link =>
-        link.addEventListener('click', () => setMenuState(false))
-    );
-});
-</script>
+<!-- ハンバーガーメニューのスクリプトはscript.jsに統一 -->
 </body>
 </html>

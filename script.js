@@ -1,3 +1,9 @@
+// 商品データ（サンプル）
+const PRODUCTS = [
+    { id: 'v1', name: 'にんじん', img: 'image/seika/sample1.jpg', category: '青果', period: '今期', description: '甘みの強いにんじん', price: 200, unit: 'kg' },
+    { id: 'v2', name: 'トマト', img: 'image/seika/sample2.jpg', category: '青果', period: '今期', description: 'ジューシーなトマト', price: 250, unit: 'kg' },
+    { id: 'c1', name: 'ピクルス', img: 'image/kakou/sample3.jpg', category: '加工', period: '通年', description: '自家製ピクルス', price: 600, unit: '瓶' }
+];
 
 /**
  * Hamburger menu toggle (for all pages)
@@ -140,10 +146,10 @@ function setupEventListeners() {
         });
     }
 
-    // モバイルメニューリンク
-    const mobileLinks = document.querySelectorAll('.mobile-link');
-    if (hamburger && mobileMenu && mobileLinks.length > 0) {
-        mobileLinks.forEach(link => {
+    // モバイルメニュー内の全リンクで閉じる
+    const mobileMenuLinks = document.querySelectorAll('#mobileMenu a, #mobileMenu .btn-secondary');
+    if (hamburger && mobileMenu && mobileMenuLinks.length > 0) {
+        mobileMenuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 mobileMenu.classList.remove('show');
@@ -152,6 +158,7 @@ function setupEventListeners() {
     }
 
     // アンケートボタン
+
     const surveyBtn = document.getElementById('surveyBtn');
     const loginBtn = document.getElementById('loginBtn');
     const surveyModal = document.getElementById('surveyModal');
@@ -160,47 +167,63 @@ function setupEventListeners() {
 
     if (surveyBtn && surveyModal) {
         surveyBtn.addEventListener('click', () => {
-        surveyModal.classList.add('show');
-    });
+            surveyModal.classList.add('show');
+        });
 
-    closeModal.addEventListener('click', () => {
-        surveyModal.classList.remove('show');
-    });
-
-    surveyModal.addEventListener('click', (e) => {
-        if (e.target === surveyModal) {
+        closeModal.addEventListener('click', () => {
             surveyModal.classList.remove('show');
-        }
-    });
+        });
 
-    surveyForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        submitSurvey();
-    });
+        surveyModal.addEventListener('click', (e) => {
+            if (e.target === surveyModal) {
+                surveyModal.classList.remove('show');
+            }
+        });
+
+        surveyForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            submitSurvey();
+        });
+    }
 
     // ログインボタン
-    loginBtn.addEventListener('click', () => {
-        alert('ログイン機能は別実装です。');
-    });
+    if (loginBtn) {
+        loginBtn.addEventListener('click', () => {
+            // すでにログイン済みならshop/index.htmlへ遷移
+            try {
+                if (window.Auth && typeof window.Auth.isLoggedIn === 'function' && window.Auth.isLoggedIn()) {
+                    window.location.href = 'shop/index.html';
+                    return;
+                }
+            } catch (e) {}
+            alert('ログイン機能は別実装です。');
+        });
+    }
 
     // イベントバナークローズ
     const closeBanner = document.getElementById('closeBanner');
-    closeBanner.addEventListener('click', () => {
-        closeEventBanner();
-    });
+    if (closeBanner) {
+        closeBanner.addEventListener('click', () => {
+            closeEventBanner();
+        });
+    }
 
     // ニュースレター購読
     const newsletterForm = document.getElementById('newsletterForm');
-    newsletterForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        subscribeNewsletter();
-    });
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            subscribeNewsletter();
+        });
+    }
 
     // カートボタン
     const cartBtn = document.getElementById('cartBtn');
-    cartBtn.addEventListener('click', () => {
-        alert('カート機能は別実装です。');
-    });
+    if (cartBtn) {
+        cartBtn.addEventListener('click', () => {
+            alert('カート機能は別実装です。');
+        });
+    }
 }
 
 // ========================================
@@ -208,7 +231,7 @@ function setupEventListeners() {
 // ========================================
 
 // addToCartはcommon.jsのものを利用
-}
+// （ここでsetupEventListenersの関数本体終了）
 
 // ========================================
 // アンケート機能

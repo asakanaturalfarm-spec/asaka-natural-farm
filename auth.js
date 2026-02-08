@@ -116,6 +116,8 @@ class AuthSystem {
             ? localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
             : sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
         this.updateUIForLoggedInUser();
+        // ログイン成功時にshop/index.htmlへ遷移
+        window.location.href = 'shop/index.html';
         return { success: true, message: 'ログインしました', user: this.currentUser };
     }
 
@@ -200,7 +202,7 @@ class AuthSystem {
                 if (confirm('ログアウトしますか？')) {
                     this.logout();
                     alert('ログアウトしました');
-                    window.location.href = 'index.html';
+                    window.location.href = 'shop/index.html';
                 }
             });
         }

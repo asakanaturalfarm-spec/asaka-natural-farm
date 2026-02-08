@@ -175,7 +175,7 @@
             お問い合わせ対応・業務連絡・取材等はこちら<br>
             営業・勧誘目的の連絡はご遠慮ください
         </div>
-        <form id="contactForm" autocomplete="off" novalidate onsubmit="return fakeRecaptcha();">
+        <form id="contactForm" autocomplete="off" novalidate>
             <div id="errorMsg" class="error" style="display:none"></div>
             <label>氏名 <span class="required">*</span>
                 <input type="text" name="name" required placeholder="例：山田 太郎">
@@ -298,13 +298,10 @@
         © ASAKA Natural Farm
     </footer>
     <footer style="margin:2em 0 0;text-align:center;color:#888;font-size:0.98em;">
-        ※本番運用時はSSL（https）通信・reCAPTCHA認証を必ず導入してください。
+        <!-- reCAPTCHA認証は外部サービス導入予定のため削除 -->
     </footer>
         <script>
-        // ダミーreCAPTCHA
-        function fakeRecaptcha() {
-            return confirm('ロボットではありませんか？（ダミーreCAPTCHA）');
-        }
+        // reCAPTCHA認証は外部サービス導入予定のため削除
         // 規約モーダル表示
         document.getElementById('showTerms').onclick = function(e) {
             e.preventDefault();

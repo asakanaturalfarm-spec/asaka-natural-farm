@@ -684,7 +684,7 @@
                     
                     <div class="summary-row">
                         <span class="summary-label">送料</span>
-                        <span class="summary-value" id="shippingAmount">¥500</span>
+                        <span class="summary-value" id="shippingAmount">¥900～¥1300</span>
                     </div>
                     
                     <div class="summary-row" id="codFeeRow" style="display: none;">
@@ -853,7 +853,8 @@
         function renderOrderSummary() {
             const orderItemsContainer = document.getElementById('orderItems');
             const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const shipping = 500;
+            // 送料は900円～1300円（地域・サイズ別）
+            const shipping = 900; // デフォルト値（実際は地域・サイズで変動）
             let codFee = 0;
 
             // 支払い方法による手数料

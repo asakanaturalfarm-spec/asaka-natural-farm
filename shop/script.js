@@ -403,7 +403,17 @@ function setupEventListeners() {
   closeModal.addEventListener('click', () => surveyModal.classList.remove('show'));
   surveyModal.addEventListener('click', e => e.target === surveyModal && surveyModal.classList.remove('show'));
   surveyForm.addEventListener('submit', e => { e.preventDefault(); submitSurvey(); });
-  loginBtn.addEventListener('click', () => alert('ログイン機能は別実装です。'));
+    if (loginBtn) {
+        loginBtn.addEventListener('click', () => {
+            try {
+                if (window.Auth && typeof window.Auth.isLoggedIn === 'function' && window.Auth.isLoggedIn()) {
+                    window.location.href = 'shop/index.html';
+                    return;
+                }
+            } catch (e) {}
+            alert('ログイン機能は別実装です。');
+        });
+    }
   const closeBanner = document.getElementById('closeBanner');
   closeBanner.addEventListener('click', closeEventBanner);
   const newsletterForm = document.getElementById('newsletterForm');

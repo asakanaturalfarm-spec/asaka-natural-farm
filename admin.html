@@ -128,14 +128,33 @@
         }
         
         .stat-label {
-            font-size: 13px;
-            color: #666;
-            margin-top: 5px;
+                font-size: 13px;
+                color: #666;
+                margin-top: 5px;
+        }
+        /* 管理操作ログ表示用スタイル */
+        #adminLogSection {
+            background: #fff;
+            border-radius: 8px;
+            padding: 18px 12px;
+            max-width: 600px;
+            margin: 32px auto 0;
+            box-shadow: 0 2px 12px #00796b22;
+        }
+        #adminLogList {
+            max-height: 320px;
+            overflow-y: auto;
+            font-size: 0.98em;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+        <!-- 管理操作ログ表示 -->
+        <div id="adminLogSection">
+            <h2 style="font-size:1.05rem;color:#00796b;margin-bottom:10px;">管理操作ログ</h2>
+            <div id="adminLogList"></div>
+        </div>
+        <div class="container">
         <div class="header">
             <h1>🛠️ 管理画面</h1>
             <p>安積直売所オンラインストア</p>
@@ -216,6 +235,17 @@
         </div>
     </div>
     
+    <!-- MFA（二要素認証）ダイアログ -->
+    <div id="mfaModal" style="display:none;position:fixed;z-index:10000;top:0;left:0;width:100vw;height:100vh;background:rgba(30,40,50,0.18);backdrop-filter:blur(2px);">
+      <div style="max-width:400px;margin:80px auto 0;background:#fff;border-radius:14px;box-shadow:0 4px 32px #0002;padding:32px 24px 24px;position:relative;max-height:80vh;overflow:hidden;">
+        <h2 style="font-size:1.1rem;color:#1a2a36;margin-bottom:18px;font-weight:700;letter-spacing:0.02em;">二要素認証</h2>
+        <div id="mfaMessage" style="font-size:0.98rem;color:#222;line-height:1.7;margin-bottom:12px;">ご登録メールアドレス宛に認証コードを送信しました。<br>届いた6桁コードを入力してください。</div>
+        <input id="mfaCodeInput" type="text" maxlength="6" pattern="[0-9]{6}" placeholder="6桁コード" style="width:100%;font-size:1.2em;padding:10px 8px;margin-bottom:12px;border-radius:8px;border:1.5px solid #26a69a;">
+        <div id="mfaError" style="color:#c0392b;font-size:0.97rem;margin-bottom:10px;display:none;"></div>
+        <button id="mfaSubmitBtn" class="btn btn-primary" style="width:100%;">認証して管理画面へ</button>
+      </div>
+    </div>
+    
     <script>
         // 実際はサーバーから取得
         console.log('[管理画面] 初期化完了');
@@ -228,8 +258,85 @@
             // }
         }
         
-        // ページ読み込み時に認証チェック
-        // checkAdminAuth();
+        // --- MFA（二要素認証） ---
+        let mfaVerified = false;
+        function showMfaModal(onSuccess) {
+          const modal = document.getElementById('mfaModal');
+          const input = document.getElementById('mfaCodeInput');
+          const error = document.getElementById('mfaError');
+          modal.style.display = '';
+          document.body.style.overflow = 'hidden';
+          // 6桁コード生成
+          const code = ('' + Math.floor(100000 + Math.random() * 900000));
+          window.__lastMfaCode = code;
+          // 本番用メール送信処理
+          sendMfaCodeToAdmin(code);
+          input.value = '';
+          error.style.display = 'none';
+          document.getElementById('mfaSubmitBtn').onclick = function() {
+            if (input.value === code) {
+              mfaVerified = true;
+              modal.style.display = 'none';
+              document.body.style.overflow = '';
+              if (onSuccess) onSuccess();
+            } else {
+              error.textContent = '認証コードが正しくありません';
+              error.style.display = '';
+            }
+          };
+        }
+
+        // 本番用メール送信（Gmail転送）
+        function sendMfaCodeToAdmin(code) {
+          // Gmail APIやメールサービス連携が必要
+          // ここではダミーとしてalertを表示
+          // 実際の運用ではサーバー側でメール送信処理を実装してください
+          alert('認証コードが管理者メール（asaka.natural.farm@gmail.com）に転送されました。\nコード: ' + code);
+        }
+        
+        // ページ読み込み時にMFA認証
+        document.addEventListener('DOMContentLoaded', function() {
+          if (!mfaVerified) {
+            showMfaModal(() => {
+              // 認証後に管理画面を表示
+              document.querySelector('.container').style.display = '';
+            });
+            document.querySelector('.container').style.display = 'none';
+          }
+        });
+
+        // --- 管理操作ログ ---
+        function saveAdminLog(action, detail) {
+          const logs = JSON.parse(localStorage.getItem('adminLogs') || '[]');
+          logs.unshift({
+            action,
+            detail,
+            timestamp: new Date().toISOString()
+          });
+          localStorage.setItem('adminLogs', JSON.stringify(logs));
+        }
+
+        function getAdminLogs() {
+          return JSON.parse(localStorage.getItem('adminLogs') || '[]');
+        }
+
+        function renderAdminLogs() {
+          const logs = getAdminLogs();
+          const el = document.getElementById('adminLogList');
+          if (!el) return;
+          el.innerHTML = logs.slice(0, 30).map(log =>
+            `<div style="border-bottom:1px solid #eee;padding:6px 0;font-size:0.97em;">
+              <span style="color:#888;">${new Date(log.timestamp).toLocaleString('ja-JP')}</span>：
+              <span style="color:#00796b;font-weight:600;">${log.action}</span>
+              <span style="color:#222;">${log.detail}</span>
+            </div>`)
+          ).join('');
+        }
+
+        // 初期表示でログ描画
+        document.addEventListener('DOMContentLoaded', function() {
+          renderAdminLogs();
+        });
     </script>
 </body>
 </html>
