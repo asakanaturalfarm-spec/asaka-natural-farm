@@ -408,6 +408,17 @@
         init() {
             this.logger.info('AsakaHub initialized', { version: this.version });
             this.injectStyles();
+            // Supabase初期化
+            const supabaseUrl = 'https://ecalmxymgkbkaxguhqrs.supabase.co';
+            const supabaseKey = 'sb_publishable_fWeuDN6rPnmb_OuRUJWHCg_OSmFmJFi';
+            if (window.supabase === undefined && typeof window.createClient === 'undefined') {
+                // supabase-jsが読み込まれていない場合は警告
+                this.logger.warn('Supabaseクライアントが読み込まれていません。admin.htmlでCDNを追加してください。');
+            } else {
+                // supabase-jsが読み込まれている場合のみ初期化
+                window.supabase = window.createClient ? window.createClient(supabaseUrl, supabaseKey) : window.supabase;
+                this.logger.info('Supabase initialized', { url: supabaseUrl });
+            }
             return this;
         }
 
