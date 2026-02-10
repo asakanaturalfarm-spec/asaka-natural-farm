@@ -1,3 +1,12 @@
+/**
+ * script.js
+ * 安積自然農園 サイト共通スクリプト
+ * - 商品データ・UI初期化・イベント処理など
+ *
+ * 【編集・拡張方針】
+ * - 商品データやUI仕様変更時は本ファイルを編集
+ * - 共通化できる処理は asaka-hub.js, common.js へ
+ */
 // 商品データ（サンプル）
 const PRODUCTS = [
     { id: 'v1', name: 'にんじん', img: 'image/seika/sample1.jpg', category: '青果', period: '今期', description: '甘みの強いにんじん', price: 200, unit: 'kg' },

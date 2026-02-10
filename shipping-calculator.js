@@ -327,6 +327,17 @@ function getShippingDisplayInfo() {
 
 // ============================================
 // グローバル公開
+/**
+ * shipping-calculator.js
+ * 安積自然農園 配送・送料計算システム
+ * - 配送業者・送料・配送日・エリア等の設定と送料計算
+ * - index.htmlの配送情報に基づく実装
+ *
+ * 【編集・拡張方針】
+ * - 配送仕様変更やエリア追加時は本ファイルを編集
+ * - 共通化できる処理は asaka-hub.js へ
+ */
+
 // ============================================
 if (typeof window !== 'undefined') {
     window.ShippingCalculator = {

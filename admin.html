@@ -21,7 +21,6 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
             padding: 20px;
         }
         
@@ -81,13 +80,13 @@
             margin-bottom: 10px;
             color: #2c5f2d;
         }
+            <!--
         
         .menu-description {
             font-size: 14px;
             color: #666;
             line-height: 1.6;
         }
-        
         .priority-badge {
             display: inline-block;
             background: #d32f2f;
@@ -183,52 +182,27 @@
         </div>
         
         <div class="menu-grid">
-            <a href="admin-orders.html" class="menu-card">
-                <div class="menu-icon">📋</div>
-                <div class="menu-title">注文管理</div>
-                <div class="menu-description">
-                    注文一覧・ステータス変更・CSVエクスポート
-                </div>
-                <div class="priority-badge">フロントより重要</div>
-            </a>
-            
-            <a href="admin-shipping.html" class="menu-card">
-                <div class="menu-icon">📦</div>
-                <div class="menu-title">発送管理</div>
-                <div class="menu-description">
-                    発送手続き・追跡番号登録・発送完了通知
-                </div>
-            </a>
-            
-            <a href="admin-inventory.html" class="menu-card">
-                <div class="menu-icon">📊</div>
-                <div class="menu-title">在庫管理</div>
-                <div class="menu-description">
-                    在庫数確認・入出庫履歴・在庫調整
-                </div>
-            </a>
-            
             <a href="admin-products.html" class="menu-card">
                 <div class="menu-icon">🥬</div>
                 <div class="menu-title">商品管理</div>
                 <div class="menu-description">
-                    商品登録・価格変更・商品情報編集
+                    商品追加・詳細記入・価格変更・商品情報編集など商品管理機能を充実
                 </div>
             </a>
-            
+
             <a href="admin-customers.html" class="menu-card">
                 <div class="menu-icon">👥</div>
                 <div class="menu-title">顧客管理</div>
                 <div class="menu-description">
-                    顧客一覧・注文履歴・問い合わせ履歴
+                    顧客一覧・問い合わせ履歴・ステータス管理・問合わせ対応など顧客対応機能を充実
                 </div>
             </a>
-            
-            <a href="admin-reports.html" class="menu-card">
-                <div class="menu-icon">📈</div>
-                <div class="menu-title">レポート</div>
+
+            <a href="admin-services.html" class="menu-card">
+                <div class="menu-icon">🎁</div>
+                <div class="menu-title">サービス管理</div>
                 <div class="menu-description">
-                    売上分析・商品別売上・期間別レポート
+                    クーポン作成・サービス設定・プロモーション管理
                 </div>
             </a>
         </div>
@@ -328,12 +302,12 @@
           const el = document.getElementById('adminLogList');
           if (!el) return;
           el.innerHTML = logs.slice(0, 30).map(log =>
-            `<div style="border-bottom:1px solid #eee;padding:6px 0;font-size:0.97em;">
-              <span style="color:#888;">${new Date(log.timestamp).toLocaleString('ja-JP')}</span>：
-              <span style="color:#00796b;font-weight:600;">${log.action}</span>
-              <span style="color:#222;">${log.detail}</span>
-            </div>`)
-          ).join('');
+                        `<div style="border-bottom:1px solid #eee;padding:6px 0;font-size:0.97em;">
+                            <span style="color:#888;">${new Date(log.timestamp).toLocaleString('ja-JP')}</span>：
+                            <span style="color:#00796b;font-weight:600;">${log.action}</span>
+                            <span style="color:#222;">${log.detail}</span>
+                        </div>`
+                    ).join('');
         }
 
         // 初期表示でログ描画

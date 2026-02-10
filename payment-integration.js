@@ -290,7 +290,6 @@ class MobilePaymentGateway {
 
 // ============================================
 // 決済トランザクション管理（ロールバック対応）
-// ============================================
 class PaymentTransaction {
     constructor(orderId) {
         this.orderId = orderId;
@@ -350,6 +349,7 @@ class PaymentTransaction {
             return {
                 success: true,
                 rolledBack: rollbackSteps,
+/**
                 reason: reason
             };
             

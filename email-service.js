@@ -42,7 +42,6 @@ const sendViaSendGrid = async (to, subject, textContent, htmlContent) => {
         return { success: true, messageId: response[0].headers['x-message-id'], provider: 'sendgrid' };
     } catch (error) {
         throw error;
-    }
 };
 
 /**
@@ -102,6 +101,7 @@ const sendEmail = async (to, subject, textContent, htmlContent) => {
     if (!textContent?.trim()) throw new Error('本文が空です');
     validateConfig();
     const service = process.env.EMAIL_SERVICE;
+    /**
     let result;
     if (service === 'sendgrid') result = await sendViaSendGrid(to, subject, textContent, htmlContent);
     else if (service === 'ses') result = await sendViaSES(to, subject, textContent, htmlContent);

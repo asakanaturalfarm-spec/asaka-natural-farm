@@ -34,14 +34,28 @@
   - 対応方法（決済方法別のサポート手順）
   - 再試行URLリンク
   - お問い合わせ先
+### 4. 新規登録完了通知
+- **送信タイミング**: ユーザーが新規会員登録完了時、自動送信
+- **内容**:
+    - 登録日時
+    - 登録メールアドレス
+    - サポート窓口案内
+
+### 5. ログイン通知
+- **送信タイミング**: ログイン成功時、自動送信（セキュリティ目的）
+- **内容**:
+    - ログイン日時
+    - 利用端末情報（IPアドレス、ブラウザ等）
+    - サポート窓口案内
+    - 不正ログイン時の対応案内
 
 ---
 
 ## 🔧 技術仕様
 
 ### セキュリティ原則
-✅ **外部メールサービスを使用**
-- SendGrid / AWS SES / Mailgun などを使用
+✅ **外部メールサービスを使用（Resend）**
+- Resendを利用（https://resend.com/）
 - 自作SMTP実装は禁止（セキュリティリスク）
 - APIキーはサーバーサイドで管理（フロントに露出させない）
 
@@ -63,15 +77,17 @@
 通知システムのコアロジック
 
 **主要クラス**:
-- `EmailService`: メール送信サービス（SendGrid/SES/Mailgun対応）
+- `EmailService`: メール送信サービス（Resend対応）
 - `NotificationManager`: 通知の送信・リトライ・履歴管理
 
 **主要機能**:
-- `sendOrderConfirmation()`: 注文確定メール送信
-- `sendShippingNotification()`: 発送完了通知送信
-- `sendPaymentFailureNotification()`: 支払失敗通知送信
-- `processRetryQueue()`: 自動リトライ処理
-- `saveNotificationHistory()`: 通知履歴保存（最新100件）
+    - `sendOrderConfirmation()`: 注文確定メール送信
+    - `sendShippingNotification()`: 発送完了通知送信
+    - `sendPaymentFailureNotification()`: 支払失敗通知送信
+    - `sendRegistrationCompleteNotification()`: 新規登録完了通知送信
+    - `sendLoginNotification()`: ログイン通知送信
+    - `processRetryQueue()`: 自動リトライ処理
+    - `saveNotificationHistory()`: 通知履歴保存（最新100件）
 
 **HTMLテンプレート生成**:
 - レスポンシブHTMLメール（モバイル対応）
@@ -95,6 +111,44 @@
 ---
 
 ## 🔄 通知フロー
+
+### 新規登録完了通知の流れ
+```
+1. ユーザーが新規会員登録
+    ↓
+2. registration.js の registerUser() 実行
+    ↓
+3. 登録成功
+    ↓
+4. NotificationManager.sendRegistrationCompleteNotification() 自動実行
+    ↓
+5. EmailService が /api/notifications/send にPOST
+    ↓
+6. サーバーが実際のメール送信
+    ↓
+7. 成功/失敗を記録
+    ↓
+8. 失敗時は自動リトライキューに追加
+```
+
+### ログイン通知の流れ
+```
+1. ユーザーがログイン
+    ↓
+2. login.js の loginUser() 実行
+    ↓
+3. ログイン成功
+    ↓
+4. NotificationManager.sendLoginNotification() 自動実行
+    ↓
+5. EmailService が /api/notifications/send にPOST
+    ↓
+6. サーバーが実際のメール送信
+    ↓
+7. 成功/失敗を記録
+    ↓
+8. 失敗時は自動リトライキューに追加
+```
 
 ### 注文確定メールの流れ
 ```
@@ -155,8 +209,8 @@
 ```javascript
 // 通知マネージャーを初期化
 const notificationManager = window.NotificationSystem.initialize({
-    provider: 'sendgrid',  // または 'ses', 'mailgun'
-    fromEmail: 'noreply@asakanatural.jp',
+    provider: 'resend',
+    fromEmail: 'order@asakanatural.jp',
     fromName: '安積自然農園'
 });
 ```
@@ -198,6 +252,30 @@ await notificationManager.sendShippingNotification({
 ```
 
 ### 4. 支払失敗通知を送信
+
+### 5. 新規登録完了通知を送信
+```javascript
+await notificationManager.sendRegistrationCompleteNotification({
+    userId: 'USR_20260210001',
+    email: 'newuser@example.com',
+    userName: '佐藤花子',
+    registeredAt: '2026-02-10 10:00',
+    supportEmail: 'support@asakanatural.jp'
+});
+```
+
+### 6. ログイン通知を送信
+```javascript
+await notificationManager.sendLoginNotification({
+    userId: 'USR_20260210001',
+    email: 'newuser@example.com',
+    userName: '佐藤花子',
+    loginAt: '2026-02-10 10:05',
+    ipAddress: '203.0.113.45',
+    userAgent: 'Chrome/120.0 (Windows 10)',
+    supportEmail: 'support@asakanatural.jp'
+});
+```
 ```javascript
 await notificationManager.sendPaymentFailureNotification({
     orderId: 'ORD_20260122001',
@@ -244,17 +322,34 @@ console.log('送信失敗:', failed);
 `POST /api/notifications/send`
 
 **リクエストボディ**:
+
+**リクエストボディ例（Resend・新規登録完了通知）**:
 ```json
 {
-  "provider": "sendgrid",
-  "to": "customer@example.com",
-  "subject": "【安積自然農園】ご注文確定のお知らせ",
-  "htmlBody": "<html>...</html>",
-  "textBody": "テキスト版メール本文",
-  "from": {
-    "email": "noreply@asakanatural.jp",
-    "name": "安積自然農園"
-  }
+    "provider": "resend",
+    "to": "newuser@example.com",
+    "subject": "【安積自然農園】新規登録が完了しました",
+    "htmlBody": "<html>...</html>",
+    "textBody": "テキスト版メール本文",
+    "from": {
+        "email": "order@asakanatural.jp",
+        "name": "安積自然農園"
+    }
+}
+```
+
+**リクエストボディ例（Resend・ログイン通知）**:
+```json
+{
+    "provider": "resend",
+    "to": "newuser@example.com",
+    "subject": "【安積自然農園】ログインがありました",
+    "htmlBody": "<html>...</html>",
+    "textBody": "テキスト版メール本文",
+    "from": {
+        "email": "order@asakanatural.jp",
+        "name": "安積自然農園"
+    }
 }
 ```
 
@@ -276,25 +371,23 @@ console.log('送信失敗:', failed);
 
 ### SendGrid設定例（Node.js）
 ```javascript
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// Resend設定例（Node.js）
+const { Resend } = require('@resend/node');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post('/api/notifications/send', async (req, res) => {
     const { to, subject, htmlBody, textBody, from } = req.body;
-    
-    const msg = {
-        to: to,
-        from: from,
-        subject: subject,
-        text: textBody,
-        html: htmlBody,
-    };
-    
     try {
-        await sgMail.send(msg);
-        res.json({ success: true, messageId: 'generated_message_id' });
+        const result = await resend.emails.send({
+            from: from.email,
+            to,
+            subject,
+            html: htmlBody,
+            text: textBody
+        });
+        res.json({ success: true, messageId: result.id });
     } catch (error) {
-        console.error('SendGrid error:', error);
+        console.error('Resend error:', error);
         res.status(500).json({ success: false, error: error.message });
     }
 });
@@ -363,6 +456,8 @@ HTMLテンプレートの `<div class="header">` 内に画像を追加:
 - [x] 自動リトライ機構
 - [x] 通知履歴管理
 - [x] 発送管理画面
+- [x] 新規登録完了通知
+- [x] ログイン通知
 
 ### 今後追加できる機能
 - [ ] 支払期限リマインダー（コンビニ決済向け）
@@ -380,8 +475,8 @@ HTMLテンプレートの `<div class="header">` 内に画像を追加:
 
 ### 必ず守ること
 1. **APIキーはサーバーサイドで管理**
-   - フロントエンドに直接記述しない
-   - 環境変数で管理する
+    - フロントエンドに直接記述しない
+    - 環境変数で管理する（Resend APIキー）
 
 2. **個人情報の取り扱い**
    - メール送信に必要な最小限の情報のみ

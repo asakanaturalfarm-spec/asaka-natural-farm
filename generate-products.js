@@ -1,3 +1,11 @@
+/**
+ * generate-products.js
+ * 安積自然農園 商品ページ自動生成スクリプト
+ * - 商品データからHTMLページを自動生成
+ *
+ * 【編集・拡張方針】
+ * - 商品仕様やテンプレート変更時は本ファイルを編集
+ */
 
 const fs = require('fs');
 const path = require('path');

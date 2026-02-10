@@ -8,7 +8,7 @@
 
 ### 統合された機能
 
-1. **商品マスターデータ** - 25商品の完全なデータベース
+1. **商品マスターデータ** - 商品の完全なデータベース
 2. **ストレージキー統一** - 全アプリで統一されたLocalStorageキー
 3. **ユーティリティ関数** - 日付、金額フォーマット、ID生成など
 4. **イベントバス** - アプリ間のリアルタイム通信
@@ -71,13 +71,6 @@ checkout.html         ← レジ
 order-complete.html   ← 完了画面
 ```
 
-**削除可能:**
-```
-system-integration.js ← asaka-hub.jsに統合
-search-enhanced.js    ← script.jsに統合可能
-shared-data-sync.js   ← asaka-hub.jsに統合
-```
-
 ---
 
 ### 受注発注管理アプリ
@@ -105,11 +98,6 @@ styles.css            ← スタイル
 + 各HTML
 ```
 
-**削除可能:**
-```
-system-integration.js ← asaka-hub.jsに統合
-```
-
 ---
 
 ### 収穫量出荷可能管理アプリ
@@ -132,11 +120,6 @@ harvest-production.js ← 生産量分析
 data-management.js    ← データ管理
 harvest-style.css     ← スタイル
 + 各HTML
-```
-
-**削除可能:**
-```
-system-integration.js ← asaka-hub.jsに統合
 ```
 
 ---
@@ -163,11 +146,6 @@ transaction.js        ← 取引入力
 journal.js            ← 仕訳帳
 style.css             ← スタイル
 + 各HTML
-```
-
-**削除可能:**
-```
-system-integration.js ← asaka-hub.jsに統合
 ```
 
 ---
@@ -198,15 +176,8 @@ growth-record.js      ← 生育記録
 task-sheet.js         ← タスク管理
 schedule-history.js   ← 履歴
 integrated-*.js       ← 統合機能
-products-data.js      ← 商品データ（削除可能）
 styles.css            ← スタイル
 + 各HTML
-```
-
-**削除可能:**
-```
-system-integration.js ← asaka-hub.jsに統合
-products-data.js      ← asaka-hub.jsに統合済み
 ```
 
 ---
@@ -261,7 +232,7 @@ inventory-sync.js + order-sync.js
 ### 統合された機能
 
 **asaka-hub.jsに統合:**
-- ✅ 商品マスターデータ（25商品）
+- ✅ 商品マスターデータ（商品）
 - ✅ ストレージキー定義
 - ✅ 日付・金額フォーマット
 - ✅ ID生成
@@ -312,12 +283,12 @@ inventory-sync.js + order-sync.js
 
 ### 2. 受注発注管理アプリ
 - **目的:** 注文の受付と管理
-- **コア機能:** 受注入力、注文履歴、顧客管理
-- **特徴:** 在庫自動減算、重複防止
+- **コア機能:** 注文履歴、顧客管理、
+- **特徴:** 在庫自動減算、重複防止、ユーザーUXの向上
 
 ### 3. 収穫量出荷可能管理アプリ
 - **目的:** 収穫記録と在庫管理
-- **コア機能:** 収穫入力、在庫自動増加、年間分析
+- **コア機能:** 在庫自動増減、在庫確認
 - **特徴:** 生産データの可視化
 
 ### 4. 帳簿自動管理アプリ
@@ -327,7 +298,7 @@ inventory-sync.js + order-sync.js
 
 ### 5. 農業用ダッシュボード
 - **目的:** 全体統括
-- **コア機能:** 統合ビュー、タスク管理、分析
+- **コア機能:** 統合ビュー、タスク管理、分析、総データ入力(受注・収穫・出荷・作業・帳簿・廃棄)
 - **特徴:** 全アプリのデータ統合表示
 
 ---

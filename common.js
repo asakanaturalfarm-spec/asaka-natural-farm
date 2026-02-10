@@ -1,6 +1,5 @@
 /**
  * common.js
- * 安積自然農園 共通ロジック集約
  * 主要な定数・関数を英語名で統一
  */
 
@@ -60,6 +59,7 @@ const acquirePurchaseLock = (productId, userId, quantity) => {
     return { success: true };
 };
 
+/**
 /**
  * 購入ロックを解除
  * @param {string} productId

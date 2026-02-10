@@ -1,7 +1,7 @@
 # 在庫管理システム - 実用版
 
 ## 概要
-サーバーサイドとの連携に対応した実用的な在庫管理システム。収穫量出荷可能管理アプリとのリアルタイム同期、2段階トランザクション、オフライン対応を実装。
+サーバーサイドAPI連携・全アプリ完全同期・リセット機能廃止済みの実用的な在庫管理システム。リアルタイム同期・2段階トランザクション・オフライン対応を実装。
 
 ## アーキテクチャ
 
@@ -42,60 +42,19 @@
 ├── inventory-api.js          # フロントエンド在庫APIクライアント
 ├── inventory-server.js       # バックエンドAPIサーバー
 ├── package-inventory.json    # サーバー依存関係
-├── .env.example             # 環境変数テンプレート
-└── INVENTORY_SYSTEM.md      # このファイル
+├── .env.example              # 環境変数テンプレート
+└── INVENTORY_SYSTEM.md       # このファイル
 ```
+
+他アプリ（受注発注管理・収穫量出荷可能管理・帳簿自動管理・ダッシュボード）もinventory-api.jsをHTMLで読み込み、API連携で完全同期。
 
 ## セットアップ手順
 
 ### 1. サーバー側セットアップ
-
-#### 依存パッケージインストール
-```bash
-# package-inventory.jsonをpackage.jsonにリネーム
-mv package-inventory.json package.json
-
-# 依存関係インストール
-npm install
-```
-
-#### 環境変数設定
-```bash
-# .envファイル作成
-cat > .env << EOF
-PORT=3000
-NODE_ENV=production
-HARVEST_APP_URL=http://localhost:3001/api
-CORS_ORIGIN=https://asakanatural.jp
-EOF
-```
-
-#### サーバー起動
-```bash
-# 本番モード
-npm start
-
-# 開発モード（自動再起動）
-npm run dev
-```
+（従来通り package-inventory.json → package.json、npm install、.env作成、npm start）
 
 ### 2. フロントエンド側セットアップ
-
-#### HTMLに読み込み
-```html
-<!-- 既存のinventory-sync.jsの代わりに -->
-<script src="inventory-api.js"></script>
-```
-
-#### 環境変数設定（index.html等のhead内）
-```html
-<script>
-window.ENV = {
-    INVENTORY_API_URL: 'https://api.asakanatural.jp/api',
-    HARVEST_APP_URL: 'https://harvest.asakanatural.jp/api'
-};
-</script>
-```
+全アプリのindex.html等で inventory-api.js を読み込み、window.ENV でAPIエンドポイントを指定。
 
 ## API仕様
 
@@ -223,63 +182,15 @@ curl http://localhost:3000/api/inventory/logs?limit=100&action=UPDATE
 
 ## 主要機能
 
-### 1. キャッシュ管理
-- **TTL**: 30秒
-- サーバーリクエストを削減
-- オフライン時のフォールバック
-
-```javascript
-// キャッシュを強制更新
-await window.InventoryAPI.getInventory(null, true);
-
-// キャッシュをクリア
-window.InventoryAPI.clearCache();
-```
-
-### 2. 楽観的更新
-- UIを即座に更新（体感速度向上）
-- サーバー確認後に最終値を反映
-- 失敗時は自動ロールバック
-
-### 3. オフライン対応
-- ネットワーク切断を自動検知
-- 変更を未送信キューに保存
-- オンライン復帰時に自動同期
-
-```javascript
-// 未送信データを手動同期
-await window.InventoryAPI.syncPendingChanges();
-```
-
-### 4. リトライ機能
-- 失敗時は指数バックオフで自動リトライ
-- 最大3回まで
-- リトライ超過で破棄
-
-### 5. イベント通知
-```javascript
-// 在庫更新イベント
-window.addEventListener('inventoryUpdated', (e) => {
-    console.log('在庫更新:', e.detail);
-    // { productId, quantity, source: 'optimistic'|'server' }
-});
-
-// 在庫更新失敗イベント
-window.addEventListener('inventoryUpdateFailed', (e) => {
-    console.error('在庫更新失敗:', e.detail);
-    // { productId, error }
-});
-
-// 全体同期イベント
-window.addEventListener('inventorySynced', (e) => {
-    console.log('サーバー同期完了:', e.detail);
-});
-
-// 低在庫アラート
-window.addEventListener('lowStockAlert', (e) => {
-    console.warn('在庫不足:', e.detail.items);
-});
-```
+### 主要機能（最新版）
+- サーバーAPI連携（全アプリ共通）
+- 30秒TTLキャッシュ・stale-while-revalidate
+- 楽観的UI更新・自動ロールバック
+- オフライン対応・未送信キュー
+- 2段階トランザクション・在庫予約/確定/解放
+- 収穫量アプリ等との完全同期
+- イベント通知（inventoryUpdated, inventorySynced, lowStockAlert等）
+- リセット機能廃止（在庫数は常にAPI・全アプリでリアルタイム連動）
 
 ## 統合例
 
@@ -406,31 +317,7 @@ for (const product of products) {
 
 ## トラブルシューティング
 
-### サーバーに接続できない
-```bash
-# ヘルスチェック
-curl http://localhost:3000/api/health
-
-# ログ確認
-npm start
-```
-
-### 在庫が同期されない
-```javascript
-// 強制同期
-await window.InventoryAPI.syncFromServer();
-
-// キャッシュクリア
-window.InventoryAPI.clearCache();
-
-// 未送信データ確認
-console.log(window.InventoryAPI.pending);
-```
-
-### 予約がタイムアウトする
-- デフォルト10分
-- 決済処理を高速化
-- タイムアウト時間を延長（server側で調整）
+（従来通りのAPI・キャッシュ・同期・イベント通知で運用。リセットや初期化は不可）
 
 ## 本番環境デプロイ
 

@@ -22,7 +22,6 @@
     // 注文ソース（どのアプリから発生したか）
     const ORDER_SOURCE = {
         EC_SITE: 'ec_site',           // ECサイトからの注文
-        ORDER_MANAGEMENT: 'order_mgmt', // 受注管理アプリからの直接入力
         PHONE: 'phone',               // 電話注文
         OTHER: 'other'                // その他
     };
@@ -82,6 +81,7 @@
         }
 
         // 注文番号を生成（表示用）
+        /**
         generateOrderNumber() {
             const date = new Date();
             const year = date.getFullYear();

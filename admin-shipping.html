@@ -279,7 +279,6 @@
                 status: 'shipped',
                 paymentMethod: 'コンビニ決済',
                 trackingNumber: '1234-5678-9012',
-                shippedDate: '2026-01-21'
             }
         ];
         
@@ -339,12 +338,12 @@
                                value="${getEstimatedDeliveryDate()}">
                     </div>
                     <button class="btn btn-ship" onclick="shipOrder('${order.orderId}')">
+                <!--
                         発送完了 & 通知送信
                     </button>
                     <div id="notification_${order.orderId}"></div>
                 </div>
             ` : `
-                <div style="padding:15px;background:#d4edda;border-radius:5px;margin-top:15px;">
                     <strong>✓ 発送完了</strong><br>
                     発送日: ${order.shippedDate}<br>
                     お問い合わせ番号: ${order.trackingNumber}

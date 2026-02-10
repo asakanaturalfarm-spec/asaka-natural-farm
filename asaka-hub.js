@@ -64,23 +64,17 @@
     const storageKeys = {
         // 在庫管理
         INVENTORY: 'inventory_realtime',
-        INVENTORY_LOG: 'inventory_log',
-        
-        // 注文管理
-        ORDERS: 'unified_orders',
-        ORDER_LOG: 'unified_orders_log',
-        PROCESSED_IDS: 'processed_order_ids',
-        
+
         // 収穫管理
         HARVESTS: 'harvestRecords',
-        
+
         // 顧客管理
         CUSTOMERS: 'orderManagement_customers',
-        
+
         // 帳簿管理
         TRANSACTIONS: 'transactions',
         ACCOUNTS: 'accounts',
-        
+
         // その他
         CART: 'cartItems',
         FAVORITES: 'favorites',
@@ -124,6 +118,7 @@
         generateId: (prefix = 'ID') => `${prefix}-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
         /**
          * ローカルストレージ操作
+        /**
          */
         storage: {
             /**

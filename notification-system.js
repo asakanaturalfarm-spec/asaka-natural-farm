@@ -1,7 +1,6 @@
 /**
  * ⑦ 通知システム（自動）
  * 
- * 「人力対応は必ず破綻する」
  * - 注文確定メール
  * - 発送完了通知
  * - 支払失敗通知
@@ -61,6 +60,7 @@ class EmailService {
             // 実際の実装：サーバーサイドAPIエンドポイントを呼び出す
             // フロントエンドから直接APIキーを使用するのは危険
             const response = await fetch('/api/notifications/send', {
+/**
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

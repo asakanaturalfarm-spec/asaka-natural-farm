@@ -15,7 +15,6 @@ class EmailTemplates {
     static orderConfirmation(order) {
         const { orderId, customerName, customerEmail, items, subtotal, shipping, tax, total, paymentMethod, deliveryDate } = order;
         
-        // プレーンテキスト
         const text = `
 ${customerName} 様
 
@@ -49,7 +48,6 @@ ${deliveryDate}
 発送前までキャンセル可能です。
 お問い合わせフォームよりご連絡ください。
 
-━━━━━━━━━━━━━━━━━━━━━━━━
 安積直売所オンライン
 ${this.getBaseURL()}
 
@@ -75,6 +73,7 @@ ${this.getBaseURL()}
     <p>ご注文を受け付けいたしました。</p>
     
     <div style="background: #f5f5f5; padding: 15px; margin: 20px 0; border-radius: 5px;">
+        /**
         <p style="margin: 0 0 5px 0;"><strong>注文番号</strong></p>
         <p style="margin: 0; font-size: 18px; color: #2c5f2d;"><strong>${orderId}</strong></p>
     </div>
