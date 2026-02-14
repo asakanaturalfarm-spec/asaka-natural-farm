@@ -6,7 +6,7 @@
 安積自然農園ホームページ/
 ├── index.html              # ホームページ（ナビにストアリンク追加済み）
 ├── production.html
-├── distribution.html
+├── distribution.html　#企業向け問い合わせページ
 ├── style.css
 ├── script.js
 ├── sitemap.xml            # ストアページ追加済み

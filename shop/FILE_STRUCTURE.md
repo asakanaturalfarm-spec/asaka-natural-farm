@@ -8,8 +8,7 @@
 安積直売所オンライン/
 │
 ├── email-service.js              # メール送信エンジン（278行）
-│   ├── SendGrid送信機能
-│   ├── Amazon SES送信機能
+│   ├── Resend送信機能
 │   ├── メールアドレス検証
 │   ├── レート制限（10通/分）
 │   ├── 重複送信防止（24時間）
@@ -32,8 +31,7 @@
 │
 └── NOTIFICATION_SETUP.md         # セットアップ手順書（400行超）
     ├── 前提条件・依存関係
-    ├── SendGrid設定手順
-    ├── Amazon SES設定手順
+    ├── Resend設定手順
     ├── DNS設定（SPF/DKIM/DMARC）
     ├── 実装コード例
     ├── セキュリティチェックリスト
@@ -73,8 +71,7 @@
 │         email-service.js                    │
 │  ┌───────────────────────────────────────┐  │
 │  │ 送信プロバイダー選択                  │  │
-│  │  - SendGrid                           │  │
-│  │  - Amazon SES                         │  │
+│  │  - Resend                             │  │
 │  └───────────────────────────────────────┘  │
 │  ┌───────────────────────────────────────┐  │
 │  │ 検証・セキュリティ                    │  │
@@ -116,7 +113,7 @@
 [email-service.sendEmail()]
     ↓ メールアドレス検証
     ↓ 環境変数検証
-    ↓ SendGrid/SES送信
+    ↓ Resend送信
 [顧客メール受信]
     ↓ 注文番号・明細・配送情報
     ↓ 特定商取引法リンク
@@ -178,8 +175,7 @@
 ```json
 {
   "dependencies": {
-    "@sendgrid/mail": "^7.7.0",      // SendGrid使用時
-    "aws-sdk": "^2.1400.0",          // Amazon SES使用時
+    "resend": "^2.0.0",              // Resend使用時
     "dotenv": "^16.0.3"              // 環境変数管理
   }
 }
@@ -187,11 +183,8 @@
 
 ### インストールコマンド
 ```bash
-# SendGrid使用の場合
-npm install @sendgrid/mail dotenv
-
-# Amazon SES使用の場合
-npm install aws-sdk dotenv
+# Resend使用の場合
+npm install resend dotenv
 ```
 
 ---
@@ -201,7 +194,7 @@ npm install aws-sdk dotenv
 ### 必須変数
 | 変数名 | 値例 | 説明 |
 |--------|------|------|
-| `EMAIL_SERVICE` | `sendgrid` | プロバイダー選択 |
+| `EMAIL_SERVICE` | `resend` | プロバイダー選択 |
 | `EMAIL_FROM` | `order@asakanatural.jp` | 送信元アドレス |
 | `DOMAIN` | `https://asakanatural.jp/store` | ベースURL |
 | `NODE_ENV` | `production` | 環境識別 |
@@ -209,14 +202,13 @@ npm install aws-sdk dotenv
 ### SendGrid用
 | 変数名 | 値例 | 説明 |
 |--------|------|------|
-| `SENDGRID_API_KEY` | `SG.xxxx...` | APIキー |
+### Resend用
+| `RESEND_API_KEY` | `re_xxxxx...` | APIキー |
 
 ### Amazon SES用
 | 変数名 | 値例 | 説明 |
 |--------|------|------|
-| `AWS_REGION` | `ap-northeast-1` | AWSリージョン |
-| `AWS_ACCESS_KEY_ID` | `AKIAIOSFODNN7EXAMPLE` | アクセスキー |
-| `AWS_SECRET_ACCESS_KEY` | `wJalrXUtnFEMI/K7MDENG/...` | シークレットキー |
+<!-- SES用環境変数は不要 -->
 
 ---
 

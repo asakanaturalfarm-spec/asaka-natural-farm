@@ -107,139 +107,9 @@
         </script>
 </head>
 <body class="home">
-        <!-- ナビゲーションバー（共通UI） -->
-        <header class="navbar">
-            <div class="navbar-container">
-                <a href="index.html" class="logo" title="ホーム">
-                    <div class="logo-text">
-                        <h1>安積自然農園</h1>
-                        <p>自然農法野菜</p>
-                    </div>
-                </a>
-                <nav class="nav-menu">
-                                        <a href="index.html" class="nav-link" style="padding:0; background:none; border:none;">
-                                            <img src="素材/ホームページ.png" alt="ホーム" style="height:32px;width:auto;display:inline-block;vertical-align:middle;">
-                                        </a>
-                    <a href="index.html#philosophy" class="nav-link">想い</a>
-                    <a href="index.html#method" class="nav-link">農法</a>
-                    <a href="index.html#vegetables" class="nav-link">野菜</a>
-                    <a href="index.html#products" class="nav-link">加工品</a>
-                    <a href="business.html" class="nav-link">お問い合わせ</a>
-                </nav>
-                <div class="nav-actions">
-                    <!-- ログインボタン削除 -->
-                </div>
-                    <button class="hamburger" id="hamburger" aria-controls="mobileMenu" aria-expanded="false" aria-label="メニューを開く">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </header>
-        <nav class="mobile-menu" id="mobileMenu">
-                        <a href="index.html" class="mobile-link" style="padding:0; background:none; border:none;">
-                            <img src="素材/ホームページ.png" alt="ホーム" style="height:32px;width:auto;display:inline-block;vertical-align:middle;">
-                        </a>
-            <a href="index.html#philosophy" class="mobile-link">想い</a>
-            <a href="index.html#method" class="mobile-link">農法</a>
-            <a href="index.html#vegetables" class="mobile-link">野菜</a>
-            <a href="index.html#products" class="mobile-link">加工品</a>
-            <a href="business.html" class="mobile-link">お問い合わせ</a>
-            <hr>
-            <!-- ログインボタン削除 -->
-        </nav>
-            <!-- ログイン認証機能は外部サービス導入予定のため削除 -->
-            <a href="https://asakanatural.base.shop/about" class="cta-fixed-shop" target="_blank" rel="noopener">
-                <img src="素材/直売所CTA.png" alt="BASEショップへ" style="height:64px;width:auto;display:block;box-shadow:none;background:none;padding:0;margin:0;border:none;">
-            </a>
-            <div class="cta-social-icons" style="position:fixed;right:18px;top:calc(50% + 80px);z-index:2000;display:flex;flex-direction:column;align-items:center;gap:12px;">
-                <a href="https://www.instagram.com/48aguri_askd/" target="_blank" rel="noopener" style="display:block;">
-                    <img src="shop/instagram.png" alt="Instagram" style="height:32px;width:auto;display:block;">
-                </a>
-                    <a href="https://note.com/asaka_natural" target="_blank" rel="noopener" style="display:block;">
-                    <img src="shop/note.png" alt="note" style="height:32px;width:auto;display:block;">
-                </a>
-            </div>
-            </a>
-            </script>
-
-            <style>
-            .cta-fixed-shop {
-                position: fixed;
-                top: 50%;
-                right: 18px;
-                transform: translateY(-50%);
-                z-index: 2000;
-                background: none !important;
-                box-shadow: none !important;
-                border: none !important;
-                padding: 0 !important;
-                width: auto;
-                height: auto;
-                display: block;
-                cursor: pointer;
-                opacity: 1;
-            }
-            .cta-shop-icon {
-                display: none;
-            }
-            .cta-shop-label {
-                display: none;
-            }
-            .cta-fixed-shop:hover, .cta-fixed-shop:focus-visible {
-                background: none !important;
-                color: inherit !important;
-                box-shadow: none !important;
-                opacity: 1;
-                transform: translateY(-50%) scale(1.045);
-            }
-            .cta-fixed-shop:hover .cta-shop-icon, .cta-fixed-shop:focus-visible .cta-shop-icon {
-                transform: scale(1.13) translateY(-2px);
-            }
-            @media (max-width: 900px) {
-                .cta-fixed-shop {
-                    top: auto;
-                    bottom: 18px;
-                    right: 12px;
-                    left: auto;
-                    width: 48px;
-                    height: 78px;
-                    max-width: 90vw;
-                    transform: none;
-                    font-size: 0.97rem;
-                    border-radius: 10px;
-                }
-                .cta-shop-icon {
-                    font-size: 1.6em;
-                }
-            }
-            @keyframes cta-fadein {
-                0% { opacity: 0; transform: translateY(30px) scale(0.98); }
-                100% { opacity: 0.97; transform: translateY(0) scale(1); }
-            }
-            </style>
-            <a href="./business.html" class="mobile-link">お問い合わせ</a>
-            <hr>
-            <a href="account.html" style="display: block; width: 100%; margin-bottom: 8px;" class="btn-secondary">ログイン</a>
-        </nav>
+        <!-- グローバルナビゲーション・メニュー・ハンバーガー・モバイルメニュー完全撤去 -->
 <script>
-// shop風ハンバーガーメニュー開閉（ES6+簡潔化）
-document.addEventListener('DOMContentLoaded', () => {
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    if (!hamburger || !mobileMenu) return;
-    const setMenuState = isOpen => {
-        hamburger.setAttribute('aria-expanded', isOpen);
-        hamburger.classList.toggle('active', isOpen);
-        mobileMenu.classList.toggle('show', isOpen);
-    };
-    hamburger.addEventListener('click', () => {
-        setMenuState(hamburger.getAttribute('aria-expanded') !== 'true');
-    });
-    mobileMenu.querySelectorAll('a').forEach(link =>
-        link.addEventListener('click', () => setMenuState(false))
-    );
-});
+
 </script>
 
 
@@ -505,15 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </section>
 
     <!-- フッター -->
-    <footer class="footer">
-        <div class="footer-container">
-            <p class="footer-text">© 2025 安積自然農園</p>
-            <div class="footer-links">
-                <a href="https://asakanatural.base.shop/about" class="footer-link" target="_blank" rel="noopener">オンラインショップ</a>
-                <a href="./business.html" class="footer-link">お問い合わせ</a>
-            </div>
-        </div>
-    </footer>
+    <!-- フッター完全削除 -->
 
     <script src="script.js"></script>
     

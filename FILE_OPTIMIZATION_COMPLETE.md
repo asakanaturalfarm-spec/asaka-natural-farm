@@ -242,12 +242,6 @@ inventory-sync.js + order-sync.js
 - ✅ ロガー
 - ✅ データ同期
 
-**削除可能なファイル:**
-- ❌ system-integration.js（全アプリ）
-- ❌ shared-data-sync.js（ECサイト）
-- ❌ search-enhanced.js（script.jsに統合可能）
-- ❌ products-data.js（ダッシュボード）
-
 ---
 
 ## 🛠️ メンテナンス性の向上
