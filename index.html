@@ -30,36 +30,42 @@
     <link rel="stylesheet" href="style.css?v=2026123">
     <link rel="stylesheet" href="index-style.css?v=2026123">
     <link rel="stylesheet" href="navbar-shop.css?v=2026123">
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
-        <!-- ロゴ用CSSは<head>の一番最後に移動 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+    <!-- ロゴ用CSSは<head>の一番最後に移動 -->
         <style>
-                        .logo-text p { display: none !important; }
-            .logo-text h1 {
-                font-family: 'NIS Tak', 'Noto Serif JP', serif;
-                font-size: 2.2rem;
-                font-weight: 700;
-                color: #2d3a1f;
-                margin: 0;
-                letter-spacing: 0.08em;
+            body.home {
+                background: #fff;
+                min-height: 100vh;
+                font-family: 'Noto Sans JP', 'Noto Serif JP', sans-serif;
+                color: #222;
             }
-            .logo-text p {
-                font-family: 'NIS Tak', 'Noto Sans JP', sans-serif;
-                font-size: 1.1rem;
-                font-weight: 500;
-                color: #4b5d2a;
-                margin: 0;
-                letter-spacing: 0.08em;
+            /* ロゴ用CSSは<head>の一番最後に移動 */
+            @media (max-width: 900px) {
+                .cta-fixed-shop {
+                    top: auto;
+                    bottom: 18px;
+                    right: 12px;
+                    left: auto;
+                    width: 48px;
+                    height: 78px;
+                    max-width: 90vw;
+                    transform: none;
+                    font-size: 0.97rem;
+                    border-radius: 10px;
+                }
+                .cta-social-icons {
+                    top: auto !important;
+                    bottom: 110px !important;
+                    right: 18px !important;
+                    left: auto !important;
+                    flex-direction: row !important;
+                    gap: 16px !important;
+                }
+                .cta-shop-icon {
+                    font-size: 1.6em;
+                }
             }
         </style>
-
-        <meta property="og:locale" content="ja_JP">
-        <meta property="og:type" content="website">
-        <meta property="og:title" content="安積自然農園 | 無肥料無農薬栽培">
-        <meta property="og:description" content="福島県郡山市の安積疎水流域で、無肥料・無農薬・自家採種による自然農法を実践。土と水の力を生かした野菜と無添加加工品を届けます。">
-        <meta property="og:url" content="https://asakanatural.jp/">
-        <meta property="og:image" content="https://asakanatural.jp/無肥料.png">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
         <meta property="og:image:alt" content="安積自然農園 - 無肥料無農薬栽培">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="@asakanatural">
@@ -73,32 +79,7 @@
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "安積自然農園",
-                @media (max-width: 900px) {
-                    .cta-fixed-shop {
-                        top: auto;
-                        bottom: 18px;
-                        right: 12px;
-                        left: auto;
-                        width: 48px;
-                        height: 78px;
-                        max-width: 90vw;
-                        transform: none;
-                        font-size: 0.97rem;
-                        border-radius: 10px;
-                    }
-                    .cta-social-icons {
-                        top: auto !important;
-                        bottom: 110px !important;
-                        right: 18px !important;
-                        left: auto !important;
-                        flex-direction: row !important;
-                        gap: 16px !important;
-                    }
-                    .cta-shop-icon {
-                        font-size: 1.6em;
-                    }
-                "longitude": 140.35
-            },
+            "longitude": 140.35,
             "openingHoursSpecification": {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": [
@@ -115,6 +96,8 @@
         </script>
 </head>
 <body class="home">
+            <!-- 写真ヘッダー（画像は後で差し替え） -->
+            <!-- <div class="header-photo" style="background-image:url('shop/image/farm-landscape.jpg');"></div> -->
         <!-- グローバルナビゲーション・メニュー・ハンバーガー・モバイルメニュー完全撤去 -->
 <script>
 

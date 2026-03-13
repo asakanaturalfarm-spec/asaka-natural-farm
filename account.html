@@ -10,7 +10,7 @@
     <style>
         .account-page {
             min-height: 100vh;
-            background: var(--bg-cream);
+            background: var(--color-water-bg);
         }
 
         .account-container {
@@ -25,10 +25,11 @@
 
         .account-header h1 {
             font-size: 40px;
-            color: var(--text-dark);
+            color: var(--color-accent-deep);
             font-family: 'Noto Serif JP', serif;
             margin-bottom: 12px;
             font-weight: 600;
+            text-shadow: 0 2px 8px #e3f6ff;
         }
 
         .account-header p {
@@ -43,10 +44,11 @@
         }
 
         .account-sidebar {
-            background: white;
+            background: var(--color-light-accent);
             border-radius: 16px;
             padding: 32px 24px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 2px 12px rgba(122, 210, 255, 0.07);
+            border: 1px solid var(--border-light);
             height: fit-content;
             position: sticky;
             top: 120px;
@@ -70,12 +72,13 @@
             transition: var(--transition);
         }
 
-            <!--
+
         .account-nav-item:hover {
             background: var(--bg-cream);
             color: var(--primary-color);
         }
 
+        .account-nav-item.active {
             background: var(--bg-light-green);
             color: var(--primary-color);
             font-weight: 600;
@@ -88,20 +91,22 @@
         }
 
         .account-content {
-            background: white;
+            background: var(--color-light-bg);
             border-radius: 16px;
             padding: 48px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 2px 12px rgba(122, 210, 255, 0.07);
+            border: 1px solid var(--border-light);
         }
 
         .section-title {
             font-size: 28px;
-            color: var(--text-dark);
+            color: var(--color-accent-deep);
             font-family: 'Noto Serif JP', serif;
             margin-bottom: 32px;
             font-weight: 600;
             padding-bottom: 16px;
-            border-bottom: 2px solid var(--border-subtle);
+            border-bottom: 2px solid var(--color-accent);
+            text-shadow: 0 2px 8px #e3f6ff;
         }
 
         .user-info-grid {
@@ -113,9 +118,9 @@
 
         .info-card {
             padding: 24px;
-            background: var(--bg-cream);
+            background: var(--color-water-bg);
             border-radius: 12px;
-            border: 1px solid var(--border-subtle);
+            border: 1px solid var(--border-water);
         }
 
         .info-card-label {
@@ -160,7 +165,7 @@
         .form-group textarea {
             width: 100%;
             padding: 14px 18px;
-            border: 1.5px solid var(--border-subtle);
+            border: 1.5px solid var(--border-water);
             border-radius: 8px;
             font-size: 15px;
             transition: var(--transition);
@@ -170,8 +175,8 @@
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(61, 90, 61, 0.1);
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px #b3e0ff44;
         }
 
         .form-row {
@@ -188,8 +193,8 @@
 
         .btn-save {
             padding: 14px 32px;
-            background: var(--primary-color);
-            color: white;
+            background: var(--color-accent);
+            color: #fff;
             border: none;
             border-radius: 8px;
             font-size: 15px;
@@ -199,16 +204,16 @@
         }
 
         .btn-save:hover {
-            background: var(--primary-dark);
+            background: var(--color-accent-hover);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 2px 12px rgba(76, 198, 224, 0.13);
         }
 
         .btn-cancel {
             padding: 14px 32px;
-            background: white;
-            color: var(--text-medium);
-            border: 1.5px solid var(--border-medium);
+            background: var(--color-light-bg);
+            color: var(--text-light);
+            border: 1.5px solid var(--border-water);
             border-radius: 8px;
             font-size: 15px;
             font-weight: 600;
@@ -217,8 +222,8 @@
         }
 
         .btn-cancel:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
+            border-color: var(--color-accent);
+            color: var(--color-accent);
         }
 
         .favorites-grid {
@@ -228,7 +233,7 @@
         }
 
         .favorite-card {
-            border: 1.5px solid var(--border-subtle);
+            border: 1.5px solid var(--border-water);
             border-radius: 12px;
             overflow: hidden;
             transition: var(--transition);
@@ -236,7 +241,7 @@
         }
 
         .favorite-card:hover {
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 2px 12px rgba(76, 198, 224, 0.13);
             transform: translateY(-4px);
         }
 
@@ -259,7 +264,7 @@
 
         .favorite-card-price {
             font-size: 18px;
-            color: var(--primary-color);
+            color: var(--color-accent);
             font-weight: 600;
         }
 
@@ -276,7 +281,7 @@
 
         .empty-state h3 {
             font-size: 20px;
-            color: var(--text-medium);
+            color: var(--text-light);
             margin-bottom: 12px;
         }
 
