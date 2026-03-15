@@ -1,0 +1,98 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/products.html",
+      "destination": "/products",
+      "permanent": true
+    },
+    {
+      "source": "/product-:id.html",
+      "destination": "/products/:id",
+      "permanent": true
+    },
+    {
+      "source": "/admin-orders.html",
+      "destination": "/admin/orders",
+      "permanent": true
+    },
+    {
+      "source": "/admin-shipping.html",
+      "destination": "/admin/shipping",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/products/list",
+      "destination": "/products.html"
+    },
+    {
+      "source": "/products/:id",
+      "destination": "/product-:id.html"
+    },
+    {
+      "source": "/admin/orders",
+      "destination": "/admin-orders.html"
+    },
+    {
+      "source": "/admin/shipping",
+      "destination": "/admin-shipping.html"
+    },
+    {
+      "source": "/legal/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/legal/tokushoho",
+      "destination": "/tokushoho.html"
+    },
+    {
+      "source": "/legal/store-tokushoho",
+      "destination": "/store-tokushoho.html"
+    },
+    {
+      "source": "/shop/contact",
+      "destination": "/shop-contact.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).(css|js|mjs|png|jpg|jpeg|gif|webp|svg|ico|woff|woff2|ttf)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}

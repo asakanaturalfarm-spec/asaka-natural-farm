@@ -12,8 +12,8 @@
     // ==============================================
     const CONFIG = {
         // API設定（本番環境では環境変数から取得）
-        apiBaseUrl: window.ENV?.INVENTORY_API_URL || 'http://localhost:3000/api',
-        harvestAppUrl: window.ENV?.HARVEST_APP_URL || 'http://localhost:3001/api',
+        apiBaseUrl: window.ENV?.INVENTORY_API_URL || '/api',
+        harvestAppUrl: window.ENV?.HARVEST_APP_URL || '/api/harvest',
         
         // キャッシュ設定
         cacheEnabled: true,
