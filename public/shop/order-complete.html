@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="安積直売所 注文完了">
+    <title>注文完了 | 安積直売所</title>
+    <link rel="stylesheet" href="style.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .complete-page {
+            min-height: 100vh;
+            background: var(--bg-cream);
+            padding: 100px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .complete-container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            padding: 60px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: white;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .complete-title {
+            font-size: 36px;
+            color: var(--text-dark);
+            font-family: 'Noto Serif JP', serif;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .complete-message {
+            font-size: 16px;
+            color: var(--text-medium);
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .order-info {
+            background: var(--bg-cream);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .order-info-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--text-medium);
+            font-size: 14px;
+        }
+
+        .info-value {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .order-number {
+            font-size: 24px;
+            color: var(--primary-color);
+            font-family: monospace;
+        }
+
+        .next-steps {
+            background: rgba(61, 90, 61, 0.05);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .next-steps h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .next-steps ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .next-steps li {
+            padding: 8px 0;
+            color: var(--text-medium);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .next-steps li:before {
+            content: "✓ ";
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-dark);
+            border: 2px solid var(--border-medium);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .support-info {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .support-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .support-info a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .complete-page {
+                padding: 60px 20px;
+            }
+
+            .complete-container {
+                padding: 40px 24px;
+            }
+
+            .complete-title {
+                font-size: 28px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="complete-page">
+        <div class="complete-container">
+            <div class="success-icon">
+                <svg viewBox="0 0 50 50">
+                    <path d="M 10 25 L 20 35 L 40 15"></path>
+                </svg>
+            </div>
+
+            <h1 class="complete-title">ご注文ありがとうございます！</h1>
+            
+            <p class="complete-message">
+                ご注文を承りました。<br>
+                ご登録いただいたメールアドレスに確認メールをお送りしましたので、ご確認ください。
+            </p>
+
+            <div class="order-info">
+                <h2 class="order-info-title">注文情報</h2>
+                <div class="info-row">
+                    <span class="info-label">注文番号</span>
+                    <span class="info-value order-number" id="orderNumber">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">注文日時</span>
+                    <span class="info-value" id="orderDate">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">お支払い方法</span>
+                    <span class="info-value" id="paymentMethod">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">お届け先</span>
+                    <span class="info-value" id="shippingAddress">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">合計金額</span>
+                    <span class="info-value" id="totalAmount">-</span>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h3>今後の流れ</h3>
+                <ul id="nextStepsList">
+                    <li>注文確認メールをご確認ください</li>
+                    <li>商品の発送準備が整い次第、発送完了メールをお送りします</li>
+                    <li>商品は通常2〜5営業日でお届けします</li>
+                    <li>ご不明な点がございましたら、お気軽にお問い合わせください</li>
+                </ul>
+            </div>
+
+            <!-- 支払い方法別の詳細情報 -->
+            <div id="paymentDetails" style="display: none; background: #fff3cd; border: 2px solid #ffc107; border-radius: 12px; padding: 24px; margin-bottom: 32px; text-align: left;">
+                <h3 style="font-size: 16px; font-weight: 600; color: #856404; margin-bottom: 16px;" id="paymentDetailsTitle"></h3>
+                <div id="paymentDetailsContent" style="font-size: 14px; color: #856404; line-height: 1.8;"></div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="index.html" class="btn-primary">
+                    トップページへ
+                </a>
+                <a href="products.html" class="btn-secondary">
+                    商品一覧を見る
+                </a>
+            </div>
+
+            <div class="support-info">
+                ご質問やお困りのことがございましたら<br>
+                <a href="mailto:info@azaka-farm.com">info@azaka-farm.com</a> までお問い合わせください。
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 支払い方法別の詳細情報を表示
+        function showPaymentSpecificInfo(order) {
+            const paymentDetailsDiv = document.getElementById('paymentDetails');
+            const paymentDetailsTitle = document.getElementById('paymentDetailsTitle');
+            const paymentDetailsContent = document.getElementById('paymentDetailsContent');
+            const nextStepsList = document.getElementById('nextStepsList');
+
+            let title = '';
+            let content = '';
+            let additionalSteps = [];
+
+            switch(order.paymentMethod) {
+                case 'credit':
+                    // クレジットカード決済の場合
+                    title = '💳 クレジットカード決済について';
+                    content = `
+                        <p style="margin-bottom: 12px;"><strong>決済が完了しました。</strong></p>
+                        <p>クレジットカードでの決済が正常に処理されました。商品の発送準備を開始いたします。</p>
+                    `;
+                    additionalSteps = [];
+                    break;
+
+                case 'bank':
+                    // 銀行振込の場合
+                    title = '🏦 銀行振込のご案内（重要）';
+                    content = `
+                        <p style="margin-bottom: 12px;"><strong>以下の口座にお振込みください</strong></p>
+                        <div style="background: white; padding: 16px; border-radius: 8px; margin: 12px 0;">
+                            <p style="margin: 4px 0;"><strong>銀行名：</strong>${order.bankInfo?.bankName || '〇〇銀行'}</p>
+                            <p style="margin: 4px 0;"><strong>支店名：</strong>${order.bankInfo?.branchName || '〇〇支店'}</p>
+                            <p style="margin: 4px 0;"><strong>口座種別：</strong>${order.bankInfo?.accountType || '普通'}</p>
+                            <p style="margin: 4px 0;"><strong>口座番号：</strong>${order.bankInfo?.accountNumber || '1234567'}</p>
+                            <p style="margin: 4px 0;"><strong>口座名義：</strong>${order.bankInfo?.accountHolder || '安積直売所'}</p>
+                        </div>
+                        <p style="color: #d9534f; font-weight: 600;">⚠ 7日以内にお振込みをお願いいたします</p>
+                        <p style="font-size: 13px; margin-top: 8px;">※ お振込み手数料はお客様負担となります</p>
+                    `;
+                    additionalSteps = [
+                        '上記口座へ7日以内にお振込みください',
+                        'お振込み確認後、3営業日以内に商品を発送いたします',
+                        '振込名義はご注文者様のお名前と一致するようお願いいたします'
+                    ];
+                    break;
+
+                case 'cod':
+                    // 代金引換の場合
+                    title = '💰 代金引換でのお支払いについて';
+                    const codTotal = order.subtotal + order.shipping + order.codFee;
+                    content = `
+                        <p style="margin-bottom: 12px;"><strong>商品受取時に配達員へ現金でお支払いください</strong></p>
+                        <div style="background: white; padding: 16px; border-radius: 8px; margin: 12px 0;">
+                            <p style="margin: 4px 0;"><strong>お支払い金額（代引手数料込）：</strong><span style="font-size: 20px; color: #28a745;">¥${codTotal.toLocaleString()}</span></p>
+                        </div>
+                        <p style="font-size: 13px; margin-top: 8px;">※ お釣りのないようご準備いただけると助かります</p>
+                        <p style="font-size: 13px;">※ 配達時にご不在の場合は再配達となりますのでご注意ください</p>
+                    `;
+                    additionalSteps = [
+                        'お支払い金額（¥' + codTotal.toLocaleString() + '）を現金でご準備ください',
+                        '商品到着時に配達員へお支払いをお願いいたします',
+                        '領収書は配達員がお渡しいたします'
+                    ];
+                    break;
+
+                case 'konbini':
+                    // コンビニ決済の場合
+                    title = '🏪 コンビニ決済のご案内（重要）';
+                    content = `
+                        <p style="margin-bottom: 12px;"><strong>お支払い番号をメールでお送りしました</strong></p>
+                        <div style="background: white; padding: 16px; border-radius: 8px; margin: 12px 0;">
+                            <p style="margin: 4px 0;"><strong>お支払い番号：</strong><span style="font-size: 18px; font-family: monospace; color: #007bff;">${order.paymentNumber || 'KB-XXXXXXXXXX'}</span></p>
+                        </div>
+                        <p style="margin-bottom: 8px;"><strong>お支払い可能なコンビニ：</strong></p>
+                        <ul style="padding-left: 20px; margin-bottom: 12px;">
+                            <li>セブンイレブン</li>
+                            <li>ローソン</li>
+                            <li>ファミリーマート</li>
+                        </ul>
+                        <p style="color: #d9534f; font-weight: 600;">⚠ 7日以内にお支払いをお願いいたします</p>
+                        <p style="font-size: 13px; margin-top: 8px;">※ コンビニ店頭の端末でお支払い番号を入力してください</p>
+                    `;
+                    additionalSteps = [
+                        'メールに記載のお支払い番号を確認してください',
+                        '7日以内にコンビニでお支払いください',
+                        'お支払い確認後、3営業日以内に商品を発送いたします'
+                    ];
+                    break;
+            }
+
+            if (title && content) {
+                paymentDetailsDiv.style.display = 'block';
+                paymentDetailsTitle.innerHTML = title;
+                paymentDetailsContent.innerHTML = content;
+
+                // 追加のステップがあれば表示
+                if (additionalSteps.length > 0) {
+                    additionalSteps.forEach(step => {
+                        const li = document.createElement('li');
+                        li.textContent = step;
+                        nextStepsList.appendChild(li);
+                    });
+                }
+            }
+        }
+
+        // 注文情報を表示
+        function displayOrderInfo() {
+            // 注文番号を生成（実際にはサーバーから取得）
+            const orderNumber = 'AZK' + Date.now().toString().slice(-8);
+            document.getElementById('orderNumber').textContent = orderNumber;
+
+            // 注文日時
+            const now = new Date();
+            const dateStr = now.getFullYear() + '年' + 
+                           (now.getMonth() + 1) + '月' + 
+                           now.getDate() + '日 ' + 
+                           now.getHours().toString().padStart(2, '0') + ':' + 
+                           now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('orderDate').textContent = dateStr;
+
+            // localStorageから注文データを取得
+            try {
+                const orderData = localStorage.getItem('lastOrder');
+                if (orderData) {
+                    const order = JSON.parse(orderData);
+                    
+                    // 支払い方法
+                    const paymentMethods = {
+                        'credit': 'クレジットカード',
+                        'bank': '銀行振込',
+                        'cod': '代金引換',
+                        'konbini': 'コンビニ決済'
+                    };
+                    document.getElementById('paymentMethod').textContent = 
+                        paymentMethods[order.paymentMethod] || order.paymentMethod;
+
+                    // 配送先
+                    if (order.shipping) {
+                        const addr = `${order.shipping.prefecture} ${order.shipping.city} ${order.shipping.address}`;
+                        document.getElementById('shippingAddress').textContent = addr;
+                    }
+
+                    // 合計金額
+                    const total = order.subtotal + order.shipping + (order.codFee || 0);
+                    document.getElementById('totalAmount').textContent = `¥${total.toLocaleString()}`;
+
+                    // 支払い方法別の詳細情報を表示
+                    showPaymentSpecificInfo(order);
+
+                    // 注文データをクリア
+                    localStorage.removeItem('lastOrder');
+                    // カートは既にcheckout.htmlでクリア済み
+                    
+                    // カートがクリアされていることを確認
+                    const cartCheck = localStorage.getItem('cartItems');
+                    if (cartCheck) {
+                        console.warn('カートがまだ残っています。クリアします。');
+                        localStorage.removeItem('cartItems');
+                    }
+                    console.log('✓ 注文が完了し、カートがクリアされました');
+                }
+            } catch (e) {
+                console.error('注文データの読み込みエラー:', e);
+            }
+        }
+
+        // ページ読み込み時に実行
+        displayOrderInfo();
+    </script>
+</body>
+</html>

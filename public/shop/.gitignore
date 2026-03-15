@@ -1,0 +1,39 @@
+# セキュリティ - このファイルは絶対に公開しないこと
+.env
+.env.local
+.env.production
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ログ
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# エディタ
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 一時ファイル
+tmp/
+temp/
+*.tmp
+
+# テスト
+coverage/
+.nyc_output/
+
+# バックアップ
+*.bak
+*.backup

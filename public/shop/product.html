@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 動的SEOメタタグ（JavaScript で更新） -->
+    <meta name="description" content="商品詳細 | 安積直売所">
+    <meta name="keywords" content="自然農法野菜,無農薬野菜,無肥料野菜,産地直送,福島県産">
+    <title>商品詳細 | 安積直売所</title>
+    <link rel="canonical" href="https://asakanatural.jp/shop/product.html">
+    <meta name="robots" content="index, follow">
+    
+    <!-- OGP（動的更新） -->
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="https://asakanatural.jp/shop/product.html">
+    <meta property="og:title" content="商品詳細 | 安積直売所">
+    <meta property="og:description" content="無農薬・無肥料・自家採種の自然農法野菜">
+    <meta property="og:image" content="https://asakanatural.jp/shop/image/seika/sample1.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="商品詳細 | 安積直売所">
+    <meta name="twitter:description" content="無農薬・無肥料・自家採種の自然農法野菜">
+    <meta name="twitter:image" content="https://asakanatural.jp/shop/image/seika/sample1.jpg">
+    
+    <link rel="stylesheet" href="style.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .product-page {
+            min-height: 100vh;
+            background: var(--bg-cream);
+            padding: 120px 40px;
+        }
+
+        .product-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+
+        .breadcrumb span {
+            color: var(--text-light);
+            margin: 0 8px;
+        }
+
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            background: white;
+            border-radius: 16px;
+            padding: 60px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 60px;
+        }
+
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--bg-cream);
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnail-images {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .thumbnail:hover {
+            border-color: var(--primary-color);
+        }
+
+        .thumbnail.active {
+            border-color: var(--primary-color);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-badge-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-size: 13px;
+            font-weight: 500;
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .product-title {
+            font-size: 36px;
+            color: var(--text-dark);
+            font-family: 'NIS Tak Narrow', 'Noto Serif JP', serif;
+            margin-bottom: 16px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .product-subtitle {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .product-price-section {
+            background: var(--bg-light-green);
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+        }
+
+        .product-price {
+            font-size: 42px;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-unit {
+            font-size: 16px;
+            color: var(--text-medium);
+        }
+
+        .product-quantity {
+            margin-bottom: 32px;
+        }
+
+        .quantity-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .quantity-btn-large {
+            width: 48px;
+            height: 48px;
+            border: 2px solid var(--border-medium);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .quantity-btn-large:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .quantity-input-large {
+            width: 80px;
+            text-align: center;
+            padding: 12px;
+            border: 2px solid var(--border-subtle);
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .add-to-cart-section {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .add-to-cart-btn {
+            flex: 1;
+            padding: 18px 32px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .favorite-btn {
+            width: 60px;
+            padding: 18px;
+            background: white;
+            border: 2px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .favorite-btn:hover {
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+
+        .favorite-btn.active {
+            color: #ffd700;
+            border-color: #ffd700;
+        }
+
+        .product-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 32px;
+        }
+
+        .product-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            color: var(--text-medium);
+        }
+
+        .product-features li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            font-size: 20px;
+        }
+
+        .product-description-section {
+            background: white;
+            border-radius: 16px;
+            padding: 60px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-tabs {
+            display: flex;
+            gap: 32px;
+            border-bottom: 2px solid var(--border-subtle);
+            margin-bottom: 40px;
+        }
+
+        .tab {
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-light);
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: -2px;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .description-text {
+            font-size: 16px;
+            line-height: 2;
+            color: var(--text-medium);
+        }
+
+        .description-text p {
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .product-page {
+                padding: 80px 20px;
+            }
+
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 40px 30px;
+            }
+
+            .main-image {
+                height: 400px;
+            }
+
+            .product-title {
+                font-size: 28px;
+            }
+
+            .product-price {
+                font-size: 32px;
+            }
+
+            .add-to-cart-section {
+                flex-direction: column;
+            }
+
+            .favorite-btn {
+                width: 100%;
+            }
+
+            .product-description-section {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="product-page">
+        <div class="product-container">
+            <div class="breadcrumb">
+                <a href="index.html">ホーム</a>
+                <span>›</span>
+                <a href="index.html#products">商品一覧</a>
+                <span>›</span>
+                <span id="productBreadcrumb">ほうれん草</span>
+            </div>
+
+            <div class="product-detail">
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="image/seika/sample1.jpg" alt="ほうれん草" id="mainImage">
+                    </div>
+                    <div class="thumbnail-images">
+                        <div class="thumbnail active" onclick="changeImage('image/seika/sample1.jpg', 0)">
+                            <img src="image/seika/sample1.jpg" alt="ほうれん草 1">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage('image/seika/sample1.jpg', 1)">
+                            <img src="image/seika/sample1.jpg" alt="ほうれん草 2">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage('image/seika/sample1.jpg', 2)">
+                            <img src="image/seika/sample1.jpg" alt="ほうれん草 3">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage('image/seika/sample1.jpg', 3)">
+                            <img src="image/seika/sample1.jpg" alt="ほうれん草 4">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-info">
+                    <div class="product-badge-container">
+                        <span class="badge">今期</span>
+                        <span class="badge">無農薬</span>
+                    </div>
+
+                    <h1 class="product-title" id="productTitle">ほうれん草</h1>
+                    <p class="product-subtitle" id="productSubtitle">甘みが強く栄養満点。鉄分やビタミンが豊富で、健康的な食生活をサポートします。</p>
+
+                    <div class="product-price-section">
+                        <div class="product-price" id="productPrice">¥300</div>
+                        <div class="product-unit" id="productUnit">（袋あたり）</div>
+                    </div>
+
+                    <div class="product-quantity">
+                        <label class="quantity-label">数量</label>
+                        <div class="quantity-selector">
+                            <button class="quantity-btn-large" onclick="updateQuantity(-1)">−</button>
+                            <input type="number" class="quantity-input-large" id="quantity" value="1" min="1" onchange="setQuantity(this.value)">
+                            <button class="quantity-btn-large" onclick="updateQuantity(1)">＋</button>
+                        </div>
+                    </div>
+
+                    <div class="add-to-cart-section">
+                        <button class="add-to-cart-btn" onclick="addToCart()">🛒 カートに追加</button>
+                        <button class="favorite-btn" id="favoriteBtn" onclick="toggleFavorite()">☆</button>
+                    </div>
+
+                    <ul class="product-features">
+                        <li><span class="feature-icon">🌱</span> 無農薬・無肥料栽培</li>
+                        <li><span class="feature-icon">🌾</span> 自家採種</li>
+                        <li><span class="feature-icon">📦</span> 新鮮配送（収穫後即発送）</li>
+                        <li><span class="feature-icon">✨</span> 旬の時期：10月〜5月</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-description-section">
+                <div class="section-tabs">
+                    <div class="tab active" onclick="switchTab('description')">商品説明</div>
+                    <div class="tab" onclick="switchTab('cultivation')">栽培方法</div>
+                    <div class="tab" onclick="switchTab('shipping')">配送について</div>
+                </div>
+
+                <div id="description" class="tab-content active">
+                    <div class="description-text">
+                        <p>安積自然農園で丁寧に育てられたほうれん草です。肥料や農薬を一切使用せず、土と種だけで育てた自然栽培のほうれん草は、野菜本来の甘みと栄養がぎっしり詰まっています。</p>
+                        <p>葉が肉厚で柔らかく、アクが少ないのが特徴です。おひたしやソテー、スムージーなど、様々な料理にお使いいただけます。</p>
+                        <p>鉄分、ビタミンA、ビタミンC、カルシウムなどの栄養素が豊富で、健康維持に役立ちます。</p>
+                    </div>
+                </div>
+
+                <div id="cultivation" class="tab-content">
+                    <div class="description-text">
+                        <p><strong>自家採種による種取り</strong><br>
+                        毎年、優れた株から種を採取し、その地域の気候や土壌に適応した強い野菜を育てています。</p>
+                        
+                        <p><strong>無肥料・無農薬栽培</strong><br>
+                        化学肥料や有機肥料も使用せず、土中の微生物の力を借りて植物が自然に成長する環境を整えています。</p>
+                        
+                        <p><strong>適期播種と手作業管理</strong><br>
+                        自然のリズムに合わせた播種時期を守り、草取りや間引きなどすべての作業を手作業で丁寧に行っています。</p>
+                    </div>
+                </div>
+
+                <div id="shipping" class="tab-content">
+                    <div class="description-text">
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                <th style="text-align: left; padding: 12px 8px; width: 140px; font-weight: 600;">配送方法</th>
+                                <td style="padding: 12px 8px;">ヤマト運輸クール便（冷蔵）</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                <th style="text-align: left; padding: 12px 8px; font-weight: 600;">送料</th>
+                                <td style="padding: 12px 8px;">全国一律 ¥500</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                <th style="text-align: left; padding: 12px 8px; font-weight: 600;">発送日</th>
+                                <td style="padding: 12px 8px;">月・水・金曜日（収穫後、当日発送）</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                <th style="text-align: left; padding: 12px 8px; font-weight: 600;">最低購入金額</th>
+                                <td style="padding: 12px 8px;">¥4,500以上</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                <th style="text-align: left; padding: 12px 8px; font-weight: 600;">配送日時指定</th>
+                                <td style="padding: 12px 8px;">可能（ご注文時の備考欄にご記入ください）</td>
+                            </tr>
+                        </table>
+                        
+                        <div style="background: #f5f5f5; padding: 16px; border-radius: 4px; font-size: 0.9em;">
+                            <p style="margin: 0 0 8px 0; font-weight: 600;">ご注意事項</p>
+                            <ul style="margin: 0; padding-left: 20px;">
+                                <li>収穫したばかりの新鮮な野菜をお届けするため、受注後に収穫・梱包・発送を行います。</li>
+                                <li>より新鮮な野菜をお届けするため、すべての野菜は水洗いをしておりません。</li>
+                                <li>収穫状況により発送日が前後する場合がございます。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="inventory-sync.js"></script>
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script>
+        let quantity = 1;
+        let currentProduct = null;
+
+        // 商品データを読み込んで表示
+        function loadProductData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || 'v1';
+            
+            // PRODUCTSから商品を検索
+            currentProduct = PRODUCTS.find(p => p.id === productId);
+            
+            if (!currentProduct) {
+                currentProduct = PRODUCTS[0]; // デフォルトで最初の商品
+            }
+            
+            // ページタイトル更新
+            document.title = `${currentProduct.name} | 安積直売所`;
+            
+            // パンくず更新
+            document.getElementById('productBreadcrumb').textContent = currentProduct.name;
+            
+            // メイン画像とサムネイル更新
+            document.getElementById('mainImage').src = currentProduct.img;
+            document.getElementById('mainImage').alt = currentProduct.name;
+            
+            // 商品情報更新
+            document.getElementById('productTitle').textContent = currentProduct.name;
+            document.getElementById('productSubtitle').textContent = currentProduct.description;
+            document.getElementById('productPrice').textContent = `¥${currentProduct.price}`;
+            document.getElementById('productUnit').textContent = `（${currentProduct.unit}あたり）`;
+            
+            // バッジ更新
+            const badgeContainer = document.querySelector('.product-badge-container');
+            badgeContainer.innerHTML = `
+                <span class="badge">${currentProduct.period}</span>
+                <span class="badge">無農薬</span>
+            `;
+            
+            // 旬の月表示
+            const seasonText = currentProduct.seasonMonths.map(m => `${m}月`).join('・');
+            const featuresList = document.querySelector('.product-features');
+            featuresList.innerHTML = `
+                <li><span class="feature-icon">🌱</span> 無農薬・無肥料栽培</li>
+                <li><span class="feature-icon">🌾</span> 自家採種</li>
+                <li><span class="feature-icon">📦</span> 新鮮配送（収穫後即発送）</li>
+                <li><span class="feature-icon">✨</span> 旬の時期：${seasonText}</li>
+            `;
+        }
+
+        function changeImage(src, index) {
+            document.getElementById('mainImage').src = src;
+            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+        }
+
+        function updateQuantity(change) {
+            quantity = Math.max(1, quantity + change);
+            document.getElementById('quantity').value = quantity;
+        }
+
+        function setQuantity(value) {
+            quantity = Math.max(1, parseInt(value) || 1);
+            document.getElementById('quantity').value = quantity;
+        }
+
+        function addToCart() {
+            if (!currentProduct) return;
+            
+            // ログインチェック
+            if (!window.Auth || !window.Auth.isLoggedIn()) {
+                if (confirm('カートを利用するにはログインが必要です。\nログインページへ移動しますか？')) {
+                    window.location.href = 'login.html?redirect=product.html?id=' + currentProduct.id;
+                }
+                return;
+            }
+            
+            // リアルタイム在庫取得
+            const inventory = window.InventorySync ? window.InventorySync.get(currentProduct.id) : { stock: 0 };
+            const currentStock = inventory.stock || 0;
+            
+            // 在庫チェック
+            if (currentStock === 0) {
+                alert(`申し訳ございません。${currentProduct.name}は現在在庫切れです。`);
+                return;
+            }
+            
+            // カートデータを取得
+            let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            
+            // 既存のカートアイテムを確認
+            const existingItem = cartItems.find(item => item.id === currentProduct.id);
+            const currentCartQuantity = existingItem ? existingItem.quantity : 0;
+            const newQuantity = currentCartQuantity + quantity;
+            
+            // 在庫数を超えないかチェック
+            if (newQuantity > currentStock) {
+                alert(`申し訳ございません。${currentProduct.name}の在庫が不足しています。\n現在の在庫：${currentStock}個\nカート内：${currentCartQuantity}個\nご希望数：${quantity}個`);
+                return;
+            }
+            
+            // カートに追加
+            if (existingItem) {
+                existingItem.quantity = newQuantity;
+            } else {
+                cartItems.push({
+                    id: currentProduct.id,
+                    name: currentProduct.name,
+                    price: currentProduct.price,
+                    unit: currentProduct.unit,
+                    image: currentProduct.img,
+                    description: currentProduct.description,
+                    quantity: quantity,
+                    stock: currentStock
+                });
+            }
+            
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            alert(`カートに追加しました！\n商品: ${currentProduct.name}\n数量: ${quantity}個`);
+        }
+
+        function toggleFavorite() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || 'v1';
+            
+            let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const btn = document.getElementById('favoriteBtn');
+            
+            const index = favorites.indexOf(productId);
+            if (index > -1) {
+                favorites.splice(index, 1);
+                btn.textContent = '☆';
+                btn.classList.remove('active');
+            } else {
+                favorites.push(productId);
+                btn.textContent = '★';
+                btn.classList.add('active');
+            }
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+        }
+
+        // ページ読み込み時に実行
+        window.addEventListener('DOMContentLoaded', function() {
+            // 商品データ読み込み
+            loadProductData();
+            
+            // SEOメタタグを動的に更新
+            updateDynamicSEO();
+            
+            // お気に入り状態を反映
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || 'v1';
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const btn = document.getElementById('favoriteBtn');
+            
+            if (favorites.includes(productId)) {
+                btn.textContent = '★';
+                btn.classList.add('active');
+            }
+        });
+        
+        // 動的SEO対策
+        function updateDynamicSEO() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            if (!productId || !window.PRODUCTS) return;
+            
+            const product = window.PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+            
+            // タイトル・説明の最適化
+            const title = `${product.name}（${product.unit}）| 自然農法 無農薬野菜 | 安積直売所`;
+            const description = `${product.description || product.name}。無農薬・無肥料・自家採種の自然農法で栽培。福島県郡山市から新鮮な${product.category}を産地直送。税込${product.priceWithTax || product.price}円/${product.unit}。`;
+            const keywords = `${product.name},自然農法,無農薬野菜,無肥料栽培,${product.category},産地直送,福島県産,オーガニック,自家採種`;
+            const productUrl = `https://asakanatural.jp/shop/product.html?id=${productId}`;
+            const imageUrl = `https://asakanatural.jp/shop/${product.img}`;
+            
+            // メタタグを更新
+            document.title = title;
+            document.querySelector('meta[name="description"]').setAttribute('content', description);
+            document.querySelector('meta[name="keywords"]').setAttribute('content', keywords);
+            document.querySelector('link[rel="canonical"]').setAttribute('href', productUrl);
+            
+            // OGPタグを更新
+            document.querySelector('meta[property="og:url"]').setAttribute('content', productUrl);
+            document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+            document.querySelector('meta[property="og:description"]').setAttribute('content', description);
+            document.querySelector('meta[property="og:image"]').setAttribute('content', imageUrl);
+            
+            // Twitter Card更新
+            document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
+            document.querySelector('meta[name="twitter:description"]').setAttribute('content', description);
+            document.querySelector('meta[name="twitter:image"]').setAttribute('content', imageUrl);
+            
+            // 構造化データ（Product Schema）を追加
+            const productSchema = {
+                "@context": "https://schema.org/",
+                "@type": "Product",
+                "name": product.name,
+                "image": imageUrl,
+                "description": description,
+                "brand": {
+                    "@type": "Brand",
+                    "name": "安積自然農園"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "url": productUrl,
+                    "priceCurrency": "JPY",
+                    "price": product.priceWithTax || product.price,
+                    "priceValidUntil": new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0],
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "availability": product.stock && product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+                    "seller": {
+                        "@type": "Organization",
+                        "name": "安積自然農園"
+                    }
+                },
+                "category": product.category,
+                "sku": product.sku || product.id,
+                "additionalProperty": [
+                    {
+                        "@type": "PropertyValue",
+                        "name": "栽培方法",
+                        "value": "自然農法（無農薬・無肥料）"
+                    },
+                    {
+                        "@type": "PropertyValue",
+                        "name": "産地",
+                        "value": "福島県郡山市"
+                    }
+                ]
+            };
+            
+            // 既存のスキーマがあれば削除
+            const existingSchema = document.querySelector('script[type="application/ld+json"]');
+            if (existingSchema) {
+                existingSchema.remove();
+            }
+            
+            // 新しいスキーマを追加
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.textContent = JSON.stringify(productSchema);
+            document.head.appendChild(script);
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注文管理 | 安積直売所 管理画面</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .admin-header {
+            background: #2c5f2d;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .admin-header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .admin-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .toolbar {
+            background: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 500;
+        }
+        
+        .btn-primary {
+            background: #2c5f2d;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1e4620;
+        }
+        
+        .btn-secondary {
+            background: #666;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #444;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        select, input[type="text"], input[type="date"] {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .stats {
+            background: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 15px;
+            border-left: 4px solid #2c5f2d;
+            background: #f9f9f9;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c5f2d;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        table {
+            width: 100%;
+            background: white;
+            border-radius: 5px;
+            border-collapse: collapse;
+            overflow: hidden;
+        }
+        
+        th {
+            background: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+        
+        tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .order-id {
+            font-family: monospace;
+            font-weight: 600;
+            color: #2c5f2d;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-confirmed { background: #cce5ff; color: #004085; }
+        .status-shipped { background: #d4edda; color: #155724; }
+        .status-delivered { background: #d1ecf1; color: #0c5460; }
+        .status-cancelled { background: #f8d7da; color: #721c24; }
+        
+        .status-select {
+            padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .btn-sm {
+            padding: 4px 10px;
+            font-size: 12px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            width: 90%;
+        }
+        
+        .modal-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .modal-header h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .detail-row {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .detail-value {
+            color: #333;
+        }
+        
+        .items-list {
+            margin: 15px 0;
+        }
+        
+        .item-row {
+            padding: 10px;
+            background: #f9f9f9;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+        
+        .close-modal {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .close-modal:hover {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>📋 注文管理</h1>
+        <p>フロントより重要 - 注文一覧・ステータス変更・CSVエクスポート</p>
+    </div>
+    
+    <div class="toolbar">
+        <input type="text" class="search-box" id="searchBox" placeholder="注文番号・顧客名で検索...">
+        
+        <div class="filter-group">
+            <select id="statusFilter">
+                <option value="">すべてのステータス</option>
+                <option value="pending">入金待ち</option>
+                <option value="confirmed">注文確定</option>
+                <option value="shipped">発送済み</option>
+                <option value="delivered">配達完了</option>
+                <option value="cancelled">キャンセル</option>
+            </select>
+            
+            <input type="date" id="dateFrom">
+            <span>〜</span>
+            <input type="date" id="dateTo">
+            
+            <button class="btn btn-secondary" onclick="applyFilters()">絞り込み</button>
+            <button class="btn btn-secondary" onclick="resetFilters()">リセット</button>
+        </div>
+        
+        <button class="btn btn-primary" onclick="exportCSV()">📥 CSVエクスポート</button>
+        <button class="btn btn-secondary" onclick="location.reload()">🔄 更新</button>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-value" id="totalOrders">0</div>
+            <div class="stat-label">総注文数</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="totalSales">¥0</div>
+            <div class="stat-label">総売上</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="pendingCount">0</div>
+            <div class="stat-label">入金待ち</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="shippedCount">0</div>
+            <div class="stat-label">発送済み</div>
+        </div>
+    </div>
+    
+    <div style="background: white; border-radius: 5px; overflow: hidden;">
+        <table id="ordersTable">
+            <thead>
+                <tr>
+                    <th>注文番号</th>
+                    <th>注文日</th>
+                    <th>顧客名</th>
+                    <th>商品数</th>
+                    <th>合計金額</th>
+                    <th>支払方法</th>
+                    <th>ステータス</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+                <!-- 注文データを動的に挿入 -->
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- 詳細モーダル -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+                <h2>注文詳細</h2>
+                <p id="modalOrderId" style="color: #666; font-size: 14px;"></p>
+            </div>
+            <div id="modalBody"></div>
+            <button class="btn btn-secondary" onclick="closeModal()" style="margin-top: 20px;">閉じる</button>
+        </div>
+    </div>
+    
+    <script>
+        // サンプル注文データ（実際はサーバーから取得）
+        let allOrders = [
+            {
+                orderId: 'ORD_20260122001',
+                orderDate: '2026-01-22T10:30:00',
+                customerName: '山田太郎',
+                customerEmail: 'yamada@example.com',
+                customerPhone: '090-1234-5678',
+                items: [
+                    { name: 'ほうれん草', quantity: 3, unitPrice: 300, subtotal: 900 },
+                    { name: '水菜', quantity: 2, unitPrice: 220, subtotal: 440 }
+                ],
+                subtotal: 1340,
+                shippingFee: 500,
+                tax: 147,
+                total: 1987,
+                paymentMethod: 'クレジットカード',
+                status: 'confirmed',
+                shippingAddress: '〒963-0201 福島県郡山市大槻町字前畑60',
+                deliveryDate: '2026-01-25',
+                trackingNumber: null
+            },
+            {
+                orderId: 'ORD_20260122002',
+                orderDate: '2026-01-22T11:15:00',
+                customerName: '佐藤花子',
+                customerEmail: 'sato@example.com',
+                customerPhone: '080-9876-5432',
+                items: [
+                    { name: '小松菜', quantity: 2, unitPrice: 250, subtotal: 500 }
+                ],
+                subtotal: 500,
+                shippingFee: 500,
+                tax: 80,
+                total: 1080,
+                paymentMethod: 'コンビニ決済',
+                status: 'pending',
+                shippingAddress: '〒960-8034 福島県福島市置賜町1-1',
+                deliveryDate: '2026-01-24',
+                trackingNumber: null
+            },
+            {
+                orderId: 'ORD_20260121005',
+                orderDate: '2026-01-21T14:20:00',
+                customerName: '鈴木一郎',
+                customerEmail: 'suzuki@example.com',
+                customerPhone: '070-5555-6666',
+                items: [
+                    { name: 'ほうれん草', quantity: 5, unitPrice: 300, subtotal: 1500 },
+                    { name: '水菜', quantity: 3, unitPrice: 220, subtotal: 660 },
+                    { name: 'チンゲン菜', quantity: 2, unitPrice: 200, subtotal: 400 }
+                ],
+                subtotal: 2560,
+                shippingFee: 500,
+                tax: 245,
+                total: 3305,
+                paymentMethod: 'PayPay',
+                status: 'shipped',
+                shippingAddress: '〒965-0000 福島県会津若松市東栄町1-1',
+                deliveryDate: '2026-01-23',
+                trackingNumber: '1234-5678-9012'
+            },
+            {
+                orderId: 'ORD_20260120003',
+                orderDate: '2026-01-20T09:45:00',
+                customerName: '田中美咲',
+                customerEmail: 'tanaka@example.com',
+                customerPhone: '090-7777-8888',
+                items: [
+                    { name: '水菜', quantity: 1, unitPrice: 220, subtotal: 220 }
+                ],
+                subtotal: 220,
+                shippingFee: 0,
+                tax: 18,
+                total: 238,
+                paymentMethod: 'クレジットカード',
+                status: 'cancelled',
+                shippingAddress: '〒970-8026 福島県いわき市平字田町1-1',
+                deliveryDate: null,
+                trackingNumber: null
+            }
+        ];
+        
+        let filteredOrders = [...allOrders];
+        
+        // 初期表示
+        renderOrders();
+        updateStats();
+        
+        // 注文テーブルを描画
+        function renderOrders() {
+            const tbody = document.getElementById('ordersTableBody');
+            
+            if (filteredOrders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="empty-state">該当する注文がありません</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = filteredOrders.map(order => {
+                const statusLabel = getStatusLabel(order.status);
+                const itemCount = order.items.reduce((sum, item) => sum + item.quantity, 0);
+                const orderDate = new Date(order.orderDate).toLocaleString('ja-JP', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                return `
+                    <tr>
+                        <td class="order-id">${order.orderId}</td>
+                        <td>${orderDate}</td>
+                        <td>${order.customerName}</td>
+                        <td>${itemCount}点</td>
+                        <td>¥${order.total.toLocaleString('ja-JP')}</td>
+                        <td>${order.paymentMethod}</td>
+                        <td>
+                            <select class="status-select" onchange="updateStatus('${order.orderId}', this.value)">
+                                <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>入金待ち</option>
+                                <option value="confirmed" ${order.status === 'confirmed' ? 'selected' : ''}>注文確定</option>
+                                <option value="shipped" ${order.status === 'shipped' ? 'selected' : ''}>発送済み</option>
+                                <option value="delivered" ${order.status === 'delivered' ? 'selected' : ''}>配達完了</option>
+                                <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>キャンセル</option>
+                            </select>
+                        </td>
+                        <td class="actions">
+                            <button class="btn btn-secondary btn-sm" onclick="viewDetail('${order.orderId}')">詳細</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        // ステータスラベルを取得
+        function getStatusLabel(status) {
+            const labels = {
+                pending: '入金待ち',
+                confirmed: '注文確定',
+                shipped: '発送済み',
+                delivered: '配達完了',
+                cancelled: 'キャンセル'
+            };
+            return `<span class="status-badge status-${status}">${labels[status]}</span>`;
+        }
+        
+        // 統計を更新
+        function updateStats() {
+            document.getElementById('totalOrders').textContent = filteredOrders.length;
+            
+            const totalSales = filteredOrders
+                .filter(o => o.status !== 'cancelled')
+                .reduce((sum, o) => sum + o.total, 0);
+            document.getElementById('totalSales').textContent = '¥' + totalSales.toLocaleString('ja-JP');
+            
+            const pendingCount = filteredOrders.filter(o => o.status === 'pending').length;
+            document.getElementById('pendingCount').textContent = pendingCount;
+            
+            const shippedCount = filteredOrders.filter(o => o.status === 'shipped').length;
+            document.getElementById('shippedCount').textContent = shippedCount;
+        }
+        
+        // フィルター適用
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            const dateFrom = document.getElementById('dateFrom').value;
+            const dateTo = document.getElementById('dateTo').value;
+            
+            filteredOrders = allOrders.filter(order => {
+                // 検索フィルター
+                if (searchTerm) {
+                    const matchSearch = 
+                        order.orderId.toLowerCase().includes(searchTerm) ||
+                        order.customerName.toLowerCase().includes(searchTerm);
+                    if (!matchSearch) return false;
+                }
+                
+                // ステータスフィルター
+                if (statusFilter && order.status !== statusFilter) {
+                    return false;
+                }
+                
+                // 日付フィルター
+                const orderDate = new Date(order.orderDate).toISOString().split('T')[0];
+                if (dateFrom && orderDate < dateFrom) return false;
+                if (dateTo && orderDate > dateTo) return false;
+                
+                return true;
+            });
+            
+            renderOrders();
+            updateStats();
+        }
+        
+        // フィルターリセット
+        function resetFilters() {
+            document.getElementById('searchBox').value = '';
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('dateFrom').value = '';
+            document.getElementById('dateTo').value = '';
+            
+            filteredOrders = [...allOrders];
+            renderOrders();
+            updateStats();
+        }
+        
+        // リアルタイム検索
+        document.getElementById('searchBox').addEventListener('input', applyFilters);
+        
+        // ステータス更新
+        function updateStatus(orderId, newStatus) {
+            const order = allOrders.find(o => o.orderId === orderId);
+            if (!order) return;
+            
+            const oldStatus = order.status;
+            order.status = newStatus;
+            
+            console.log(`[ステータス更新] ${orderId}: ${oldStatus} → ${newStatus}`);
+            
+            // 実際はサーバーに送信
+            // await fetch('/api/admin/orders/update-status', {
+            //     method: 'POST',
+            //     body: JSON.stringify({ orderId, status: newStatus })
+            // });
+            
+            alert(`注文 ${orderId} のステータスを「${getStatusLabel(newStatus).replace(/<[^>]*>/g, '')}」に変更しました`);
+            
+            updateStats();
+        }
+        
+        // 詳細表示
+        function viewDetail(orderId) {
+            const order = allOrders.find(o => o.orderId === orderId);
+            if (!order) return;
+            
+            const orderDate = new Date(order.orderDate).toLocaleString('ja-JP');
+            
+            document.getElementById('modalOrderId').textContent = order.orderId;
+            document.getElementById('modalBody').innerHTML = `
+                <div class="detail-row">
+                    <div class="detail-label">注文日時</div>
+                    <div class="detail-value">${orderDate}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">ステータス</div>
+                    <div class="detail-value">${getStatusLabel(order.status)}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">顧客名</div>
+                    <div class="detail-value">${order.customerName}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">メールアドレス</div>
+                    <div class="detail-value">${order.customerEmail}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">電話番号</div>
+                    <div class="detail-value">${order.customerPhone}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">配送先</div>
+                    <div class="detail-value">${order.shippingAddress}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">配達希望日</div>
+                    <div class="detail-value">${order.deliveryDate || '指定なし'}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">お支払い方法</div>
+                    <div class="detail-value">${order.paymentMethod}</div>
+                </div>
+                ${order.trackingNumber ? `
+                <div class="detail-row">
+                    <div class="detail-label">お問い合わせ番号</div>
+                    <div class="detail-value">${order.trackingNumber}</div>
+                </div>
+                ` : ''}
+                
+                <h3 style="margin: 20px 0 10px 0; font-size: 16px;">注文商品</h3>
+                <div class="items-list">
+                    ${order.items.map(item => `
+                        <div class="item-row">
+                            <strong>${item.name}</strong><br>
+                            数量: ${item.quantity} × ¥${item.unitPrice.toLocaleString('ja-JP')} = ¥${item.subtotal.toLocaleString('ja-JP')}
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div style="margin-top: 20px; padding-top: 15px; border-top: 2px solid #f0f0f0;">
+                    <div class="detail-row">
+                        <div class="detail-label">小計</div>
+                        <div class="detail-value">¥${order.subtotal.toLocaleString('ja-JP')}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">送料</div>
+                        <div class="detail-value">¥${order.shippingFee.toLocaleString('ja-JP')}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">消費税</div>
+                        <div class="detail-value">¥${order.tax.toLocaleString('ja-JP')}</div>
+                    </div>
+                    <div class="detail-row" style="font-weight: 700; font-size: 16px; border-top: 2px solid #2c5f2d; padding-top: 15px;">
+                        <div class="detail-label">合計</div>
+                        <div class="detail-value" style="color: #2c5f2d;">¥${order.total.toLocaleString('ja-JP')}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('detailModal').classList.add('active');
+        }
+        
+        // モーダルを閉じる
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
+        
+        // CSVエクスポート
+        function exportCSV() {
+            if (filteredOrders.length === 0) {
+                alert('エクスポートする注文がありません');
+                return;
+            }
+            
+            // CSVヘッダー
+            const headers = [
+                '注文番号',
+                '注文日時',
+                'ステータス',
+                '顧客名',
+                'メールアドレス',
+                '電話番号',
+                '配送先',
+                '配達希望日',
+                '商品名',
+                '数量',
+                '単価',
+                '小計',
+                '送料',
+                '消費税',
+                '合計金額',
+                '支払方法',
+                'お問い合わせ番号'
+            ];
+            
+            // CSVデータ
+            let csvContent = headers.join(',') + '\n';
+            
+            filteredOrders.forEach(order => {
+                const orderDate = new Date(order.orderDate).toLocaleString('ja-JP');
+                const statusLabel = {
+                    pending: '入金待ち',
+                    confirmed: '注文確定',
+                    shipped: '発送済み',
+                    delivered: '配達完了',
+                    cancelled: 'キャンセル'
+                }[order.status];
+                
+                // 商品ごとに1行
+                order.items.forEach((item, index) => {
+                    const row = [
+                        order.orderId,
+                        orderDate,
+                        statusLabel,
+                        order.customerName,
+                        order.customerEmail,
+                        order.customerPhone,
+                        `"${order.shippingAddress}"`,
+                        order.deliveryDate || '',
+                        item.name,
+                        item.quantity,
+                        item.unitPrice,
+                        item.subtotal,
+                        index === 0 ? order.shippingFee : '', // 1行目のみ
+                        index === 0 ? order.tax : '', // 1行目のみ
+                        index === 0 ? order.total : '', // 1行目のみ
+                        index === 0 ? order.paymentMethod : '', // 1行目のみ
+                        order.trackingNumber || ''
+                    ];
+                    csvContent += row.join(',') + '\n';
+                });
+            });
+            
+            // BOM付きUTF-8（Excel対応）
+            const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+            const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
+            
+            // ダウンロード
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            const timestamp = new Date().toISOString().split('T')[0];
+            link.setAttribute('href', url);
+            link.setAttribute('download', `orders_${timestamp}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            console.log(`[CSVエクスポート] ${filteredOrders.length}件の注文をエクスポートしました`);
+        }
+    </script>
+</body>
+</html>

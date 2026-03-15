@@ -1,0 +1,5 @@
+[
+  {"id":1,"name":"西澤煎茶 80g 《新茶》","price":"¥980","unit":"80g","image":"product01.jpg","desc":"爽やかな香りの煎茶"},
+  {"id":2,"name":"深蒸し煎茶 80g","price":"¥1,200","unit":"80g","image":"product02.jpg","desc":"濃厚でコクのある味わい"},
+  {"id":3,"name":"詰め合わせセット","price":"¥2,500","unit":"セット","image":"product03.jpg","desc":"人気の詰め合わせ"}
+]
