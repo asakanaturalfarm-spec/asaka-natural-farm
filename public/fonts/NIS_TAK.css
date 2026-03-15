@@ -1,0 +1,5 @@
+@font-face {
+  font-family: 'NIS Tak';
+  src: url('./NIS_TAK.otf') format('opentype');
+  font-display: swap;
+}
