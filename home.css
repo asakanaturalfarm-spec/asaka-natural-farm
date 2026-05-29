@@ -364,6 +364,11 @@ body.home #food     { background: var(--clr-bg); }
     margin-top: 40px;
 }
 
+.home-features-media {
+    position: relative;
+    width: 100%;
+}
+
 /* 通常セクション用の塗りボタン（Features/Contact） */
 .section-btn {
     display: inline-block;
@@ -390,7 +395,6 @@ body.home #food     { background: var(--clr-bg); }
     aspect-ratio: 4 / 3;
     object-fit: cover;
     border-radius: 6px;
-    border: 1px solid var(--clr-border);
 }
 
 /* ====================================================
@@ -806,23 +810,21 @@ body.home #food     { background: var(--clr-bg); }
     .home-features-inner {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        max-width: 520px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .home-features-copy {
         max-width: none;
     }
 
-    /* モバイルでは About/Features の画像レイアウトを統一 */
-    .method-image,
-    .home-features-media {
-        width: 100%;
-        max-width: 520px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
+    /* モバイル: 農法セクション（.method-image）と同じ画像レイアウト */
     .home-features-media {
         order: -1;
+        margin-bottom: 24px;
+        overflow: hidden;
+        border-radius: 6px;
     }
 
     .method-image img,
@@ -831,7 +833,6 @@ body.home #food     { background: var(--clr-bg); }
         aspect-ratio: 4 / 3;
         object-fit: cover;
         border-radius: 6px;
-        border: none;
     }
 
     .hero {
