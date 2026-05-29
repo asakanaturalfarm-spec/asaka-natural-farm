@@ -812,9 +812,26 @@ body.home #food     { background: var(--clr-bg); }
         max-width: none;
     }
 
-    /* モバイルでは画像を先に表示 */
+    /* モバイルでは About/Features の画像レイアウトを統一 */
+    .method-image,
+    .home-features-media {
+        width: 100%;
+        max-width: 520px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     .home-features-media {
         order: -1;
+    }
+
+    .method-image img,
+    .home-features-media img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: 6px;
+        border: none;
     }
 
     .hero {
@@ -858,8 +875,8 @@ body.home #food     { background: var(--clr-bg); }
 
 @media (max-width: 480px) {
     .home-food-grid {
-        grid-template-columns: 1fr;
-        max-width: 280px;
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 360px;
         margin-left: auto;
         margin-right: auto;
     }
