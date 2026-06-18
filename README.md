@@ -17,9 +17,19 @@
 
 `index.html` 内の `.hero-news` ブロックを編集すると、FV 下部のお知らせ1件を更新できます（`href` / `datetime` / 表示日付 / タイトル）。
 
+## GitHub への反映
+
+このフォルダは GitHub リポジトリ（`asakanaturalfarm-spec/asaka-natural-farm`）と直接連携しています。
+
+```bash
+git add .
+git commit -m "変更内容の説明"
+git push origin main
+```
+
 ## デプロイ
 
-**Vercel** で公開します。GitHub リポジトリを Vercel に連携し、Production ブランチ（通常 `main`）をデプロイ対象に設定してください。独自ドメイン `asakanatural.jp` は Vercel の DNS 指示に従って設定します。
+**Vercel** で公開します。`main` ブランチへの push で自動デプロイされます。独自ドメイン `asakanatural.jp` は Vercel の DNS 指示に従って設定します。
 
 ## サイトマップ
 
